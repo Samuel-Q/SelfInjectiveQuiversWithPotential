@@ -1,0 +1,3 @@
+[submodule "DataStructures"]
+	path = DataStructures
+	url = https://github.com/Samuel-Q/DataStructures.git
