@@ -1,0 +1,221 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{92C7C13F-41FF-480C-AF7D-208C5CAC55D3}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <RootNamespace>SelfInjectiveQuiversWithPotentialWinForms</RootNamespace>
+    <AssemblyName>SelfInjectiveQuiversWithPotentialWinForms</AssemblyName>
+    <TargetFrameworkVersion>v4.7.1</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <LangVersion>latest</LangVersion>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <LangVersion>7.3</LangVersion>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Deployment" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="AddArrowAction.cs" />
+    <Compile Include="AddVertexAction.cs" />
+    <Compile Include="AnalysisDoneEventArgs.cs" />
+    <Compile Include="ArrowAddedEventArgs.cs" />
+    <Compile Include="ArrowMouseDownEventArgs.cs" />
+    <Compile Include="ArrowDeselectedEventArgs.cs" />
+    <Compile Include="ArrowRemovedEventArgs.cs" />
+    <Compile Include="ArrowSelectedEventArgs.cs" />
+    <Compile Include="ArrowSelectedInListViewEventArgs.cs" />
+    <Compile Include="Canvas.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="CanvasClickedEventArgs.cs" />
+    <Compile Include="CustomDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="EquivalentPathsChangedEventArgs.cs" />
+    <Compile Include="ExportQuiverAsMutationAppFileDialogAcceptedEventArgs.cs" />
+    <Compile Include="Extensions.cs" />
+    <Compile Include="ImportQuiverFromMutationAppFileDialogAcceptedEventArgs.cs" />
+    <Compile Include="IUndoableRedoableEditorAction.cs" />
+    <Compile Include="KeyDownEventArgs.cs" />
+    <Compile Include="ImportQuiverFromMutationAppFileAction.cs" />
+    <Compile Include="LoadPredefinedQuiverAction.cs" />
+    <Compile Include="LongestPathEncounteredChangedEventArgs.cs" />
+    <Compile Include="MainForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="MainForm.Designer.cs">
+      <DependentUpon>MainForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="MaximalPathRepresentativesChangedEventArgs.cs" />
+    <Compile Include="OrbitChangedEventArgs.cs" />
+    <Compile Include="PathDeselectedEventArgs.cs" />
+    <Compile Include="PathSelectedEventArgs.cs" />
+    <Compile Include="PredefinedCobwebDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="PredefinedCycleDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="PredefinedEvenFlowerDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="PredefinedFlowerDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="PredefinedGeneralizedCobwebDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="PredefinedPointedFlowerDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="PredefinedQuiver.cs" />
+    <Compile Include="PredefinedQuiverDialogAcceptedEventArgs.cs" />
+    <Compile Include="PredefinedSquareDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="PredefinedTriangleDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Program.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="QuiverAnalyzerController.cs" />
+    <Compile Include="QuiverAnalyzerModel.cs" />
+    <Compile Include="QuiverAnalyzerMvc.cs" />
+    <Compile Include="QuiverAnalyzerView.cs" />
+    <Compile Include="QuiverEditorController.cs" />
+    <Compile Include="QuiverEditorModel.cs" />
+    <Compile Include="QuiverEditorMvc.cs" />
+    <Compile Include="QuiverEditorTool.cs" />
+    <Compile Include="QuiverEditorToolSettings.cs" />
+    <Compile Include="QuiverEditorView.cs" />
+    <Compile Include="QuiverLoadedEventArgs.cs" />
+    <Compile Include="RedoableActionsChangedEventArgs.cs" />
+    <Compile Include="RelabelVerticesAction.cs" />
+    <Compile Include="RelabelVerticesDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="RelabelVerticesParser.cs" />
+    <Compile Include="RelabelVerticesResult.cs" />
+    <Compile Include="RemoveArrowAction.cs" />
+    <Compile Include="RemoveVertexAction.cs" />
+    <Compile Include="RotateVerticesAction.cs" />
+    <Compile Include="RotateVerticesDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="RotateVerticesParser.cs" />
+    <Compile Include="RotateVerticesResult.cs" />
+    <Compile Include="SelectablePictureBox.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="SelectToolKeyDownEventArgs.cs" />
+    <Compile Include="ToolButtonClickedEventArgs.cs" />
+    <Compile Include="ToolSelectedEventArgs.cs" />
+    <Compile Include="UndoableActionsChangedEventArgs.cs" />
+    <Compile Include="VertexAddedEventArgs.cs" />
+    <Compile Include="VertexMouseDownEventArgs.cs" />
+    <Compile Include="VertexDeselectedEventArgs.cs" />
+    <Compile Include="VertexMovedEventArgs.cs" />
+    <Compile Include="VertexRemovedEventArgs.cs" />
+    <Compile Include="VertexSelectedEventArgs.cs" />
+    <Compile Include="VertexSelectedInListViewEventArgs.cs" />
+    <Compile Include="VertexToAddChangedEventArgs.cs" />
+    <EmbeddedResource Include="CustomDialog.resx">
+      <DependentUpon>CustomDialog.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="MainForm.resx">
+      <DependentUpon>MainForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PredefinedCobwebDialog.resx">
+      <DependentUpon>PredefinedCobwebDialog.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PredefinedCycleDialog.resx">
+      <DependentUpon>PredefinedCycleDialog.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PredefinedEvenFlowerDialog.resx">
+      <DependentUpon>PredefinedEvenFlowerDialog.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PredefinedFlowerDialog.resx">
+      <DependentUpon>PredefinedFlowerDialog.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PredefinedGeneralizedCobwebDialog.resx">
+      <DependentUpon>PredefinedGeneralizedCobwebDialog.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PredefinedPointedFlowerDialog.resx">
+      <DependentUpon>PredefinedPointedFlowerDialog.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PredefinedSquareDialog.resx">
+      <DependentUpon>PredefinedSquareDialog.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PredefinedTriangleDialog.resx">
+      <DependentUpon>PredefinedTriangleDialog.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Resources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <EmbeddedResource Include="RelabelVerticesDialog.resx">
+      <DependentUpon>RelabelVerticesDialog.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="RotateVerticesDialog.resx">
+      <DependentUpon>RotateVerticesDialog.cs</DependentUpon>
+    </EmbeddedResource>
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\SelfInjectiveQuiversWithPotential\SelfInjectiveQuiversWithPotential.csproj">
+      <Project>{a98a4ca6-edfb-40ce-a4fe-1f122f320faf}</Project>
+      <Name>SelfInjectiveQuiversWithPotential</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>
