@@ -49,6 +49,7 @@
             this.redoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.separatorToolStripMenuItem3 = new System.Windows.Forms.ToolStripSeparator();
             this.relabelVerticesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.rotateVerticesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.btnSelectMove = new System.Windows.Forms.Button();
             this.btnAddVertex = new System.Windows.Forms.Button();
             this.nudVertexToAdd = new System.Windows.Forms.NumericUpDown();
@@ -86,9 +87,9 @@
             this.exportAsMutationAppFileSaveFileDialog = new System.Windows.Forms.SaveFileDialog();
             this.importFromMutationAppFileOpenFileDialog = new System.Windows.Forms.OpenFileDialog();
             this.lblCenterOfCanvas = new System.Windows.Forms.Label();
-            this.rotateVerticesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.canvas = new SelfInjectiveQuiversWithPotentialWinForms.Canvas();
             this.lblMousePointerOnCanvasLocation = new System.Windows.Forms.Label();
+            this.lblAnalysisMainResultStatic = new System.Windows.Forms.Label();
+            this.canvas = new SelfInjectiveQuiversWithPotentialWinForms.Canvas();
             this.menuStrip.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nudVertexToAdd)).BeginInit();
             this.grpTools.SuspendLayout();
@@ -231,7 +232,7 @@
             this.undoToolStripMenuItem.Enabled = false;
             this.undoToolStripMenuItem.Name = "undoToolStripMenuItem";
             this.undoToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Z)));
-            this.undoToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.undoToolStripMenuItem.Size = new System.Drawing.Size(164, 22);
             this.undoToolStripMenuItem.Text = "&Undo";
             // 
             // redoToolStripMenuItem
@@ -239,19 +240,25 @@
             this.redoToolStripMenuItem.Enabled = false;
             this.redoToolStripMenuItem.Name = "redoToolStripMenuItem";
             this.redoToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Y)));
-            this.redoToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.redoToolStripMenuItem.Size = new System.Drawing.Size(164, 22);
             this.redoToolStripMenuItem.Text = "&Redo";
             // 
             // separatorToolStripMenuItem3
             // 
             this.separatorToolStripMenuItem3.Name = "separatorToolStripMenuItem3";
-            this.separatorToolStripMenuItem3.Size = new System.Drawing.Size(177, 6);
+            this.separatorToolStripMenuItem3.Size = new System.Drawing.Size(161, 6);
             // 
             // relabelVerticesToolStripMenuItem
             // 
             this.relabelVerticesToolStripMenuItem.Name = "relabelVerticesToolStripMenuItem";
-            this.relabelVerticesToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.relabelVerticesToolStripMenuItem.Size = new System.Drawing.Size(164, 22);
             this.relabelVerticesToolStripMenuItem.Text = "Relabel vertices...";
+            // 
+            // rotateVerticesToolStripMenuItem
+            // 
+            this.rotateVerticesToolStripMenuItem.Name = "rotateVerticesToolStripMenuItem";
+            this.rotateVerticesToolStripMenuItem.Size = new System.Drawing.Size(164, 22);
+            this.rotateVerticesToolStripMenuItem.Text = "Rotate vertices...";
             // 
             // btnSelectMove
             // 
@@ -451,11 +458,12 @@
             // lblAnalysisMainResult
             // 
             this.lblAnalysisMainResult.AutoSize = true;
-            this.lblAnalysisMainResult.Location = new System.Drawing.Point(6, 23);
+            this.lblAnalysisMainResult.Location = new System.Drawing.Point(64, 23);
+            this.lblAnalysisMainResult.MaximumSize = new System.Drawing.Size(266, 0);
             this.lblAnalysisMainResult.Name = "lblAnalysisMainResult";
-            this.lblAnalysisMainResult.Size = new System.Drawing.Size(90, 13);
+            this.lblAnalysisMainResult.Size = new System.Drawing.Size(33, 13);
             this.lblAnalysisMainResult.TabIndex = 0;
-            this.lblAnalysisMainResult.Text = "Main result: None";
+            this.lblAnalysisMainResult.Text = "None";
             // 
             // lstNakayamaPermutation
             // 
@@ -504,12 +512,13 @@
             // 
             // grpAnalysisResults
             // 
+            this.grpAnalysisResults.Controls.Add(this.lblAnalysisMainResultStatic);
             this.grpAnalysisResults.Controls.Add(this.tabAnalysisResults);
             this.grpAnalysisResults.Controls.Add(this.lblAnalysisMainResult);
             this.grpAnalysisResults.Enabled = false;
             this.grpAnalysisResults.Location = new System.Drawing.Point(789, 490);
             this.grpAnalysisResults.Name = "grpAnalysisResults";
-            this.grpAnalysisResults.Size = new System.Drawing.Size(336, 369);
+            this.grpAnalysisResults.Size = new System.Drawing.Size(336, 379);
             this.grpAnalysisResults.TabIndex = 11;
             this.grpAnalysisResults.TabStop = false;
             this.grpAnalysisResults.Text = "Analysis results";
@@ -518,7 +527,7 @@
             // 
             this.tabAnalysisResults.Controls.Add(this.nakayamaTabPage);
             this.tabAnalysisResults.Controls.Add(this.miscellaneousTabPage);
-            this.tabAnalysisResults.Location = new System.Drawing.Point(9, 51);
+            this.tabAnalysisResults.Location = new System.Drawing.Point(9, 61);
             this.tabAnalysisResults.Name = "tabAnalysisResults";
             this.tabAnalysisResults.SelectedIndex = 0;
             this.tabAnalysisResults.Size = new System.Drawing.Size(324, 312);
@@ -605,20 +614,6 @@
             this.lblCenterOfCanvas.TabIndex = 12;
             this.lblCenterOfCanvas.Text = "Center: (0, 0)";
             // 
-            // rotateVerticesToolStripMenuItem
-            // 
-            this.rotateVerticesToolStripMenuItem.Name = "rotateVerticesToolStripMenuItem";
-            this.rotateVerticesToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
-            this.rotateVerticesToolStripMenuItem.Text = "Rotate vertices...";
-            // 
-            // canvas
-            // 
-            this.canvas.BackColor = System.Drawing.Color.White;
-            this.canvas.Location = new System.Drawing.Point(12, 27);
-            this.canvas.Name = "canvas";
-            this.canvas.Size = new System.Drawing.Size(770, 776);
-            this.canvas.TabIndex = 1;
-            // 
             // lblMousePointerOnCanvasLocation
             // 
             this.lblMousePointerOnCanvasLocation.AutoSize = true;
@@ -628,12 +623,29 @@
             this.lblMousePointerOnCanvasLocation.TabIndex = 13;
             this.lblMousePointerOnCanvasLocation.Text = "Pointer: (0, 0)";
             // 
+            // lblAnalysisMainResultStatic
+            // 
+            this.lblAnalysisMainResultStatic.AutoSize = true;
+            this.lblAnalysisMainResultStatic.Location = new System.Drawing.Point(6, 23);
+            this.lblAnalysisMainResultStatic.Name = "lblAnalysisMainResultStatic";
+            this.lblAnalysisMainResultStatic.Size = new System.Drawing.Size(61, 13);
+            this.lblAnalysisMainResultStatic.TabIndex = 8;
+            this.lblAnalysisMainResultStatic.Text = "Main result:";
+            // 
+            // canvas
+            // 
+            this.canvas.BackColor = System.Drawing.Color.White;
+            this.canvas.Location = new System.Drawing.Point(12, 27);
+            this.canvas.Name = "canvas";
+            this.canvas.Size = new System.Drawing.Size(770, 776);
+            this.canvas.TabIndex = 1;
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoScroll = true;
-            this.ClientSize = new System.Drawing.Size(1137, 871);
+            this.ClientSize = new System.Drawing.Size(1137, 881);
             this.Controls.Add(this.lblMousePointerOnCanvasLocation);
             this.Controls.Add(this.lblCenterOfCanvas);
             this.Controls.Add(this.canvas);
@@ -733,6 +745,7 @@
         private System.Windows.Forms.Label lblLongestPathEncountered;
         private System.Windows.Forms.ToolStripMenuItem rotateVerticesToolStripMenuItem;
         private System.Windows.Forms.Label lblMousePointerOnCanvasLocation;
+        private System.Windows.Forms.Label lblAnalysisMainResultStatic;
     }
 }
 

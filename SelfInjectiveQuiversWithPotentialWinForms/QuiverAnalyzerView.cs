@@ -58,7 +58,7 @@ namespace SelfInjectiveQuiversWithPotentialWinForms
 
         private void SetMainResultText(string text)
         {
-            analysisMainResultLabel.Text = $"Main result: {text}";
+            analysisMainResultLabel.Text = $"{text}";
         }
 
         private void SetLongestPathEncounteredLengthText(string text)
@@ -102,15 +102,15 @@ namespace SelfInjectiveQuiversWithPotentialWinForms
         {
             var mainResult = analysisResults.MainResult;
             var mainResultText =
-                mainResult.HasFlag(QuiverInPlaneAnalysisMainResult.QPIsSelfInjective) ? "Quiver induces a self-injective QP" :
+                mainResult.HasFlag(QuiverInPlaneAnalysisMainResult.QPIsSelfInjective) ? "Quiver induces a self-injective planar QP" :
                 mainResult.HasFlag(QuiverInPlaneAnalysisMainResult.QuiverHasLoops) ? "Quiver has loops" :
                 mainResult.HasFlag(QuiverInPlaneAnalysisMainResult.QuiverHasAntiParallelArrows) ? "Quiver has anti-parallel arrows" :
                 mainResult.HasFlag(QuiverInPlaneAnalysisMainResult.QuiverHasFaceWithInconsistentOrientation) ? "Quiver has face with inconsistent orientation" :
                 mainResult.HasFlag(QuiverInPlaneAnalysisMainResult.QuiverIsNotPlane) ? "Quiver is not plane" :
                 mainResult.HasFlag(QuiverInPlaneAnalysisMainResult.QPAnalysisAborted) ? "QP analysis was aborted" :
                 mainResult.HasFlag(QuiverInPlaneAnalysisMainResult.QPAnalysisCancelled) ? "QP analysis was cancelled" :
-                mainResult.HasFlag(QuiverInPlaneAnalysisMainResult.QPIsNotCancellative) ? "Quiver induces a non-cancellative QP" :
-                "Quiver induces a cancellative QP that is not self-injective";
+                mainResult.HasFlag(QuiverInPlaneAnalysisMainResult.QPIsNotCancellative) ? "Quiver induces a non-cancellative planar QP" :
+                "Quiver induces a cancellative planar QP that is not self-injective";
 
             SetMainResultText(mainResultText);
         }
