@@ -7,7 +7,7 @@ using SelfInjectiveQuiversWithPotential.Plane;
 
 namespace SelfInjectiveQuiversWithPotential.Layer
 {
-    public class LayerQuiverGenerator
+    public class LayeredQuiverGenerator
     {
         /// <summary>
         /// The first vertex of the quivers to generate.
@@ -17,45 +17,45 @@ namespace SelfInjectiveQuiversWithPotential.Layer
         private const int DefaultFirstVertex = 1;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="LayerQuiverGenerator"/> class.
+        /// Initializes a new instance of the <see cref="LayeredQuiverGenerator"/> class.
         /// </summary>
-        public LayerQuiverGenerator() : this(DefaultFirstVertex)
+        public LayeredQuiverGenerator() : this(DefaultFirstVertex)
         { }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="LayerQuiverGenerator"/> class to generate
+        /// Initializes a new instance of the <see cref="LayeredQuiverGenerator"/> class to generate
         /// quivers with vertices ranging from a specified number.
         /// </summary>
         /// <param name="firstVertex">The first vertex of the quiver.</param>
-        public LayerQuiverGenerator(int firstVertex)
+        public LayeredQuiverGenerator(int firstVertex)
         {
             this.firstVertex = firstVertex;
         }
 
         /// <summary>
-        /// Generates all layer quivers of the specified layer type using the specified composition
+        /// Generates all layered quivers of the specified layer type using the specified composition
         /// generator.
         /// </summary>
-        /// <param name="layerType">The layer type of the layer quivers to generate.</param>
+        /// <param name="layerType">The layer type of the layered quivers to generate.</param>
         /// <param name="firstVertex">The first vertex of the quivers to generate.</param>
         /// <param name="compositionGenerator">The composition generator whose compositions to use.</param>
         /// <returns></returns>
         /// <exception cref="ArgumentNullException"><paramref name="layerType"/> is
         /// <see langword="null"/>, or <paramref name="compositionGenerator"/> is
         /// <see langword="null"/>.</exception>
-        public IEnumerable<InteractiveLayerQuiverGeneratorOutput> GenerateForFixedLayerType(
+        public IEnumerable<InteractiveLayeredQuiverGeneratorOutput> GenerateForFixedLayerType(
             LayerType layerType,
             ICompositionGenerator compositionGenerator)
         {
             if (layerType is null) throw new ArgumentNullException(nameof(layerType));
             if (compositionGenerator is null) throw new ArgumentNullException(nameof(compositionGenerator));
 
-            var interactiveGenerator = new InteractiveLayerQuiverGenerator();
+            var interactiveGenerator = new InteractiveLayeredQuiverGenerator();
             var nextCompositionParameters = interactiveGenerator.StartGeneration(layerType, firstVertex);
             return DoWork(interactiveGenerator, nextCompositionParameters, compositionGenerator);
         }
 
-        public IEnumerable<InteractiveLayerQuiverGeneratorOutput> GenerateFromBaseForFixedLayerType(
+        public IEnumerable<InteractiveLayeredQuiverGeneratorOutput> GenerateFromBaseForFixedLayerType(
             QuiverInPlane<int> quiverInPlane,
             Potential<int> potential,
             IEnumerable<int> boundaryLayer,
@@ -69,15 +69,15 @@ namespace SelfInjectiveQuiversWithPotential.Layer
             if (layerType is null) throw new ArgumentNullException(nameof(layerType));
             if (compositionGenerator is null) throw new ArgumentNullException(nameof(compositionGenerator));
 
-            var interactiveGenerator = new InteractiveLayerQuiverGenerator();
+            var interactiveGenerator = new InteractiveLayeredQuiverGenerator();
             if (!interactiveGenerator.TryStartGenerationFromBase(quiverInPlane, potential, boundaryLayer, layerType, nextVertex, out var nextCompositionParameters))
-                return new InteractiveLayerQuiverGeneratorOutput[0];
+                return new InteractiveLayeredQuiverGeneratorOutput[0];
 
             return DoWork(interactiveGenerator, nextCompositionParameters, compositionGenerator);
         }
 
-        private IEnumerable<InteractiveLayerQuiverGeneratorOutput> DoWork(
-            InteractiveLayerQuiverGenerator interactiveQuiverGenerator,
+        private IEnumerable<InteractiveLayeredQuiverGeneratorOutput> DoWork(
+            InteractiveLayeredQuiverGenerator interactiveQuiverGenerator,
             CompositionParameters nextCompositionParameters,
             ICompositionGenerator compositionGenerator)
         {

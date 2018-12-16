@@ -10,7 +10,7 @@ using SelfInjectiveQuiversWithPotential.Layer;
 namespace SelfInjectiveQuiversWithPotentialTests
 {
     [TestFixture]
-    public class LayerQuiverSpecificationTestFixture
+    public class LayeredQuiverSpecificationTestFixture
     {
         public static LayerType CreateLayerType(params int[] values)
         {
@@ -27,8 +27,8 @@ namespace SelfInjectiveQuiversWithPotentialTests
         {
             var validLayerType = CreateLayerType(10);
             var validCompositions = new Composition[0];
-            Assert.That(() => new LayerQuiverSpecification(null, validCompositions), Throws.ArgumentNullException);
-            Assert.That(() => new LayerQuiverSpecification(validLayerType, null), Throws.ArgumentNullException);
+            Assert.That(() => new LayeredQuiverSpecification(null, validCompositions), Throws.ArgumentNullException);
+            Assert.That(() => new LayeredQuiverSpecification(validLayerType, null), Throws.ArgumentNullException);
         }
 
         public static IEnumerable<TestCaseData> Constructor_ThrowsArgumentException_OnWrongNumberOfCompositions_TestCaseSource()
@@ -57,7 +57,7 @@ namespace SelfInjectiveQuiversWithPotentialTests
         [TestCaseSource(nameof(Constructor_ThrowsArgumentException_OnWrongNumberOfCompositions_TestCaseSource))]
         public void Constructor_ThrowsArgumentException_OnWrongNumberOfCompositions(LayerType layerType, IEnumerable<Composition> compositions)
         {
-            Assert.That(() => new LayerQuiverSpecification(layerType, compositions), Throws.ArgumentException);
+            Assert.That(() => new LayeredQuiverSpecification(layerType, compositions), Throws.ArgumentException);
         }
 
         public static IEnumerable<TestCaseData> Constructor_Works_TestCaseSource()
@@ -77,7 +77,7 @@ namespace SelfInjectiveQuiversWithPotentialTests
         [TestCaseSource(nameof(Constructor_Works_TestCaseSource))]
         public void Constructor_Works(LayerType layerType, IEnumerable<Composition> compositions)
         {
-            var specification = new LayerQuiverSpecification(layerType, compositions);
+            var specification = new LayeredQuiverSpecification(layerType, compositions);
             Assert.That(specification.LayerType, Is.EqualTo(layerType));
             Assert.That(specification.Compositions, Is.EqualTo(compositions));
         }

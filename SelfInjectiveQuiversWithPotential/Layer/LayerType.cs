@@ -7,10 +7,10 @@ using System.Threading.Tasks;
 namespace SelfInjectiveQuiversWithPotential.Layer
 {
     /// <summary>
-    /// This class represents the &quot;layer type&quot; of a layer quiver.
+    /// This class represents the &quot;layer type&quot; of a layered quiver.
     /// </summary>
     /// <remarks>
-    /// <para>The layer type of a layer quiver is a finite sequence
+    /// <para>The layer type of a layered quiver is a finite sequence
     /// <c>m_1, k_1, ..., m_L</c>
     /// of <c>2L-1</c> terms, where
     /// <list type="bullet">

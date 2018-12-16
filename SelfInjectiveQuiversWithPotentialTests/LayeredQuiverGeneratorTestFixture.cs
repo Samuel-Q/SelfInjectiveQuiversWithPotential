@@ -11,7 +11,7 @@ using SelfInjectiveQuiversWithPotential.Layer;
 namespace SelfInjectiveQuiversWithPotentialTests
 {
     [TestFixture]
-    public class LayerQuiverGeneratorTestFixture
+    public class LayeredQuiverGeneratorTestFixture
     {
         private ExhaustiveCompositionGenerator exhaustiveGenerator;
 
@@ -21,9 +21,9 @@ namespace SelfInjectiveQuiversWithPotentialTests
             exhaustiveGenerator = CreateExhaustiveGenerator();
         }
 
-        LayerQuiverGenerator CreateGenerator()
+        LayeredQuiverGenerator CreateGenerator()
         {
-            return new LayerQuiverGenerator(firstVertex: 1);
+            return new LayeredQuiverGenerator(firstVertex: 1);
         }
 
         LayerType CreateLayerType(params int[] parameterValues)

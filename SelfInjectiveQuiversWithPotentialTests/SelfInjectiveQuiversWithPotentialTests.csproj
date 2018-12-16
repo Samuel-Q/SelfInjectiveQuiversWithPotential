@@ -103,9 +103,9 @@
     <Compile Include="ExhaustiveCompositionGeneratorTestFixture.cs" />
     <Compile Include="IMaximalNonzeroEquivalenceClassRepresentativeComputerBaseTestFixture.cs" />
     <Compile Include="ImmutableUndirectedGraphTestFixture.cs" />
-    <Compile Include="InteractiveLayerQuiverGeneratorTestFixture.cs" />
-    <Compile Include="LayerQuiverGeneratorTestFixture.cs" />
-    <Compile Include="LayerQuiverSpecificationTestFixture.cs" />
+    <Compile Include="InteractiveLayeredQuiverGeneratorTestFixture.cs" />
+    <Compile Include="LayeredQuiverGeneratorTestFixture.cs" />
+    <Compile Include="LayeredQuiverSpecificationTestFixture.cs" />
     <Compile Include="LayerTypeTestFixture.cs" />
     <Compile Include="MaximalNonzeroEquivalenceClassRepresentativeComputerTestFixture.cs" />
     <Compile Include="MyCollectionAssert.cs" />

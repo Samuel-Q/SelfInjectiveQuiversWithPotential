@@ -98,10 +98,10 @@
     <Compile Include="Layer\ExhaustiveCompositionGenerator.cs" />
     <Compile Include="Layer\GeneratorException.cs" />
     <Compile Include="Layer\ICompositionGenerator.cs" />
-    <Compile Include="Layer\InteractiveLayerQuiverGenerator.cs" />
-    <Compile Include="Layer\InteractiveLayerQuiverGeneratorOutput.cs" />
-    <Compile Include="Layer\LayerQuiverGenerator.cs" />
-    <Compile Include="Layer\LayerQuiverSpecification.cs" />
+    <Compile Include="Layer\InteractiveLayeredQuiverGenerator.cs" />
+    <Compile Include="Layer\InteractiveLayeredQuiverGeneratorOutput.cs" />
+    <Compile Include="Layer\LayeredQuiverGenerator.cs" />
+    <Compile Include="Layer\LayeredQuiverSpecification.cs" />
     <Compile Include="Layer\LayerType.cs" />
     <Compile Include="Layer\ExtendedRepeatingCompositionGenerator.cs" />
     <Compile Include="Layer\RepeatingCompositionGenerator.cs" />

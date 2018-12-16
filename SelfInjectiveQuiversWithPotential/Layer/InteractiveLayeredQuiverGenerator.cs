@@ -9,24 +9,24 @@ using SelfInjectiveQuiversWithPotential.Plane;
 namespace SelfInjectiveQuiversWithPotential.Layer
 {
     /// <summary>
-    /// This class is used to generate layer quivers &quot;interactively&quot;.
+    /// This class is used to generate layered quivers &quot;interactively&quot;.
     /// </summary>
     /// <remarks>
     /// <para>By &quot;interactively&quot;, we mean that the quiver generation is carried out one
     /// step at a time, where in each step the generator asks for one composition with specified
     /// parameters and the consumer gives the generator one such composition.</para>
-    /// <para>To generate a layer quiver interactively, first call
+    /// <para>To generate a layered quiver interactively, first call
     /// <see cref="StartGeneration(LayerType)"/>, specifying the layer type; then repeatedly call
     /// <see cref="SupplyCompositionForDistributingExplicitArrowPairsToVertices(Composition)"/> and
     /// <see cref="SupplyCompositionForDistributingArrowsToPolygons(Composition)"/>
     /// (alternating between the two), to specify the vertical arrows, until
     /// <see cref="SupplyCompositionForDistributingArrowsToPolygons(Composition)"/> returns
-    /// <see langword="null"/>; and finally call <see cref="EndGeneration"/> to get the layer
+    /// <see langword="null"/>; and finally call <see cref="EndGeneration"/> to get the layered
     /// quiver that was generated.</para>
     /// <para>For ease of use, the <see cref="SupplyComposition(Composition)"/> method may be used
     /// to supply both kinds of compositions.</para>
     /// </remarks>
-    public class InteractiveLayerQuiverGenerator
+    public class InteractiveLayeredQuiverGenerator
     {
         private const int DefaultFirstVertex = 1;
 
@@ -50,7 +50,7 @@ namespace SelfInjectiveQuiversWithPotential.Layer
         } 
 
         /// <summary>
-        /// The layer type of the layer quiver that is currently being generated.
+        /// The layer type of the layered quiver that is currently being generated.
         /// </summary>
         /// <remarks>
         /// <para>If the generation is from a base, the layer type describes the original boundary
@@ -86,10 +86,10 @@ namespace SelfInjectiveQuiversWithPotential.Layer
         private Stack<CompositionParameters> expectedCompositionParametersStack;
 
         /// <summary>
-        /// The layers of vertices of the layer quiver.
+        /// The layers of vertices of the layered quiver.
         /// </summary>
         /// <remarks>
-        /// <para>If the layer quiver is generated from a base, only the boundary layer of the base
+        /// <para>If the layered quiver is generated from a base, only the boundary layer of the base
         /// and the outer layers are recorded in this list.</para>
         /// </remarks>
         private List<CircularList<int>> layersOfVertices;
@@ -192,10 +192,10 @@ namespace SelfInjectiveQuiversWithPotential.Layer
         }
 
         /// <summary>
-        /// Starts the generation of a layer quiver.
+        /// Starts the generation of a layered quiver.
         /// </summary>
-        /// <param name="layerType">The layer type of the layer quiver.</param>
-        /// <param name="firstVertex">The first vertex in the layer quiver.</param>
+        /// <param name="layerType">The layer type of the layered quiver.</param>
+        /// <param name="firstVertex">The first vertex in the layered quiver.</param>
         /// <returns>The parameters of the composition to pass in the first call to
         /// <see cref="SupplyComposition(Composition)"/>, or <see langword="null"/> if the
         /// composition is already completed when this method returns.</returns>
@@ -250,14 +250,14 @@ namespace SelfInjectiveQuiversWithPotential.Layer
         }
 
         /// <summary>
-        /// Starts the generation of a layer quiver from a specified base.
+        /// Starts the generation of a layered quiver from a specified base.
         /// </summary>
         /// <param name="quiverInPlane">The quiver of the plane of the base.</param>
         /// <param name="potential">The potential of the base.</param>
         /// <param name="boundaryLayer">The vertices in the boundary.</param>
         /// <param name="layerType">The layer type of the boundary layer and the outer layers to
         /// generate.</param>
-        /// <param name="nextVertex">The first new vertex in the layer quiver to generate.</param>
+        /// <param name="nextVertex">The first new vertex in the layered quiver to generate.</param>
         /// <returns>The parameters of the composition to pass in the first call to
         /// <see cref="SupplyComposition(Composition)"/>, or <see langword="null"/> if the
         /// composition is already completed when this method returns.</returns>
@@ -283,7 +283,7 @@ namespace SelfInjectiveQuiversWithPotential.Layer
         /// <remarks>
         /// <para>By &quot;base&quot;, we mean a quiver in the plane that we glue layers onto. A
         /// useful example is the base consisting of a single vertex, in which case the output will
-        /// be a &quot;layer quiver with center point&quot;.</para>
+        /// be a &quot;layered quiver with center point&quot;.</para>
         /// <para><paramref name="nextVertex"/> is not validated; it is assumed that
         /// <paramref name="nextVertex"/> and all the following numbers are not vertices in the
         /// base.</para>
@@ -1300,7 +1300,7 @@ namespace SelfInjectiveQuiversWithPotential.Layer
         }
 
         /// <summary>
-        /// Ends the generation of a layer quiver.
+        /// Ends the generation of a layered quiver.
         /// </summary>
         /// <returns>A tuple whose first element is a <see cref="QuiverInPlane{TVertex}"/>, which
         /// is not necessarily embedded <em>planarly</em> (at least not if the arrows are drawn as
@@ -1309,13 +1309,13 @@ namespace SelfInjectiveQuiversWithPotential.Layer
         /// in plane (when drawn with curved arrows, I guess).</returns>
         /// <exception cref="InvalidOperationException">The generation is not started, or the
         /// generation is not completed.</exception>
-        public InteractiveLayerQuiverGeneratorOutput EndGeneration()
+        public InteractiveLayeredQuiverGeneratorOutput EndGeneration()
         {
             if (!generationIsStarted) throw new InvalidOperationException("The generation is not started.");
             if (!GenerationIsCompleted) throw new InvalidOperationException("The generation is not completed.");
 
             var qp = new QuiverWithPotential<int>(potential);
-            var output = new InteractiveLayerQuiverGeneratorOutput(
+            var output = new InteractiveLayeredQuiverGeneratorOutput(
                 layerType,
                 new List<Composition>(compositionsSupplied),
                 quiverInPlane.Copy(),

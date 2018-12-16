@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 namespace SelfInjectiveQuiversWithPotential.Layer
 {
     /// <summary>
-    /// The exception that is thrown by <see cref="InteractiveLayerQuiverGenerator"/> when
+    /// The exception that is thrown by <see cref="InteractiveLayeredQuiverGenerator"/> when
     /// something goes wrong.
     /// </summary>
     public class GeneratorException : Exception

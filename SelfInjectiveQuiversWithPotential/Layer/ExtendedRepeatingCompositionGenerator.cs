@@ -14,7 +14,7 @@ namespace SelfInjectiveQuiversWithPotential.Layer
     /// that the sum and number of terms are not multiples of the number of repetitions <em>if</em>
     /// the number of terms is equal to 1. The case is handled by ignoring the repetition
     /// constraint and generate the only singleton composition with the specified sum.
-    /// This is useful when generating layer quivers with a point as base.</para>
+    /// This is useful when generating layered quivers with a point as base.</para>
     /// </remarks>
     public class ExtendedRepeatingCompositionGenerator : ICompositionGenerator
     {

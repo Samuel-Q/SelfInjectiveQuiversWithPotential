@@ -8,10 +8,10 @@ using SelfInjectiveQuiversWithPotential.Plane;
 namespace SelfInjectiveQuiversWithPotential.Layer
 {
     /// <summary>
-    /// The type of the output of the <see cref="InteractiveLayerQuiverGenerator"/> class.
+    /// The type of the output of the <see cref="InteractiveLayeredQuiverGenerator"/> class.
     /// </summary>
     /// <remarks>
-    /// <para>The output essentially consists of three different representations of the layer
+    /// <para>The output essentially consists of three different representations of the layered
     /// quiver:
     /// /// <list type="bullet">
     /// <item><description>
@@ -26,39 +26,39 @@ namespace SelfInjectiveQuiversWithPotential.Layer
     /// </list>
     /// </para>
     /// </remarks>
-    public class InteractiveLayerQuiverGeneratorOutput
+    public class InteractiveLayeredQuiverGeneratorOutput
     {
         /// <summary>
-        /// Gets the layer type of the layer quiver.
+        /// Gets the layer type of the layered quiver.
         /// </summary>
         public LayerType LayerType { get; }
 
         /// <summary>
-        /// Gets the compositions that specify the arrows of the layer quiver.
+        /// Gets the compositions that specify the arrows of the layered quiver.
         /// </summary>
         public IEnumerable<Composition> Compositions { get; }
 
         /// <summary>
-        /// Gets the a <see cref="QuiverInPlane{TVertex}"/> representing the layer quiver.
+        /// Gets the a <see cref="QuiverInPlane{TVertex}"/> representing the layered quiver.
         /// </summary>
         public QuiverInPlane<int> QuiverInPlane { get; }
 
         /// <summary>
-        /// Gets a <see cref="QuiverWithPotential{TVertex}"/> representing the layer quiver.
+        /// Gets a <see cref="QuiverWithPotential{TVertex}"/> representing the layered quiver.
         /// </summary>
         public QuiverWithPotential<int> QP { get; }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="InteractiveLayerQuiverGeneratorOutput"/>
+        /// Initializes a new instance of the <see cref="InteractiveLayeredQuiverGeneratorOutput"/>
         /// class.
         /// </summary>
-        /// <param name="layerType">The layer type of the layer quiver.</param>
-        /// <param name="compositions">The compositions that specify the arrows of the layer quiver.</param>
+        /// <param name="layerType">The layer type of the layered quiver.</param>
+        /// <param name="compositions">The compositions that specify the arrows of the layered quiver.</param>
         /// <param name="quiverInPlane">A <see cref="QuiverInPlane{TVertex}"/> representing the
-        /// layer quiver.</param>
-        /// <param name="qp">A <see cref="QuiverWithPotential{TVertex}"/> representing the layer
+        /// layered quiver.</param>
+        /// <param name="qp">A <see cref="QuiverWithPotential{TVertex}"/> representing the layered
         /// quiver.</param>
-        public InteractiveLayerQuiverGeneratorOutput(
+        public InteractiveLayeredQuiverGeneratorOutput(
             LayerType layerType,
             IEnumerable<Composition> compositions,
             QuiverInPlane<int> quiverInPlane,

@@ -12,9 +12,9 @@ using SelfInjectiveQuiversWithPotential.Layer;
 namespace SelfInjectiveQuiversWithPotentialTests
 {
     [TestFixture]
-    public class InteractiveLayerQuiverGeneratorTestFixture
+    public class InteractiveLayeredQuiverGeneratorTestFixture
     {
-        private InteractiveLayerQuiverGenerator generator;
+        private InteractiveLayeredQuiverGenerator generator;
 
         [SetUp]
         public void SetUp()
@@ -22,9 +22,9 @@ namespace SelfInjectiveQuiversWithPotentialTests
             generator = CreateGenerator();
         }
 
-        static InteractiveLayerQuiverGenerator CreateGenerator()
+        static InteractiveLayeredQuiverGenerator CreateGenerator()
         {
-            return new InteractiveLayerQuiverGenerator();
+            return new InteractiveLayeredQuiverGenerator();
         }
 
         static Potential<int> CreatePotential(IReadOnlyDictionary<DetachedCycle<int>, int> cycleToCoefficientDictionary)
