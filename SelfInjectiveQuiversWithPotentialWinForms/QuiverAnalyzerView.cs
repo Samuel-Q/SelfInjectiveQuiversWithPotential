@@ -175,7 +175,15 @@ namespace SelfInjectiveQuiversWithPotentialWinForms
 
         private void UpdateLongestPathEncounteredDataDisplayed(Path<int> longestPathEncountered)
         {
-            longestPathEncounteredTextBox.Text = longestPathEncountered.ToString();
+            // This occurs if the quiver-in-plane analysis was unsuccessful.
+            if (longestPathEncountered is null)
+            {
+                longestPathEncounteredTextBox.Text = String.Empty;
+                SetLongestPathEncounteredLengthText(String.Empty);
+                return;
+            }
+
+            longestPathEncounteredTextBox.Text = longestPathEncountered?.ToString();
             SetLongestPathEncounteredLengthText(longestPathEncountered.Length.ToString());
         }
 
