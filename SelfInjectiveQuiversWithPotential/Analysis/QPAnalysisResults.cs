@@ -26,7 +26,8 @@ namespace SelfInjectiveQuiversWithPotential.Analysis
         /// <see langword="null"/>, depending on whether the analysis was successful and the QP has
         /// a Nakayama permutation.</param>
         /// <param name="longestPathEncountered">A path of maximal length of the paths encountered
-        /// during the analysis.</param>
+        /// during the analysis, or <see langword="null"/> if no path was encountered (i.e., if the
+        /// quiver was empty).</param>
         public QPAnalysisResults(
             QPAnalysisMainResult mainResult,
             IReadOnlyDictionary<TVertex, IEnumerable<Path<TVertex>>> maximalPathRepresentatives,
@@ -39,8 +40,6 @@ namespace SelfInjectiveQuiversWithPotential.Analysis
 
             if (mainResult.HasFlag(QPAnalysisMainResult.SelfInjective) && nakayamaPermutation is null)
                 throw new ArgumentNullException(nameof(nakayamaPermutation));
-
-            if (LongestPathEncountered is null) throw new ArgumentNullException(nameof(longestPathEncountered));
         }
     }
 }

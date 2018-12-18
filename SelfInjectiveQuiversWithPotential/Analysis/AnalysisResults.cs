@@ -51,7 +51,7 @@ namespace SelfInjectiveQuiversWithPotential.Analysis
         /// successful and the gadget has a Nakayama permutation.</param>
         /// <param name="longestPathEncountered">A path of maximal length of the paths encountered
         /// during the analysis, or <see langword="null"/> if no path was encountered (e.g., if a
-        /// quiver-in-plane analysis is done on a non-plane quiver).</param>
+        /// quiver-in-plane analysis is done on a non-plane quiver, or if the quiver is empty).</param>
         protected AnalysisResults(
             TMainResult mainResult,
             IReadOnlyDictionary<TVertex, IEnumerable<Path<TVertex>>> maximalPathRepresentatives,
