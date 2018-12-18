@@ -282,7 +282,11 @@ namespace SelfInjectiveQuiversWithPotentialWinForms
                 return;
             }
 
-            model.RotateVertices(vertices, centerX, centerY, degrees);
+            var result = model.RotateVertices(vertices, centerX, centerY, degrees, out int vertexNotInQuiver);
+            if (result == RotateVerticesResult.VertexNotInQuiver)
+            {
+                view.HandleErrorMessage($"The specified vertex {vertexNotInQuiver} is not in the quiver.");
+            }
         }
 
         private void View_PredefinedQuiverDialogAccepted(object sender, PredefinedQuiverDialogAcceptedEventArgs e)

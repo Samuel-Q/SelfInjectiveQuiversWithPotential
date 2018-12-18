@@ -480,11 +480,11 @@ namespace SelfInjectiveQuiversWithPotentialWinForms
             }
         }
 
-        public RotateVerticesResult RotateVertices(IEnumerable<int> vertices, double centerX, double centerY, double degrees)
+        public RotateVerticesResult RotateVertices(IEnumerable<int> vertices, double centerX, double centerY, double degrees, out int vertexNotInQuiver)
         {
             if (vertices is null) throw new ArgumentNullException(nameof(vertices));
 
-            if (vertices.Any(vertex => !quiverInPlane.ContainsVertex(vertex)))
+            if (vertices.TryFirst(vertex => !quiverInPlane.ContainsVertex(vertex), out vertexNotInQuiver))
             {
                 return RotateVerticesResult.VertexNotInQuiver;
             }
