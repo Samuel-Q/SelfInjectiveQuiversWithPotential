@@ -155,9 +155,8 @@ namespace SelfInjectiveQuiversWithPotential.Plane
                 double angle = 2 * Math.PI / layer.Count();
                 foreach (var (vertex, indexInLayer) in layer.EnumerateWithIndex())
                 {
-                    vertexPositions[vertex] = layerIndex == 0 ?
-                        new Point(radius * Math.Cos(indexInLayer * angle), radius * Math.Sin(indexInLayer * angle)) :
-                        new Point(radius * Math.Cos((indexInLayer+0.5) * angle), radius * Math.Sin((indexInLayer+0.5) * angle));
+                    double angleMultiplier = layerIndex == 0 ? indexInLayer : (indexInLayer + 0.5);
+                    vertexPositions[vertex] = new Point(radius * Math.Cos(angleMultiplier * angle), radius * Math.Sin(angleMultiplier * angle));
                 }
             }
 
@@ -192,10 +191,12 @@ namespace SelfInjectiveQuiversWithPotential.Plane
                 double angle = 2 * Math.PI / layer.Count();
                 foreach (var (vertex, indexInLayer) in layer.EnumerateWithIndex())
                 {
-                    vertexPositions[vertex] =
-                        layerIndex == 0 ? new Point(radius * Math.Cos(indexInLayer * angle), radius * Math.Sin(indexInLayer * angle)) :
-                        layerIndex < numLayers - 1 ? new Point(radius * Math.Cos((indexInLayer + 0.5) * angle), radius * Math.Sin((indexInLayer + 0.5) * angle)) :
-                        new Point(radius * Math.Cos((indexInLayer + 1) * angle), radius * Math.Sin((indexInLayer + 1) * angle));
+                    double angleMultiplier =
+                        layerIndex == 0 ? indexInLayer :
+                        layerIndex < numLayers - 1 ? (indexInLayer + 0.5) :
+                        indexInLayer + 1;
+
+                    vertexPositions[vertex] = new Point(radius * Math.Cos(angleMultiplier * angle), radius * Math.Sin(angleMultiplier * angle));
                 }
             }
 
@@ -230,10 +231,12 @@ namespace SelfInjectiveQuiversWithPotential.Plane
                 double angle = 2 * Math.PI / layer.Count();
                 foreach (var (vertex, indexInLayer) in layer.EnumerateWithIndex())
                 {
-                    vertexPositions[vertex] =
-                        layerIndex == 0 ? new Point(radius * Math.Cos(indexInLayer * angle), radius * Math.Sin(indexInLayer * angle)) :
-                        layerIndex < numLayers - 1 ? new Point(radius * Math.Cos((indexInLayer + 0.5) * angle), radius * Math.Sin((indexInLayer + 0.5) * angle)) :
-                        new Point(radius * Math.Cos((indexInLayer + 0.5) * angle), radius * Math.Sin((indexInLayer + 0.5) * angle));
+                    double angleMultiplier =
+                        layerIndex == 0 ? indexInLayer :
+                        layerIndex < numLayers - 1 ? (indexInLayer + 0.5) :
+                        (indexInLayer + 0.5);
+
+                    vertexPositions[vertex] = new Point(radius * Math.Cos(angleMultiplier * angle), radius * Math.Sin(angleMultiplier * angle));
                 }
             }
 
@@ -271,7 +274,7 @@ namespace SelfInjectiveQuiversWithPotential.Plane
                     double angleMultiplier =
                         layerIndex == 0 ? indexInLayer :
                         layerIndex < numLayers - 1 ? (indexInLayer + 0.5) :
-                        indexInLayer + 1;
+                        (indexInLayer + 1);
 
                     vertexPositions[vertex] = new Point(radius * Math.Cos(angleMultiplier * angle), radius * Math.Sin(angleMultiplier * angle));
                 }
@@ -308,10 +311,12 @@ namespace SelfInjectiveQuiversWithPotential.Plane
                 double angle = 2 * Math.PI / layer.Count();
                 foreach (var (vertex, indexInLayer) in layer.EnumerateWithIndex())
                 {
-                    vertexPositions[vertex] =
-                        layerIndex == 0 ? new Point(radius * Math.Cos(indexInLayer * angle), radius * Math.Sin(indexInLayer * angle)) :
-                        layerIndex < numLayers - 1 ? new Point(radius * Math.Cos((indexInLayer + 0.5) * angle), radius * Math.Sin((indexInLayer + 0.5) * angle)) :
-                        new Point(radius * Math.Cos((indexInLayer + 0.5) * angle), radius * Math.Sin((indexInLayer + 0.5) * angle));
+                    double angleMultiplier =
+                        layerIndex == 0 ? indexInLayer :
+                        layerIndex < numLayers - 1 ? (indexInLayer + 0.5) :
+                        indexInLayer + 0.5;
+
+                    vertexPositions[vertex] = new Point(radius * Math.Cos(angleMultiplier * angle), radius * Math.Sin(angleMultiplier * angle));
                 }
             }
 
@@ -345,9 +350,8 @@ namespace SelfInjectiveQuiversWithPotential.Plane
                 double angle = 2 * Math.PI / layer.Count();
                 foreach (var (vertex, indexInLayer) in layer.EnumerateWithIndex())
                 {
-                    vertexPositions[vertex] = layerIndex == 0 ?
-                        new Point(radius * Math.Cos(indexInLayer * angle), radius * Math.Sin(indexInLayer * angle)) :
-                        new Point(radius * Math.Cos((indexInLayer + 0.5) * angle), radius * Math.Sin((indexInLayer + 0.5) * angle));
+                    double angleMultiplier = layerIndex == 0 ? indexInLayer : (indexInLayer + 0.5);
+                    vertexPositions[vertex] = new Point(radius * Math.Cos(angleMultiplier * angle), radius * Math.Sin(angleMultiplier * angle));
                 }
             }
 
