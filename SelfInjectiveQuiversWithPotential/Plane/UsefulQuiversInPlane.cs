@@ -206,27 +206,27 @@ namespace SelfInjectiveQuiversWithPotential.Plane
             => UsefulQuivers.GetVerticesInOddFlowerQuiverLayer(numVerticesInCenterPolygon, layerIndex, firstVertex);
         #endregion
 
-        #region Even flower
-        public static bool EvenFlowerParameterIsValid(int numVerticesInCenterPolygon) => UsefulQuivers.EvenFlowerParameterIsValid(numVerticesInCenterPolygon);
+        #region Even flower, type 1
+        public static bool EvenFlowerType1ParameterIsValid(int numVerticesInCenterPolygon) => UsefulQuivers.EvenFlowerType1ParameterIsValid(numVerticesInCenterPolygon);
 
-        public static string EvenFlowerParameterValidityDescription { get => UsefulQuivers.EvenFlowerParameterValidityDescription; }
+        public static string EvenFlowerType1ParameterValidityDescription { get => UsefulQuivers.EvenFlowerType1ParameterValidityDescription; }
 
-        public static int GetNumberOfLayersInEvenFlowerQuiverInPlane(int numVerticesInCenterPolygon)
-            => UsefulQuivers.GetNumberOfLayersInEvenFlowerQuiver(numVerticesInCenterPolygon);
+        public static int GetNumberOfLayersInEvenFlowerType1QuiverInPlane(int numVerticesInCenterPolygon)
+            => UsefulQuivers.GetNumberOfLayersInEvenFlowerType1Quiver(numVerticesInCenterPolygon);
 
-        public static QuiverInPlane<int> GetEvenFlowerQuiverInPlane(int numVerticesInCenterPolygon, int innermostRadius, int firstVertex = DefaultFirstVertex)
+        public static QuiverInPlane<int> GetEvenFlowerType1QuiverInPlane(int numVerticesInCenterPolygon, int innermostRadius, int firstVertex = DefaultFirstVertex)
         {
-            if (!EvenFlowerParameterIsValid(numVerticesInCenterPolygon)) throw new ArgumentOutOfRangeException(nameof(numVerticesInCenterPolygon));
+            if (!EvenFlowerType1ParameterIsValid(numVerticesInCenterPolygon)) throw new ArgumentOutOfRangeException(nameof(numVerticesInCenterPolygon));
 
-            var quiver = UsefulQuivers.GetEvenFlowerQuiver(numVerticesInCenterPolygon, firstVertex);
+            var quiver = UsefulQuivers.GetEvenFlowerType1Quiver(numVerticesInCenterPolygon, firstVertex);
 
-            int numLayers = UsefulQuivers.GetNumberOfLayersInEvenFlowerQuiver(numVerticesInCenterPolygon);
+            int numLayers = UsefulQuivers.GetNumberOfLayersInEvenFlowerType1Quiver(numVerticesInCenterPolygon);
 
             var vertexPositions = new Dictionary<int, Point>();
             for (int layerIndex = 0; layerIndex < numLayers; layerIndex++)
             {
                 var radius = (layerIndex + 1) * innermostRadius;
-                var layer = UsefulQuivers.GetVerticesInEvenFlowerQuiverLayer(numVerticesInCenterPolygon, layerIndex, firstVertex);
+                var layer = UsefulQuivers.GetVerticesInEvenFlowerType1QuiverLayer(numVerticesInCenterPolygon, layerIndex, firstVertex);
                 double angle = 2 * Math.PI / layer.Count();
                 foreach (var (vertex, indexInLayer) in layer.EnumerateWithIndex())
                 {
@@ -240,8 +240,8 @@ namespace SelfInjectiveQuiversWithPotential.Plane
             return new QuiverInPlane<int>(quiver, vertexPositions);
         }
 
-        public static IEnumerable<int> GetVerticesInEvenFlowerQuiverInPlaneLayer(int numVerticesInCenterPolygon, int layerIndex, int firstVertex = DefaultFirstVertex)
-            => UsefulQuivers.GetVerticesInEvenFlowerQuiverLayer(numVerticesInCenterPolygon, layerIndex, firstVertex);
+        public static IEnumerable<int> GetVerticesInEvenFlowerType1QuiverInPlaneLayer(int numVerticesInCenterPolygon, int layerIndex, int firstVertex = DefaultFirstVertex)
+            => UsefulQuivers.GetVerticesInEvenFlowerType1QuiverLayer(numVerticesInCenterPolygon, layerIndex, firstVertex);
         #endregion
 
         #region Pointed flower

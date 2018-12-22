@@ -72,11 +72,11 @@ namespace SelfInjectiveQuiversWithPotentialWinForms
             return UsefulQuiversInPlane.GetOddFlowerQuiverInPlane(numVerticesInCenterPolygon, InnermostRadius);
         }
 
-        private QuiverInPlane<int> GetPredefinedEvenFlowerQuiverInPlane(dynamic quiverParameter)
+        private QuiverInPlane<int> GetPredefinedEvenFlowerType1QuiverInPlane(dynamic quiverParameter)
         {
             int numVerticesInCenterPolygon = quiverParameter;
             const int InnermostRadius = 50;
-            return UsefulQuiversInPlane.GetEvenFlowerQuiverInPlane(numVerticesInCenterPolygon, InnermostRadius);
+            return UsefulQuiversInPlane.GetEvenFlowerType1QuiverInPlane(numVerticesInCenterPolygon, InnermostRadius);
         }
 
         private QuiverInPlane<int> GetPredefinedPointedFlowerQuiverInPlane(dynamic quiverParameter)
@@ -103,7 +103,7 @@ namespace SelfInjectiveQuiversWithPotentialWinForms
                 case PredefinedQuiver.Square: quiverInPlane = GetPredefinedSquareQuiverInPlane(quiverParameter); break;
                 case PredefinedQuiver.Cobweb: quiverInPlane = GetPredefinedCobwebQuiverInPlane(quiverParameter); break;
                 case PredefinedQuiver.OddFlower: quiverInPlane = GetPredefinedOddFlowerQuiverInPlane(quiverParameter); break;
-                case PredefinedQuiver.EvenFlower: quiverInPlane = GetPredefinedEvenFlowerQuiverInPlane(quiverParameter); break;
+                case PredefinedQuiver.EvenFlowerType1: quiverInPlane = GetPredefinedEvenFlowerType1QuiverInPlane(quiverParameter); break;
                 case PredefinedQuiver.PointedFlower: quiverInPlane = GetPredefinedPointedFlowerQuiverInPlane(quiverParameter); break;
                 case PredefinedQuiver.GeneralizedCobweb: quiverInPlane = GetPredefinedGeneralizedCobwebQuiverInPlane(quiverParameter); break;
                 default: System.Diagnostics.Debug.Fail($"Enum value was not member of enum despite making sure that it is."); return;

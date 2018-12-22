@@ -7,14 +7,14 @@ using System.Windows.Forms;
 
 namespace SelfInjectiveQuiversWithPotentialWinForms
 {
-    public class PredefinedEvenFlowerDialog : CustomDialog
+    public class PredefinedEvenFlowerType1Dialog : CustomDialog
     {
         private Label lblNumVerticesInCenterPolygon;
         private NumericUpDown nudNumVerticesInCenterPolygon;
 
         public int NumVerticesInCenterPolygon => (int)nudNumVerticesInCenterPolygon.Value;
 
-        public PredefinedEvenFlowerDialog()
+        public PredefinedEvenFlowerType1Dialog()
         {
             InitializeComponent();
         }
@@ -67,13 +67,15 @@ namespace SelfInjectiveQuiversWithPotentialWinForms
             0,
             0});
             // 
-            // PredefinedEvenFlowerDialog
+            // PredefinedEvenFlowerType1Dialog
             // 
             this.ClientSize = new System.Drawing.Size(204, 87);
             this.Controls.Add(this.nudNumVerticesInCenterPolygon);
             this.Controls.Add(this.lblNumVerticesInCenterPolygon);
-            this.Name = "PredefinedEvenFlowerDialog";
-            this.Text = "Load even flower";
+            this.Name = "PredefinedEvenFlowerType1Dialog";
+            this.Text = "Load even flower, type 1";
+            this.Controls.SetChildIndex(this.btnOK, 0);
+            this.Controls.SetChildIndex(this.btnCancel, 0);
             this.Controls.SetChildIndex(this.lblNumVerticesInCenterPolygon, 0);
             this.Controls.SetChildIndex(this.nudNumVerticesInCenterPolygon, 0);
             ((System.ComponentModel.ISupportInitialize)(this.nudNumVerticesInCenterPolygon)).EndInit();

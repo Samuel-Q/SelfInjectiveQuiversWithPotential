@@ -89,7 +89,7 @@
     <Compile Include="PredefinedCycleDialog.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="PredefinedEvenFlowerDialog.cs">
+    <Compile Include="PredefinedEvenFlowerType1Dialog.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="PredefinedOddFlowerDialog.cs">
@@ -164,8 +164,8 @@
     <EmbeddedResource Include="PredefinedCycleDialog.resx">
       <DependentUpon>PredefinedCycleDialog.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="PredefinedEvenFlowerDialog.resx">
-      <DependentUpon>PredefinedEvenFlowerDialog.cs</DependentUpon>
+    <EmbeddedResource Include="PredefinedEvenFlowerType1Dialog.resx">
+      <DependentUpon>PredefinedEvenFlowerType1Dialog.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="PredefinedOddFlowerDialog.resx">
       <DependentUpon>PredefinedOddFlowerDialog.cs</DependentUpon>

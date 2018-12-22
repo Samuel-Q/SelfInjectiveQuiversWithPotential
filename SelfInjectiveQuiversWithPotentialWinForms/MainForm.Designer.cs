@@ -36,7 +36,7 @@
             this.squareToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.cobwebToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.oddFlowerToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.evenFlowerToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.evenFlowerType1ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.pointedFlowerToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.separatorToolStripMenuItem2 = new System.Windows.Forms.ToolStripSeparator();
             this.generalizedCobwebToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -130,7 +130,7 @@
             this.squareToolStripMenuItem,
             this.cobwebToolStripMenuItem,
             this.oddFlowerToolStripMenuItem,
-            this.evenFlowerToolStripMenuItem,
+            this.evenFlowerType1ToolStripMenuItem,
             this.pointedFlowerToolStripMenuItem,
             this.separatorToolStripMenuItem2,
             this.generalizedCobwebToolStripMenuItem});
@@ -168,11 +168,11 @@
             this.oddFlowerToolStripMenuItem.Size = new System.Drawing.Size(189, 22);
             this.oddFlowerToolStripMenuItem.Text = "Odd flower...";
             // 
-            // evenFlowerToolStripMenuItem
+            // evenFlowerType1ToolStripMenuItem
             // 
-            this.evenFlowerToolStripMenuItem.Name = "evenFlowerToolStripMenuItem";
-            this.evenFlowerToolStripMenuItem.Size = new System.Drawing.Size(189, 22);
-            this.evenFlowerToolStripMenuItem.Text = "Even flower...";
+            this.evenFlowerType1ToolStripMenuItem.Name = "evenFlowerType1ToolStripMenuItem";
+            this.evenFlowerType1ToolStripMenuItem.Size = new System.Drawing.Size(189, 22);
+            this.evenFlowerType1ToolStripMenuItem.Text = "Even flower, type 1...";
             // 
             // pointedFlowerToolStripMenuItem
             // 
@@ -232,7 +232,7 @@
             this.undoToolStripMenuItem.Enabled = false;
             this.undoToolStripMenuItem.Name = "undoToolStripMenuItem";
             this.undoToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Z)));
-            this.undoToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.undoToolStripMenuItem.Size = new System.Drawing.Size(164, 22);
             this.undoToolStripMenuItem.Text = "&Undo";
             // 
             // redoToolStripMenuItem
@@ -240,24 +240,24 @@
             this.redoToolStripMenuItem.Enabled = false;
             this.redoToolStripMenuItem.Name = "redoToolStripMenuItem";
             this.redoToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Y)));
-            this.redoToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.redoToolStripMenuItem.Size = new System.Drawing.Size(164, 22);
             this.redoToolStripMenuItem.Text = "&Redo";
             // 
             // separatorToolStripMenuItem3
             // 
             this.separatorToolStripMenuItem3.Name = "separatorToolStripMenuItem3";
-            this.separatorToolStripMenuItem3.Size = new System.Drawing.Size(177, 6);
+            this.separatorToolStripMenuItem3.Size = new System.Drawing.Size(161, 6);
             // 
             // relabelVerticesToolStripMenuItem
             // 
             this.relabelVerticesToolStripMenuItem.Name = "relabelVerticesToolStripMenuItem";
-            this.relabelVerticesToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.relabelVerticesToolStripMenuItem.Size = new System.Drawing.Size(164, 22);
             this.relabelVerticesToolStripMenuItem.Text = "Relabel vertices...";
             // 
             // rotateVerticesToolStripMenuItem
             // 
             this.rotateVerticesToolStripMenuItem.Name = "rotateVerticesToolStripMenuItem";
-            this.rotateVerticesToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.rotateVerticesToolStripMenuItem.Size = new System.Drawing.Size(164, 22);
             this.rotateVerticesToolStripMenuItem.Text = "Rotate vertices...";
             // 
             // btnSelectMove
@@ -724,7 +724,7 @@
         private System.Windows.Forms.ToolStripSeparator separatorToolStripMenuItem;
         private Canvas canvas;
         private System.Windows.Forms.ColumnHeader representativeColumnHeader;
-        private System.Windows.Forms.ToolStripMenuItem evenFlowerToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem evenFlowerType1ToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem exportAsMutationAppFileToolStripMenuItem;
         private System.Windows.Forms.SaveFileDialog exportAsMutationAppFileSaveFileDialog;
         private System.Windows.Forms.OpenFileDialog importFromMutationAppFileOpenFileDialog;

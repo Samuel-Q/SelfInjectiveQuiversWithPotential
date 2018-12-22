@@ -16,7 +16,7 @@ namespace SelfInjectiveQuiversWithPotentialWinForms
         Square,
         Cobweb,
         OddFlower,
-        EvenFlower,
+        EvenFlowerType1,
         PointedFlower,
         GeneralizedCobweb
     }

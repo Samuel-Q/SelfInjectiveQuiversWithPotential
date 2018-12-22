@@ -283,19 +283,19 @@ namespace SelfInjectiveQuiversWithPotential
             => UsefulQuivers.GetVerticesInOddFlowerQuiverLayer(numVerticesInCenterPolygon, layerIndex, firstVertex);
         #endregion
 
-        #region Even flower
-        public static bool EvenFlowerParameterIsValid(int numVerticesInCenterPolygon) => UsefulQuivers.EvenFlowerParameterIsValid(numVerticesInCenterPolygon);
+        #region Even flower, type 1
+        public static bool EvenFlowerType1ParameterIsValid(int numVerticesInCenterPolygon) => UsefulQuivers.EvenFlowerType1ParameterIsValid(numVerticesInCenterPolygon);
 
-        public static string EvenFlowerParameterValidityDescription => UsefulQuivers.EvenFlowerParameterValidityDescription;
+        public static string EvenFlowerType1ParameterValidityDescription => UsefulQuivers.EvenFlowerType1ParameterValidityDescription;
 
-        public static int GetNumberOfLayersInEvenFlowerQP(int numVerticesInCenterPolygon)
-            => UsefulQuivers.GetNumberOfLayersInEvenFlowerQuiver(numVerticesInCenterPolygon);
+        public static int GetNumberOfLayersInEvenFlowerType1QP(int numVerticesInCenterPolygon)
+            => UsefulQuivers.GetNumberOfLayersInEvenFlowerType1Quiver(numVerticesInCenterPolygon);
 
-        public static QuiverWithPotential<int> GetEvenFlowerQP(int numVerticesInCenterPolygon, int firstVertex = DefaultFirstVertex)
+        public static QuiverWithPotential<int> GetEvenFlowerType1QP(int numVerticesInCenterPolygon, int firstVertex = DefaultFirstVertex)
         {
-            if (!EvenFlowerParameterIsValid(numVerticesInCenterPolygon)) throw new ArgumentOutOfRangeException(nameof(numVerticesInCenterPolygon));
+            if (!EvenFlowerType1ParameterIsValid(numVerticesInCenterPolygon)) throw new ArgumentOutOfRangeException(nameof(numVerticesInCenterPolygon));
 
-            int numLayers = UsefulQuivers.GetNumberOfLayersInEvenFlowerQuiver(numVerticesInCenterPolygon);
+            int numLayers = UsefulQuivers.GetNumberOfLayersInEvenFlowerType1Quiver(numVerticesInCenterPolygon);
             int numVerticesInFullInnerLayer = 2 * numVerticesInCenterPolygon;
             int numVerticesInOuterLayer = 3 * numVerticesInCenterPolygon;
 
@@ -383,11 +383,11 @@ namespace SelfInjectiveQuiversWithPotential
             return qp;
 
             CircularList<int> GetLayerVertices(int layerIndex)
-                => new CircularList<int>(GetVerticesInEvenFlowerQPLayer(numVerticesInCenterPolygon, layerIndex, firstVertex));
+                => new CircularList<int>(GetVerticesInEvenFlowerType1QPLayer(numVerticesInCenterPolygon, layerIndex, firstVertex));
         }
 
-        public static IEnumerable<int> GetVerticesInEvenFlowerQPLayer(int numVerticesInCenterPolygon, int layerIndex, int firstVertex = DefaultFirstVertex)
-            => UsefulQuivers.GetVerticesInEvenFlowerQuiverLayer(numVerticesInCenterPolygon, layerIndex, firstVertex);
+        public static IEnumerable<int> GetVerticesInEvenFlowerType1QPLayer(int numVerticesInCenterPolygon, int layerIndex, int firstVertex = DefaultFirstVertex)
+            => UsefulQuivers.GetVerticesInEvenFlowerType1QuiverLayer(numVerticesInCenterPolygon, layerIndex, firstVertex);
         #endregion
 
         #region Pointed flower

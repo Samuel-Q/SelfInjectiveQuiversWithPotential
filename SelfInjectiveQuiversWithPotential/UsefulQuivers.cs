@@ -202,28 +202,28 @@ namespace SelfInjectiveQuiversWithPotential
         }
         #endregion
 
-        #region Even flower
-        public static bool EvenFlowerParameterIsValid(int numVerticesInCenterPolygon)
+        #region Even flower, type 1
+        public static bool EvenFlowerType1ParameterIsValid(int numVerticesInCenterPolygon)
         {
             return numVerticesInCenterPolygon >= 4 && numVerticesInCenterPolygon.Modulo(2) == 0;
         }
 
-        public static string EvenFlowerParameterValidityDescription
+        public static string EvenFlowerType1ParameterValidityDescription
             => "The number of vertices in the center polygon must be an even number greater than or equal to 4.";
 
-        public static int GetNumberOfLayersInEvenFlowerQuiver(int numVerticesInCenterPolygon)
+        public static int GetNumberOfLayersInEvenFlowerType1Quiver(int numVerticesInCenterPolygon)
         {
-            if (!EvenFlowerParameterIsValid(numVerticesInCenterPolygon)) throw new ArgumentOutOfRangeException(nameof(numVerticesInCenterPolygon));
+            if (!EvenFlowerType1ParameterIsValid(numVerticesInCenterPolygon)) throw new ArgumentOutOfRangeException(nameof(numVerticesInCenterPolygon));
             return numVerticesInCenterPolygon / 2;
         }
 
-        public static Quiver<int> GetEvenFlowerQuiver(int numVerticesInCenterPolygon, int firstVertex = DefaultFirstVertex)
+        public static Quiver<int> GetEvenFlowerType1Quiver(int numVerticesInCenterPolygon, int firstVertex = DefaultFirstVertex)
         {
-            if (!EvenFlowerParameterIsValid(numVerticesInCenterPolygon)) throw new ArgumentOutOfRangeException(nameof(numVerticesInCenterPolygon));
+            if (!EvenFlowerType1ParameterIsValid(numVerticesInCenterPolygon)) throw new ArgumentOutOfRangeException(nameof(numVerticesInCenterPolygon));
 
             // Sort of backwards to construct the entire QP only to return just the quiver
             // But this reduces duplicated logic
-            var qp = UsefulQPs.GetEvenFlowerQP(numVerticesInCenterPolygon, firstVertex);
+            var qp = UsefulQPs.GetEvenFlowerType1QP(numVerticesInCenterPolygon, firstVertex);
             return qp.Quiver;
         }
 
@@ -234,10 +234,10 @@ namespace SelfInjectiveQuiversWithPotential
         /// <param name="layerIndex">The 0-based layer index.</param>
         /// <param name="firstVertex"></param>
         /// <returns></returns>
-        public static IEnumerable<int> GetVerticesInEvenFlowerQuiverLayer(int numVerticesInCenterPolygon, int layerIndex, int firstVertex = DefaultFirstVertex)
+        public static IEnumerable<int> GetVerticesInEvenFlowerType1QuiverLayer(int numVerticesInCenterPolygon, int layerIndex, int firstVertex = DefaultFirstVertex)
         {
-            if (!EvenFlowerParameterIsValid(numVerticesInCenterPolygon)) throw new ArgumentOutOfRangeException(nameof(numVerticesInCenterPolygon));
-            int numLayers = GetNumberOfLayersInEvenFlowerQuiver(numVerticesInCenterPolygon);
+            if (!EvenFlowerType1ParameterIsValid(numVerticesInCenterPolygon)) throw new ArgumentOutOfRangeException(nameof(numVerticesInCenterPolygon));
+            int numLayers = GetNumberOfLayersInEvenFlowerType1Quiver(numVerticesInCenterPolygon);
             if (layerIndex < 0 || layerIndex >= numLayers) throw new ArgumentOutOfRangeException(nameof(layerIndex));
 
             int numVerticesInFullInnerLayer = 2 * numVerticesInCenterPolygon;
