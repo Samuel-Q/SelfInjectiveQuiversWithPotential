@@ -7,14 +7,14 @@ using System.Windows.Forms;
 
 namespace SelfInjectiveQuiversWithPotentialWinForms
 {
-    public class PredefinedFlowerDialog : CustomDialog
+    public class PredefinedOddFlowerDialog : CustomDialog
     {
         private Label lblNumVerticesInCenterPolygon;
         private NumericUpDown nudNumVerticesInCenterPolygon;
 
         public int NumVerticesInCenterPolygon => (int)nudNumVerticesInCenterPolygon.Value;
 
-        public PredefinedFlowerDialog()
+        public PredefinedOddFlowerDialog()
         {
             InitializeComponent();
         }
@@ -67,13 +67,15 @@ namespace SelfInjectiveQuiversWithPotentialWinForms
             0,
             0});
             // 
-            // PredefinedFlowerDialog
+            // PredefinedOddFlowerDialog
             // 
             this.ClientSize = new System.Drawing.Size(204, 87);
             this.Controls.Add(this.nudNumVerticesInCenterPolygon);
             this.Controls.Add(this.lblNumVerticesInCenterPolygon);
-            this.Name = "PredefinedFlowerDialog";
-            this.Text = "Load flower";
+            this.Name = "PredefinedOddFlowerDialog";
+            this.Text = "Load odd flower";
+            this.Controls.SetChildIndex(this.btnOK, 0);
+            this.Controls.SetChildIndex(this.btnCancel, 0);
             this.Controls.SetChildIndex(this.lblNumVerticesInCenterPolygon, 0);
             this.Controls.SetChildIndex(this.nudNumVerticesInCenterPolygon, 0);
             ((System.ComponentModel.ISupportInitialize)(this.nudNumVerticesInCenterPolygon)).EndInit();

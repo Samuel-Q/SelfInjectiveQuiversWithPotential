@@ -7,7 +7,7 @@ using SelfInjectiveQuiversWithPotential.Analysis;
 
 namespace SelfInjectiveQuiversWithPotentialTests
 {
-    // The current tests belong in AnalyzerTestFixture imo.
+    // The current tests belong in QPAnalyzerTestFixture or so imo.
 
     [TestFixture]
     public class KnownSelfInjectiveQPsTestFixture
@@ -64,10 +64,10 @@ namespace SelfInjectiveQuiversWithPotentialTests
         }
 
         [Test]
-        public void Flowers_AreSelfInjectiveWithCorrectNakayamaPermutation()
+        public void OddFlowers_AreSelfInjectiveWithCorrectNakayamaPermutation()
         {
             var ksiqps = CreateKnownSelfInjectiveQPs();
-            AssertAreSelfInjectiveWithCorrectNakayamaPermutation(ksiqps.Flowers.TakeWhile(siQp => siQp.QP.Quiver.Vertices.Count <= 35));
+            AssertAreSelfInjectiveWithCorrectNakayamaPermutation(ksiqps.OddFlowers.TakeWhile(siQp => siQp.QP.Quiver.Vertices.Count <= 35));
         }
     }
 }

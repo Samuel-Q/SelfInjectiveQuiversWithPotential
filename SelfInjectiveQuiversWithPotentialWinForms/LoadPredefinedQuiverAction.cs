@@ -65,11 +65,11 @@ namespace SelfInjectiveQuiversWithPotentialWinForms
             return UsefulQuiversInPlane.GetCobwebQuiverInPlane(numVerticesInCenterPolygon, InnermostRadius);
         }
 
-        private QuiverInPlane<int> GetPredefinedFlowerQuiverInPlane(dynamic quiverParameter)
+        private QuiverInPlane<int> GetPredefinedOddFlowerQuiverInPlane(dynamic quiverParameter)
         {
             int numVerticesInCenterPolygon = quiverParameter;
             const int InnermostRadius = 50;
-            return UsefulQuiversInPlane.GetFlowerQuiverInPlane(numVerticesInCenterPolygon, InnermostRadius);
+            return UsefulQuiversInPlane.GetOddFlowerQuiverInPlane(numVerticesInCenterPolygon, InnermostRadius);
         }
 
         private QuiverInPlane<int> GetPredefinedEvenFlowerQuiverInPlane(dynamic quiverParameter)
@@ -102,7 +102,7 @@ namespace SelfInjectiveQuiversWithPotentialWinForms
                 case PredefinedQuiver.Triangle: quiverInPlane = GetPredefinedTriangleQuiverInPlane(quiverParameter); break;
                 case PredefinedQuiver.Square: quiverInPlane = GetPredefinedSquareQuiverInPlane(quiverParameter); break;
                 case PredefinedQuiver.Cobweb: quiverInPlane = GetPredefinedCobwebQuiverInPlane(quiverParameter); break;
-                case PredefinedQuiver.Flower: quiverInPlane = GetPredefinedFlowerQuiverInPlane(quiverParameter); break;
+                case PredefinedQuiver.OddFlower: quiverInPlane = GetPredefinedOddFlowerQuiverInPlane(quiverParameter); break;
                 case PredefinedQuiver.EvenFlower: quiverInPlane = GetPredefinedEvenFlowerQuiverInPlane(quiverParameter); break;
                 case PredefinedQuiver.PointedFlower: quiverInPlane = GetPredefinedPointedFlowerQuiverInPlane(quiverParameter); break;
                 case PredefinedQuiver.GeneralizedCobweb: quiverInPlane = GetPredefinedGeneralizedCobwebQuiverInPlane(quiverParameter); break;

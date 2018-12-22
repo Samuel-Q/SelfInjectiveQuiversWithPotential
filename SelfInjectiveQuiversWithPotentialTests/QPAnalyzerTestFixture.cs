@@ -297,10 +297,10 @@ namespace SelfInjectiveQuiversWithPotentialTests
         }
 
         [Test]
-        public void Analyze_IndicatesThatFlowersAreSelfInjectiveWithCorrectNakayamaPermutation()
+        public void Analyze_IndicatesThatOddFlowersAreSelfInjectiveWithCorrectNakayamaPermutation()
         {
             var ksiqps = CreateKnownSelfInjectiveQPs();
-            AssertAreSelfInjectiveWithCorrectNakayamaPermutation(ksiqps.Flowers.TakeWhile(siQp => siQp.QP.Quiver.Vertices.Count <= 35));
+            AssertAreSelfInjectiveWithCorrectNakayamaPermutation(ksiqps.OddFlowers.TakeWhile(siQp => siQp.QP.Quiver.Vertices.Count <= 35));
         }
 
         [Test]

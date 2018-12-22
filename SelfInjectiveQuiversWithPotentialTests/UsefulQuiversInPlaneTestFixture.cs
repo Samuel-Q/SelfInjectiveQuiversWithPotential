@@ -16,7 +16,7 @@ namespace SelfInjectiveQuiversWithPotentialTests
         const int DefaultRadius = 100; // For cycles, triangles, cobwebs, and flowers
         const int DefaultWidth = 100; // For squares
 
-        #region Cycle quivers
+        #region Cycle
         [TestCase(2)]
         [TestCase(1)]
         [TestCase(0)]
@@ -66,7 +66,7 @@ namespace SelfInjectiveQuiversWithPotentialTests
         }
         #endregion
 
-        #region Triangle quivers
+        #region Triangle
         [TestCase(0)]
         [TestCase(-1)]
         [TestCase(-10)]
@@ -145,7 +145,7 @@ namespace SelfInjectiveQuiversWithPotentialTests
         }
         #endregion
 
-        #region Square quivers
+        #region Square
         [TestCase(0)]
         [TestCase(-1)]
         [TestCase(-10)]
@@ -249,7 +249,7 @@ namespace SelfInjectiveQuiversWithPotentialTests
         }
         #endregion
 
-        #region Cobweb quivers
+        #region Cobweb
         [TestCase(0)]
         [TestCase(-1)]
         [TestCase(-5)]
@@ -363,7 +363,7 @@ namespace SelfInjectiveQuiversWithPotentialTests
         }
         #endregion
 
-        #region Flower quivers
+        #region Odd flower
         [TestCase(0)]
         [TestCase(-1)]
         [TestCase(-5)]
@@ -372,18 +372,18 @@ namespace SelfInjectiveQuiversWithPotentialTests
         [TestCase(4)]
         [TestCase(6)]
         [TestCase(20)]
-        public void GetNumberOfLayersInFlowerQuiverInPlane_ThrowsOnBadNumberOfVerticesInCenterPolygon(int numVerticesInCenterPolygon)
+        public void GetNumberOfLayersInOddFlowerQuiverInPlane_ThrowsOnBadNumberOfVerticesInCenterPolygon(int numVerticesInCenterPolygon)
         {
-            Assert.That(() => UsefulQuiversInPlane.GetNumberOfLayersInFlowerQuiverInPlane(numVerticesInCenterPolygon), Throws.InstanceOf<ArgumentOutOfRangeException>());
+            Assert.That(() => UsefulQuiversInPlane.GetNumberOfLayersInOddFlowerQuiverInPlane(numVerticesInCenterPolygon), Throws.InstanceOf<ArgumentOutOfRangeException>());
         }
 
         [TestCase(3, 2)]
         [TestCase(5, 3)]
         [TestCase(7, 4)]
         [TestCase(9, 5)]
-        public void GetNumberOfLayersInFlowerQuiverInPlane_Works(int numVerticesInCenterPolygon, int expectedNumLayers)
+        public void GetNumberOfLayersInOddFlowerQuiverInPlane_Works(int numVerticesInCenterPolygon, int expectedNumLayers)
         {
-            Assert.That(UsefulQuiversInPlane.GetNumberOfLayersInFlowerQuiverInPlane(numVerticesInCenterPolygon), Is.EqualTo(expectedNumLayers));
+            Assert.That(UsefulQuiversInPlane.GetNumberOfLayersInOddFlowerQuiverInPlane(numVerticesInCenterPolygon), Is.EqualTo(expectedNumLayers));
         }
 
         [TestCase(0)]
@@ -394,9 +394,9 @@ namespace SelfInjectiveQuiversWithPotentialTests
         [TestCase(4)]
         [TestCase(6)]
         [TestCase(20)]
-        public void GetFlowerQuiverInPlane_ThrowsOnBadNumberOfVerticesInCenterPolygon(int numVerticesInCenterPolygon)
+        public void GetOddFlowerQuiverInPlane_ThrowsOnBadNumberOfVerticesInCenterPolygon(int numVerticesInCenterPolygon)
         {
-            Assert.That(() => UsefulQuiversInPlane.GetFlowerQuiverInPlane(numVerticesInCenterPolygon, DefaultRadius), Throws.InstanceOf<ArgumentOutOfRangeException>());
+            Assert.That(() => UsefulQuiversInPlane.GetOddFlowerQuiverInPlane(numVerticesInCenterPolygon, DefaultRadius), Throws.InstanceOf<ArgumentOutOfRangeException>());
         }
 
         [TestCase(3, 0)]
@@ -414,26 +414,26 @@ namespace SelfInjectiveQuiversWithPotentialTests
         [TestCase(11, 10)]
         [TestCase(11, -1)]
         [TestCase(11, -10)]
-        public void GetFlowerQuiverInPlane_QuiverHasCorrectVertices(int numVerticesInCenterPolygon, int firstVertex)
+        public void GetOddFlowerQuiverInPlane_QuiverHasCorrectVertices(int numVerticesInCenterPolygon, int firstVertex)
         {
             int expectedNumLayers = (numVerticesInCenterPolygon + 1) / 2; // One small layer, one outer layer of twice the usual size, and the rest normal full layer
             int expectedNumVerticesInNormalFullLayer = 2 * numVerticesInCenterPolygon;
             int expectedNumVerticesInOuterLayer = 4 * numVerticesInCenterPolygon;
             int expectedNumVertices = numVerticesInCenterPolygon + (expectedNumLayers - 2) * expectedNumVerticesInNormalFullLayer + expectedNumVerticesInOuterLayer;
             var expectedVertices = Enumerable.Range(firstVertex, expectedNumVertices);
-            var quiver = UsefulQuiversInPlane.GetFlowerQuiverInPlane(numVerticesInCenterPolygon, DefaultRadius, firstVertex);
+            var quiver = UsefulQuiversInPlane.GetOddFlowerQuiverInPlane(numVerticesInCenterPolygon, DefaultRadius, firstVertex);
             CollectionAssert.AreEquivalent(expectedVertices, quiver.Vertices);
         }
 
         [TestCase(3, 21)] // 3+6+12: 3 in the center polygon, 6 "vertical" arrows, and 12 horizontal arrows in the outer layer
         [TestCase(5, 55)] // 25+10+20: 25 in the cobweb, 10 vertical arrows to/from the outer layer, and 20 horizontal arrows in the outer layer
-        public void GetFlowerQuiverInPlane_QuiverHasCorrectNumberOfArrows(int numVerticesInCenterPolygon, int expectedNumArrows)
+        public void GetOddFlowerQuiverInPlane_QuiverHasCorrectNumberOfArrows(int numVerticesInCenterPolygon, int expectedNumArrows)
         {
-            var quiver = UsefulQuiversInPlane.GetFlowerQuiverInPlane(numVerticesInCenterPolygon, DefaultRadius);
+            var quiver = UsefulQuiversInPlane.GetOddFlowerQuiverInPlane(numVerticesInCenterPolygon, DefaultRadius);
             Assert.That(quiver.GetArrows().Count, Is.EqualTo(expectedNumArrows));
-            quiver = UsefulQuiversInPlane.GetFlowerQuiverInPlane(numVerticesInCenterPolygon, DefaultRadius, 0);
+            quiver = UsefulQuiversInPlane.GetOddFlowerQuiverInPlane(numVerticesInCenterPolygon, DefaultRadius, 0);
             Assert.That(quiver.GetArrows().Count, Is.EqualTo(expectedNumArrows));
-            quiver = UsefulQuiversInPlane.GetFlowerQuiverInPlane(numVerticesInCenterPolygon, DefaultRadius, -6);
+            quiver = UsefulQuiversInPlane.GetOddFlowerQuiverInPlane(numVerticesInCenterPolygon, DefaultRadius, -6);
             Assert.That(quiver.GetArrows().Count, Is.EqualTo(expectedNumArrows));
         }
 
@@ -445,10 +445,10 @@ namespace SelfInjectiveQuiversWithPotentialTests
         [TestCase(4)]
         [TestCase(6)]
         [TestCase(20)]
-        public void GetVerticesInFlowerQuiverInPlaneLayer_ThrowsOnBadNumberOfVerticesInCenterPolygon(int numVerticesInCenterPolygon)
+        public void GetVerticesInOddFlowerQuiverInPlaneLayer_ThrowsOnBadNumberOfVerticesInCenterPolygon(int numVerticesInCenterPolygon)
         {
             int layerIndex = 0;
-            Assert.That(() => UsefulQuiversInPlane.GetVerticesInFlowerQuiverInPlaneLayer(numVerticesInCenterPolygon, layerIndex), Throws.InstanceOf<ArgumentOutOfRangeException>());
+            Assert.That(() => UsefulQuiversInPlane.GetVerticesInOddFlowerQuiverInPlaneLayer(numVerticesInCenterPolygon, layerIndex), Throws.InstanceOf<ArgumentOutOfRangeException>());
         }
 
         [TestCase(3, 0, 0, new int[] { 0, 1, 2 })]
@@ -491,14 +491,14 @@ namespace SelfInjectiveQuiversWithPotentialTests
         [TestCase(7, 2, 10, new int[] { 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44 })]
         [TestCase(7, 2, -1, new int[] { 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33 })]
         [TestCase(7, 2, -10, new int[] { 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24 })]
-        public void GetVerticesInFlowerQuiverInPlaneLayer_Works(int numVerticesInCenterPolygon, int layerIndex, int firstVertex, params int[] expectedVertices)
+        public void GetVerticesInOddFlowerQuiverInPlaneLayer_Works(int numVerticesInCenterPolygon, int layerIndex, int firstVertex, params int[] expectedVertices)
         {
-            var actualVertices = UsefulQuiversInPlane.GetVerticesInFlowerQuiverInPlaneLayer(numVerticesInCenterPolygon, layerIndex, firstVertex);
+            var actualVertices = UsefulQuiversInPlane.GetVerticesInOddFlowerQuiverInPlaneLayer(numVerticesInCenterPolygon, layerIndex, firstVertex);
             Assert.That(actualVertices, Is.EqualTo(expectedVertices));
         }
         #endregion
 
-        #region Even flower quivers
+        #region Even flower
         [TestCase(0)]
         [TestCase(-1)]
         [TestCase(-5)]
@@ -808,7 +808,7 @@ namespace SelfInjectiveQuiversWithPotentialTests
         }
         #endregion
 
-        #region Generalized cobweb quivers
+        #region Generalized cobweb
         [TestCase(2)]
         [TestCase(1)]
         [TestCase(0)]

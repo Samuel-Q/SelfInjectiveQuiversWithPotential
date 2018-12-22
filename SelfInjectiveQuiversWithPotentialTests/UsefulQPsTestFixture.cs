@@ -31,7 +31,7 @@ namespace SelfInjectiveQuiversWithPotentialTests
             }
         }
 
-        #region Triangle QPs
+        #region Triangle
         [TestCase(-1)]
         [TestCase(-2)]
         [TestCase(-10)]
@@ -71,7 +71,7 @@ namespace SelfInjectiveQuiversWithPotentialTests
         }
         #endregion
 
-        #region Square QPs
+        #region Square
         [TestCase(1, 1)]
         [TestCase(1, 10)]
         [TestCase(1, -1)]
@@ -116,7 +116,7 @@ namespace SelfInjectiveQuiversWithPotentialTests
         }
         #endregion
 
-        #region Cobweb QPs
+        #region Cobweb
         [TestCase(0)]
         [TestCase(-1)]
         [TestCase(-5)]
@@ -190,7 +190,7 @@ namespace SelfInjectiveQuiversWithPotentialTests
         }
         #endregion
 
-        #region Flower QPs
+        #region Odd flower
         [TestCase(0)]
         [TestCase(-1)]
         [TestCase(-5)]
@@ -199,18 +199,18 @@ namespace SelfInjectiveQuiversWithPotentialTests
         [TestCase(4)]
         [TestCase(6)]
         [TestCase(20)]
-        public void GetNumberOfLayersInFlowerQP_ThrowsOnBadNumberOfVerticesInCenterPolygon(int numVerticesInCenterPolygon)
+        public void GetNumberOfLayersInOddFlowerQP_ThrowsOnBadNumberOfVerticesInCenterPolygon(int numVerticesInCenterPolygon)
         {
-            Assert.That(() => UsefulQPs.GetNumberOfLayersInFlowerQP(numVerticesInCenterPolygon), Throws.InstanceOf<ArgumentOutOfRangeException>());
+            Assert.That(() => UsefulQPs.GetNumberOfLayersInOddFlowerQP(numVerticesInCenterPolygon), Throws.InstanceOf<ArgumentOutOfRangeException>());
         }
 
         [TestCase(3, 2)]
         [TestCase(5, 3)]
         [TestCase(7, 4)]
         [TestCase(9, 5)]
-        public void GetNumberOfLayersInFlowerQP_Works(int numVerticesInCenterPolygon, int expectedNumLayers)
+        public void GetNumberOfLayersInOddFlowerQP_Works(int numVerticesInCenterPolygon, int expectedNumLayers)
         {
-            Assert.That(UsefulQPs.GetNumberOfLayersInFlowerQP(numVerticesInCenterPolygon), Is.EqualTo(expectedNumLayers));
+            Assert.That(UsefulQPs.GetNumberOfLayersInOddFlowerQP(numVerticesInCenterPolygon), Is.EqualTo(expectedNumLayers));
         }
 
         [TestCase(0)]
@@ -221,20 +221,20 @@ namespace SelfInjectiveQuiversWithPotentialTests
         [TestCase(4)]
         [TestCase(6)]
         [TestCase(20)]
-        public void GetVerticesInFlowerQPLayer_ThrowsOnBadNumberOfVerticesInCenterPolygon(int numVerticesInCenterPolygon)
+        public void GetVerticesInOddFlowerQPLayer_ThrowsOnBadNumberOfVerticesInCenterPolygon(int numVerticesInCenterPolygon)
         {
             int layerIndex = 0;
-            Assert.That(() => UsefulQPs.GetVerticesInFlowerQPLayer(numVerticesInCenterPolygon, layerIndex), Throws.InstanceOf<ArgumentOutOfRangeException>());
+            Assert.That(() => UsefulQPs.GetVerticesInOddFlowerQPLayer(numVerticesInCenterPolygon, layerIndex), Throws.InstanceOf<ArgumentOutOfRangeException>());
         }
 
         [TestCase(-1)]
         [TestCase(-2)]
         [TestCase(-5)]
         [TestCase(Int32.MinValue)]
-        public void GetVerticesInFlowerQPLayer_ThrowsOnBadLayerIndex(int layerIndex)
+        public void GetVerticesInOddFlowerQPLayer_ThrowsOnBadLayerIndex(int layerIndex)
         {
             int numVerticesInCenterPolygon = 5;
-            Assert.That(() => UsefulQPs.GetVerticesInFlowerQPLayer(numVerticesInCenterPolygon, layerIndex), Throws.InstanceOf<ArgumentOutOfRangeException>());
+            Assert.That(() => UsefulQPs.GetVerticesInOddFlowerQPLayer(numVerticesInCenterPolygon, layerIndex), Throws.InstanceOf<ArgumentOutOfRangeException>());
         }
 
         [TestCase(3, 0, 0, new int[] { 0, 1, 2 })]
@@ -277,14 +277,14 @@ namespace SelfInjectiveQuiversWithPotentialTests
         [TestCase(7, 2, 10, new int[] { 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44 })]
         [TestCase(7, 2, -1, new int[] { 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33 })]
         [TestCase(7, 2, -10, new int[] { 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24 })]
-        public void GetVerticesInFlowerQPLayer_Works(int numVerticesInCenterPolygon, int layerIndex, int firstVertex, params int[] expectedVertices)
+        public void GetVerticesInOddFlowerQPLayer_Works(int numVerticesInCenterPolygon, int layerIndex, int firstVertex, params int[] expectedVertices)
         {
-            var actualVertices = UsefulQPs.GetVerticesInFlowerQPLayer(numVerticesInCenterPolygon, layerIndex, firstVertex);
+            var actualVertices = UsefulQPs.GetVerticesInOddFlowerQPLayer(numVerticesInCenterPolygon, layerIndex, firstVertex);
             Assert.That(actualVertices, Is.EqualTo(expectedVertices));
         }
         #endregion
 
-        #region Even flower QPs
+        #region Even flower
         [TestCase(0)]
         [TestCase(-1)]
         [TestCase(-5)]
@@ -379,7 +379,7 @@ namespace SelfInjectiveQuiversWithPotentialTests
         }
         #endregion
 
-        #region Pointed flower QPs
+        #region Pointed flower
         [TestCase(0)]
         [TestCase(-1)]
         [TestCase(-5)]
@@ -486,7 +486,7 @@ namespace SelfInjectiveQuiversWithPotentialTests
         }
         #endregion
 
-        #region Generalized cobweb QPs
+        #region Generalized cobweb
         [TestCase(2)]
         [TestCase(1)]
         [TestCase(0)]
@@ -553,9 +553,9 @@ namespace SelfInjectiveQuiversWithPotentialTests
         }
 
         [Test]
-        public void Flowers_AreSelfInjective()
+        public void OddFlowers_AreSelfInjective()
         {
-            var qps = Utility.InfiniteRange(3, 2).Select(k => UsefulQPs.GetFlowerQP(k)).TakeWhile(qp => qp.Quiver.Vertices.Count <= 35);
+            var qps = Utility.InfiniteRange(3, 2).Select(k => UsefulQPs.GetOddFlowerQP(k)).TakeWhile(qp => qp.Quiver.Vertices.Count <= 35);
             AssertAreSelfInjective(qps);
         }
 
@@ -606,10 +606,10 @@ namespace SelfInjectiveQuiversWithPotentialTests
         }
 
         [Test]
-        public void Flowers_AreSelfInjective_WithUnusualFirstVertex()
+        public void OddFlowers_AreSelfInjective_WithUnusualFirstVertex()
         {
             const int FirstVertex = -123;
-            var qps = Utility.InfiniteRange(3, 2).Select(k => UsefulQPs.GetFlowerQP(k, FirstVertex)).TakeWhile(qp => qp.Quiver.Vertices.Count <= 35);
+            var qps = Utility.InfiniteRange(3, 2).Select(k => UsefulQPs.GetOddFlowerQP(k, FirstVertex)).TakeWhile(qp => qp.Quiver.Vertices.Count <= 35);
             AssertAreSelfInjective(qps);
         }
 

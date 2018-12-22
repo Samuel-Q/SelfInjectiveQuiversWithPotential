@@ -951,7 +951,7 @@ namespace SelfInjectiveQuiversWithPotentialTests
         }
 
         [Test]
-        public void QuiverGeneration_WithStartGenerationFromBase_GeneratesFlower5FromCobweb5Correctly()
+        public void QuiverGeneration_WithStartGenerationFromBase_GeneratesOddFlower5FromCobweb5Correctly()
         {
             var quiverInPlane = UsefulQuiversInPlane.GetCobwebQuiverInPlane(5, 50, firstVertex: 1);
             var qp = UsefulQPs.GetCobwebQP(5, firstVertex: 1);

@@ -8,6 +8,7 @@ using DataStructures;
 namespace SelfInjectiveQuiversWithPotential
 {
     // TODO: Add spurious examples as well (from Pasquali mostly/only?)
+    // This class is pretty outdated (no even flowers, pointed flowers, or spurious examples).
 
     /// <summary>
     /// This class exposes some known self-injective planar QPs.
@@ -63,14 +64,14 @@ namespace SelfInjectiveQuiversWithPotential
         }
 
         /// <summary>
-        /// Gets the self-injective flower QPs.
+        /// Gets the self-injective odd flower QPs.
         /// </summary>
-        /// <remarks>It is <em>assumed</em> that <em>all</em> flower QPs are self-injective.</remarks>
-        public IEnumerable<SelfInjectiveQP<int>> Flowers
+        /// <remarks>It is <em>assumed</em> that <em>all</em> odd flower QPs are self-injective.</remarks>
+        public IEnumerable<SelfInjectiveQP<int>> OddFlowers
         {
             get
             {
-                for (int numVerticesInCenterPolygon = 3; ; numVerticesInCenterPolygon += 2) yield return GetSelfInjectiveFlowerQP(numVerticesInCenterPolygon);
+                for (int numVerticesInCenterPolygon = 3; ; numVerticesInCenterPolygon += 2) yield return GetSelfInjectiveOddFlowerQP(numVerticesInCenterPolygon);
             }
         }
 
@@ -166,12 +167,12 @@ namespace SelfInjectiveQuiversWithPotential
             }
         }
 
-        /// <remarks>It is <em>assumed</em> that <em>all</em> flower QPs are self-injective.</remarks>
-        public SelfInjectiveQP<int> GetSelfInjectiveFlowerQP(int numVerticesInCenterPolygon, int firstVertex = DefaultFirstVertex)
+        /// <remarks>It is <em>assumed</em> that <em>all</em> odd flower QPs are self-injective.</remarks>
+        public SelfInjectiveQP<int> GetSelfInjectiveOddFlowerQP(int numVerticesInCenterPolygon, int firstVertex = DefaultFirstVertex)
         {
             if (numVerticesInCenterPolygon < 3 || numVerticesInCenterPolygon.Modulo(2) == 0) throw new ArgumentOutOfRangeException(nameof(numVerticesInCenterPolygon));
 
-            var qp = UsefulQPs.GetFlowerQP(numVerticesInCenterPolygon);
+            var qp = UsefulQPs.GetOddFlowerQP(numVerticesInCenterPolygon);
 
             int numLayers = (numVerticesInCenterPolygon+1) / 2;
             int numVerticesInFullInnerLayer = 2 * numVerticesInCenterPolygon;

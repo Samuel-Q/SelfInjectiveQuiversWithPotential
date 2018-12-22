@@ -684,12 +684,12 @@ namespace SelfInjectiveQuiversWithPotentialWinForms
                     validateParameter = param => UsefulQuiversInPlane.CobwebParameterIsValid(param);
                     parameterValidityDescription = UsefulQuiversInPlane.CobwebParameterValidityDescription;
                     break;
-                case PredefinedQuiver.Flower:
-                    var flowerDialog = new PredefinedFlowerDialog();
-                    dialog = flowerDialog;
-                    getQuiverParameter = () => flowerDialog.NumVerticesInCenterPolygon;
-                    validateParameter = param => UsefulQuiversInPlane.FlowerParameterIsValid(param);
-                    parameterValidityDescription = UsefulQuiversInPlane.FlowerParameterValidityDescription;
+                case PredefinedQuiver.OddFlower:
+                    var oddFlowerDialog = new PredefinedOddFlowerDialog();
+                    dialog = oddFlowerDialog;
+                    getQuiverParameter = () => oddFlowerDialog.NumVerticesInCenterPolygon;
+                    validateParameter = param => UsefulQuiversInPlane.OddFlowerParameterIsValid(param);
+                    parameterValidityDescription = UsefulQuiversInPlane.OddFlowerParameterValidityDescription;
                     break;
                 case PredefinedQuiver.EvenFlower:
                     var evenFlowerDialog = new PredefinedEvenFlowerDialog();

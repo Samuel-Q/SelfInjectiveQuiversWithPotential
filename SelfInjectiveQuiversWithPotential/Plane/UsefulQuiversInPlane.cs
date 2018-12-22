@@ -168,27 +168,27 @@ namespace SelfInjectiveQuiversWithPotential.Plane
             => UsefulQuivers.GetVerticesInCobwebQuiverLayer(numVerticesInCenterPolygon, layerIndex, firstVertex);
         #endregion
 
-        #region Flower
-        public static bool FlowerParameterIsValid(int numVerticesInCenterPolygon) => UsefulQuivers.FlowerParameterIsValid(numVerticesInCenterPolygon);
+        #region Odd flower
+        public static bool OddFlowerParameterIsValid(int numVerticesInCenterPolygon) => UsefulQuivers.OddFlowerParameterIsValid(numVerticesInCenterPolygon);
 
-        public static string FlowerParameterValidityDescription { get => UsefulQuivers.FlowerParameterValidityDescription; }
+        public static string OddFlowerParameterValidityDescription { get => UsefulQuivers.OddFlowerParameterValidityDescription; }
 
-        public static int GetNumberOfLayersInFlowerQuiverInPlane(int numVerticesInCenterPolygon)
-            => UsefulQuivers.GetNumberOfLayersInFlowerQuiver(numVerticesInCenterPolygon);
+        public static int GetNumberOfLayersInOddFlowerQuiverInPlane(int numVerticesInCenterPolygon)
+            => UsefulQuivers.GetNumberOfLayersInOddFlowerQuiver(numVerticesInCenterPolygon);
 
-        public static QuiverInPlane<int> GetFlowerQuiverInPlane(int numVerticesInCenterPolygon, int innermostRadius, int firstVertex = DefaultFirstVertex)
+        public static QuiverInPlane<int> GetOddFlowerQuiverInPlane(int numVerticesInCenterPolygon, int innermostRadius, int firstVertex = DefaultFirstVertex)
         {
-            if (!FlowerParameterIsValid(numVerticesInCenterPolygon)) throw new ArgumentOutOfRangeException(nameof(numVerticesInCenterPolygon));
+            if (!OddFlowerParameterIsValid(numVerticesInCenterPolygon)) throw new ArgumentOutOfRangeException(nameof(numVerticesInCenterPolygon));
 
-            var quiver = UsefulQuivers.GetFlowerQuiver(numVerticesInCenterPolygon, firstVertex);
+            var quiver = UsefulQuivers.GetOddFlowerQuiver(numVerticesInCenterPolygon, firstVertex);
 
-            int numLayers = UsefulQuivers.GetNumberOfLayersInFlowerQuiver(numVerticesInCenterPolygon);
+            int numLayers = UsefulQuivers.GetNumberOfLayersInOddFlowerQuiver(numVerticesInCenterPolygon);
 
             var vertexPositions = new Dictionary<int, Point>();
             for (int layerIndex = 0; layerIndex < numLayers; layerIndex++)
             {
                 var radius = (layerIndex + 1) * innermostRadius;
-                var layer = UsefulQuivers.GetVerticesInFlowerQuiverLayer(numVerticesInCenterPolygon, layerIndex, firstVertex);
+                var layer = UsefulQuivers.GetVerticesInOddFlowerQuiverLayer(numVerticesInCenterPolygon, layerIndex, firstVertex);
                 double angle = 2 * Math.PI / layer.Count();
                 foreach (var (vertex, indexInLayer) in layer.EnumerateWithIndex())
                 {
@@ -202,8 +202,8 @@ namespace SelfInjectiveQuiversWithPotential.Plane
             return new QuiverInPlane<int>(quiver, vertexPositions);
         }
 
-        public static IEnumerable<int> GetVerticesInFlowerQuiverInPlaneLayer(int numVerticesInCenterPolygon, int layerIndex, int firstVertex = DefaultFirstVertex)
-            => UsefulQuivers.GetVerticesInFlowerQuiverLayer(numVerticesInCenterPolygon, layerIndex, firstVertex);
+        public static IEnumerable<int> GetVerticesInOddFlowerQuiverInPlaneLayer(int numVerticesInCenterPolygon, int layerIndex, int firstVertex = DefaultFirstVertex)
+            => UsefulQuivers.GetVerticesInOddFlowerQuiverLayer(numVerticesInCenterPolygon, layerIndex, firstVertex);
         #endregion
 
         #region Even flower

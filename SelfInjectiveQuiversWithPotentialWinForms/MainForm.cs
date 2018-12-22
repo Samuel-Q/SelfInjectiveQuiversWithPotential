@@ -41,7 +41,7 @@ namespace SelfInjectiveQuiversWithPotentialWinForms
                 { PredefinedQuiver.Triangle, triangleToolStripMenuItem },
                 { PredefinedQuiver.Square, squareToolStripMenuItem },
                 { PredefinedQuiver.Cobweb, cobwebToolStripMenuItem },
-                { PredefinedQuiver.Flower, flowerToolStripMenuItem },
+                { PredefinedQuiver.OddFlower, oddFlowerToolStripMenuItem },
                 { PredefinedQuiver.EvenFlower, evenFlowerToolStripMenuItem },
                 { PredefinedQuiver.PointedFlower, pointedFlowerToolStripMenuItem },
                 { PredefinedQuiver.GeneralizedCobweb, generalizedCobwebToolStripMenuItem}

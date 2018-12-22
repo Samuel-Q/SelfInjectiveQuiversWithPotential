@@ -188,19 +188,19 @@ namespace SelfInjectiveQuiversWithPotential
             => UsefulQuivers.GetVerticesInCobwebQuiverLayer(numVerticesInCenterPolygon, layerIndex, firstVertex);
         #endregion
 
-        #region Flower
-        public static bool FlowerParameterIsValid(int numVerticesInCenterPolygon) => UsefulQuivers.FlowerParameterIsValid(numVerticesInCenterPolygon);
+        #region Odd flower
+        public static bool OddFlowerParameterIsValid(int numVerticesInCenterPolygon) => UsefulQuivers.OddFlowerParameterIsValid(numVerticesInCenterPolygon);
 
-        public static string FlowerParameterValidityDescription => UsefulQuivers.FlowerParameterValidityDescription;
+        public static string OddFlowerParameterValidityDescription => UsefulQuivers.OddFlowerParameterValidityDescription;
 
-        public static int GetNumberOfLayersInFlowerQP(int numVerticesInCenterPolygon)
-            => UsefulQuivers.GetNumberOfLayersInFlowerQuiver(numVerticesInCenterPolygon);
+        public static int GetNumberOfLayersInOddFlowerQP(int numVerticesInCenterPolygon)
+            => UsefulQuivers.GetNumberOfLayersInOddFlowerQuiver(numVerticesInCenterPolygon);
 
-        public static QuiverWithPotential<int> GetFlowerQP(int numVerticesInCenterPolygon, int firstVertex = DefaultFirstVertex)
+        public static QuiverWithPotential<int> GetOddFlowerQP(int numVerticesInCenterPolygon, int firstVertex = DefaultFirstVertex)
         {
-            if (!FlowerParameterIsValid(numVerticesInCenterPolygon)) throw new ArgumentOutOfRangeException(nameof(numVerticesInCenterPolygon));
+            if (!OddFlowerParameterIsValid(numVerticesInCenterPolygon)) throw new ArgumentOutOfRangeException(nameof(numVerticesInCenterPolygon));
 
-            int numLayers = UsefulQuivers.GetNumberOfLayersInFlowerQuiver(numVerticesInCenterPolygon);
+            int numLayers = UsefulQuivers.GetNumberOfLayersInOddFlowerQuiver(numVerticesInCenterPolygon);
             int numVerticesInFullInnerLayer = 2 * numVerticesInCenterPolygon;
             int numVerticesInOuterLayer = 4 * numVerticesInCenterPolygon;
 
@@ -276,11 +276,11 @@ namespace SelfInjectiveQuiversWithPotential
             return qp;
 
             CircularList<int> GetLayerVertices(int layerIndex)
-                => new CircularList<int>(GetVerticesInFlowerQPLayer(numVerticesInCenterPolygon, layerIndex, firstVertex));
+                => new CircularList<int>(GetVerticesInOddFlowerQPLayer(numVerticesInCenterPolygon, layerIndex, firstVertex));
         }
 
-        public static IEnumerable<int> GetVerticesInFlowerQPLayer(int numVerticesInCenterPolygon, int layerIndex, int firstVertex = DefaultFirstVertex)
-            => UsefulQuivers.GetVerticesInFlowerQuiverLayer(numVerticesInCenterPolygon, layerIndex, firstVertex);
+        public static IEnumerable<int> GetVerticesInOddFlowerQPLayer(int numVerticesInCenterPolygon, int layerIndex, int firstVertex = DefaultFirstVertex)
+            => UsefulQuivers.GetVerticesInOddFlowerQuiverLayer(numVerticesInCenterPolygon, layerIndex, firstVertex);
         #endregion
 
         #region Even flower

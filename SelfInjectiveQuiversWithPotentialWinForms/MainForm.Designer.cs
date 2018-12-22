@@ -35,7 +35,7 @@
             this.triangleToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.squareToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.cobwebToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.flowerToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.oddFlowerToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.evenFlowerToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.pointedFlowerToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.separatorToolStripMenuItem2 = new System.Windows.Forms.ToolStripSeparator();
@@ -76,6 +76,7 @@
             this.representativeColumnHeader = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.lblMaximalPathRepresentatives = new System.Windows.Forms.Label();
             this.grpAnalysisResults = new System.Windows.Forms.GroupBox();
+            this.lblAnalysisMainResultStatic = new System.Windows.Forms.Label();
             this.tabAnalysisResults = new System.Windows.Forms.TabControl();
             this.nakayamaTabPage = new System.Windows.Forms.TabPage();
             this.txtOrbit = new System.Windows.Forms.TextBox();
@@ -88,7 +89,6 @@
             this.importFromMutationAppFileOpenFileDialog = new System.Windows.Forms.OpenFileDialog();
             this.lblCenterOfCanvas = new System.Windows.Forms.Label();
             this.lblMousePointerOnCanvasLocation = new System.Windows.Forms.Label();
-            this.lblAnalysisMainResultStatic = new System.Windows.Forms.Label();
             this.canvas = new SelfInjectiveQuiversWithPotentialWinForms.Canvas();
             this.menuStrip.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nudVertexToAdd)).BeginInit();
@@ -129,7 +129,7 @@
             this.triangleToolStripMenuItem,
             this.squareToolStripMenuItem,
             this.cobwebToolStripMenuItem,
-            this.flowerToolStripMenuItem,
+            this.oddFlowerToolStripMenuItem,
             this.evenFlowerToolStripMenuItem,
             this.pointedFlowerToolStripMenuItem,
             this.separatorToolStripMenuItem2,
@@ -162,11 +162,11 @@
             this.cobwebToolStripMenuItem.Size = new System.Drawing.Size(189, 22);
             this.cobwebToolStripMenuItem.Text = "Cobweb...";
             // 
-            // flowerToolStripMenuItem
+            // oddFlowerToolStripMenuItem
             // 
-            this.flowerToolStripMenuItem.Name = "flowerToolStripMenuItem";
-            this.flowerToolStripMenuItem.Size = new System.Drawing.Size(189, 22);
-            this.flowerToolStripMenuItem.Text = "Flower...";
+            this.oddFlowerToolStripMenuItem.Name = "oddFlowerToolStripMenuItem";
+            this.oddFlowerToolStripMenuItem.Size = new System.Drawing.Size(189, 22);
+            this.oddFlowerToolStripMenuItem.Text = "Odd flower...";
             // 
             // evenFlowerToolStripMenuItem
             // 
@@ -232,7 +232,7 @@
             this.undoToolStripMenuItem.Enabled = false;
             this.undoToolStripMenuItem.Name = "undoToolStripMenuItem";
             this.undoToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Z)));
-            this.undoToolStripMenuItem.Size = new System.Drawing.Size(164, 22);
+            this.undoToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.undoToolStripMenuItem.Text = "&Undo";
             // 
             // redoToolStripMenuItem
@@ -240,24 +240,24 @@
             this.redoToolStripMenuItem.Enabled = false;
             this.redoToolStripMenuItem.Name = "redoToolStripMenuItem";
             this.redoToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Y)));
-            this.redoToolStripMenuItem.Size = new System.Drawing.Size(164, 22);
+            this.redoToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.redoToolStripMenuItem.Text = "&Redo";
             // 
             // separatorToolStripMenuItem3
             // 
             this.separatorToolStripMenuItem3.Name = "separatorToolStripMenuItem3";
-            this.separatorToolStripMenuItem3.Size = new System.Drawing.Size(161, 6);
+            this.separatorToolStripMenuItem3.Size = new System.Drawing.Size(177, 6);
             // 
             // relabelVerticesToolStripMenuItem
             // 
             this.relabelVerticesToolStripMenuItem.Name = "relabelVerticesToolStripMenuItem";
-            this.relabelVerticesToolStripMenuItem.Size = new System.Drawing.Size(164, 22);
+            this.relabelVerticesToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.relabelVerticesToolStripMenuItem.Text = "Relabel vertices...";
             // 
             // rotateVerticesToolStripMenuItem
             // 
             this.rotateVerticesToolStripMenuItem.Name = "rotateVerticesToolStripMenuItem";
-            this.rotateVerticesToolStripMenuItem.Size = new System.Drawing.Size(164, 22);
+            this.rotateVerticesToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.rotateVerticesToolStripMenuItem.Text = "Rotate vertices...";
             // 
             // btnSelectMove
@@ -523,6 +523,15 @@
             this.grpAnalysisResults.TabStop = false;
             this.grpAnalysisResults.Text = "Analysis results";
             // 
+            // lblAnalysisMainResultStatic
+            // 
+            this.lblAnalysisMainResultStatic.AutoSize = true;
+            this.lblAnalysisMainResultStatic.Location = new System.Drawing.Point(6, 23);
+            this.lblAnalysisMainResultStatic.Name = "lblAnalysisMainResultStatic";
+            this.lblAnalysisMainResultStatic.Size = new System.Drawing.Size(61, 13);
+            this.lblAnalysisMainResultStatic.TabIndex = 8;
+            this.lblAnalysisMainResultStatic.Text = "Main result:";
+            // 
             // tabAnalysisResults
             // 
             this.tabAnalysisResults.Controls.Add(this.nakayamaTabPage);
@@ -623,15 +632,6 @@
             this.lblMousePointerOnCanvasLocation.TabIndex = 13;
             this.lblMousePointerOnCanvasLocation.Text = "Pointer: (0, 0)";
             // 
-            // lblAnalysisMainResultStatic
-            // 
-            this.lblAnalysisMainResultStatic.AutoSize = true;
-            this.lblAnalysisMainResultStatic.Location = new System.Drawing.Point(6, 23);
-            this.lblAnalysisMainResultStatic.Name = "lblAnalysisMainResultStatic";
-            this.lblAnalysisMainResultStatic.Size = new System.Drawing.Size(61, 13);
-            this.lblAnalysisMainResultStatic.TabIndex = 8;
-            this.lblAnalysisMainResultStatic.Text = "Main result:";
-            // 
             // canvas
             // 
             this.canvas.BackColor = System.Drawing.Color.White;
@@ -720,7 +720,7 @@
         private System.Windows.Forms.ToolStripMenuItem triangleToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem squareToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem cobwebToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem flowerToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem oddFlowerToolStripMenuItem;
         private System.Windows.Forms.ToolStripSeparator separatorToolStripMenuItem;
         private Canvas canvas;
         private System.Windows.Forms.ColumnHeader representativeColumnHeader;

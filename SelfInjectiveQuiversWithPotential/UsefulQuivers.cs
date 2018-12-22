@@ -154,28 +154,28 @@ namespace SelfInjectiveQuiversWithPotential
         }
         #endregion
 
-        #region Flower
-        public static bool FlowerParameterIsValid(int numVerticesInCenterPolygon)
+        #region Odd flower
+        public static bool OddFlowerParameterIsValid(int numVerticesInCenterPolygon)
         {
             return numVerticesInCenterPolygon >= 3 && numVerticesInCenterPolygon.Modulo(2) == 1;
         }
 
-        public static string FlowerParameterValidityDescription
+        public static string OddFlowerParameterValidityDescription
             => "The number of vertices in the center polygon must be an odd number greater than or equal to 3.";
 
-        public static int GetNumberOfLayersInFlowerQuiver(int numVerticesInCenterPolygon)
+        public static int GetNumberOfLayersInOddFlowerQuiver(int numVerticesInCenterPolygon)
         {
-            if (!FlowerParameterIsValid(numVerticesInCenterPolygon)) throw new ArgumentOutOfRangeException(nameof(numVerticesInCenterPolygon));
+            if (!OddFlowerParameterIsValid(numVerticesInCenterPolygon)) throw new ArgumentOutOfRangeException(nameof(numVerticesInCenterPolygon));
             return (numVerticesInCenterPolygon + 1) / 2;
         }
 
-        public static Quiver<int> GetFlowerQuiver(int numVerticesInCenterPolygon, int firstVertex = DefaultFirstVertex)
+        public static Quiver<int> GetOddFlowerQuiver(int numVerticesInCenterPolygon, int firstVertex = DefaultFirstVertex)
         {
-            if (!FlowerParameterIsValid(numVerticesInCenterPolygon)) throw new ArgumentOutOfRangeException(nameof(numVerticesInCenterPolygon));
+            if (!OddFlowerParameterIsValid(numVerticesInCenterPolygon)) throw new ArgumentOutOfRangeException(nameof(numVerticesInCenterPolygon));
 
             // Sort of backwards to construct the entire QP only to return just the quiver
             // But this reduces duplicated logic
-            var qp = UsefulQPs.GetFlowerQP(numVerticesInCenterPolygon, firstVertex);
+            var qp = UsefulQPs.GetOddFlowerQP(numVerticesInCenterPolygon, firstVertex);
             return qp.Quiver;
         }
 
@@ -186,10 +186,10 @@ namespace SelfInjectiveQuiversWithPotential
         /// <param name="layerIndex">The 0-based layer index.</param>
         /// <param name="firstVertex"></param>
         /// <returns></returns>
-        public static IEnumerable<int> GetVerticesInFlowerQuiverLayer(int numVerticesInCenterPolygon, int layerIndex, int firstVertex = DefaultFirstVertex)
+        public static IEnumerable<int> GetVerticesInOddFlowerQuiverLayer(int numVerticesInCenterPolygon, int layerIndex, int firstVertex = DefaultFirstVertex)
         {
-            if (!FlowerParameterIsValid(numVerticesInCenterPolygon)) throw new ArgumentOutOfRangeException(nameof(numVerticesInCenterPolygon));
-            int numLayers = GetNumberOfLayersInFlowerQuiver(numVerticesInCenterPolygon);
+            if (!OddFlowerParameterIsValid(numVerticesInCenterPolygon)) throw new ArgumentOutOfRangeException(nameof(numVerticesInCenterPolygon));
+            int numLayers = GetNumberOfLayersInOddFlowerQuiver(numVerticesInCenterPolygon);
             if (layerIndex < 0 || layerIndex >= numLayers) throw new ArgumentOutOfRangeException(nameof(layerIndex));
 
             int numVerticesInFullInnerLayer = 2 * numVerticesInCenterPolygon;
