@@ -307,7 +307,7 @@ namespace SelfInjectiveQuiversWithPotential
             // Full inner layers
             if (numLayers > 2)
             {
-                // First layer (the  squares and triangles between the first and second layers)
+                // First layer (the squares and triangles between the first and second layers)
                 var curLayer = GetLayerVertices(0);
                 var nextLayer = GetLayerVertices(1);
                 for (int indexInLayer = 0; indexInLayer < numVerticesInCenterPolygon; indexInLayer++)
@@ -388,6 +388,113 @@ namespace SelfInjectiveQuiversWithPotential
 
         public static IEnumerable<int> GetVerticesInEvenFlowerType1QPLayer(int numVerticesInCenterPolygon, int layerIndex, int firstVertex = DefaultFirstVertex)
             => UsefulQuivers.GetVerticesInEvenFlowerType1QuiverLayer(numVerticesInCenterPolygon, layerIndex, firstVertex);
+        #endregion
+
+        #region Even flower, type 2
+        public static bool EvenFlowerType2ParameterIsValid(int numVerticesInCenterPolygon) => UsefulQuivers.EvenFlowerType2ParameterIsValid(numVerticesInCenterPolygon);
+
+        public static string EvenFlowerType2ParameterValidityDescription => UsefulQuivers.EvenFlowerType2ParameterValidityDescription;
+
+        public static int GetNumberOfLayersInEvenFlowerType2QP(int numVerticesInCenterPolygon)
+            => UsefulQuivers.GetNumberOfLayersInEvenFlowerType2Quiver(numVerticesInCenterPolygon);
+
+        public static QuiverWithPotential<int> GetEvenFlowerType2QP(int numVerticesInCenterPolygon, int firstVertex = DefaultFirstVertex)
+        {
+            if (!EvenFlowerType2ParameterIsValid(numVerticesInCenterPolygon)) throw new ArgumentOutOfRangeException(nameof(numVerticesInCenterPolygon));
+
+            int numLayers = UsefulQuivers.GetNumberOfLayersInEvenFlowerType2Quiver(numVerticesInCenterPolygon);
+            int numVerticesInFullInnerLayer = 2 * numVerticesInCenterPolygon;
+            int numVerticesInOuterLayer = 3 * numVerticesInCenterPolygon;
+
+            var potential = new Potential<int>();
+
+            // Center polygon
+            potential = potential.AddCycle(new DetachedCycle<int>(Enumerable.Range(firstVertex, numVerticesInCenterPolygon).AppendElement(firstVertex)), +1);
+
+            // Full inner layers
+            if (numLayers > 2)
+            {
+                // First layer (the squares and triangles between the first and second layers)
+                var curLayer = GetLayerVertices(0);
+                var nextLayer = GetLayerVertices(1);
+                for (int indexInLayer = 0; indexInLayer < numVerticesInCenterPolygon; indexInLayer++)
+                {
+                    var triangleVertices = new int[] { curLayer[indexInLayer], nextLayer[2 * indexInLayer - 1], nextLayer[2 * indexInLayer], curLayer[indexInLayer] };
+                    potential = potential.AddCycle(new DetachedCycle<int>(triangleVertices), +1);
+
+                    var squareVertices = new int[] { curLayer[indexInLayer], curLayer[indexInLayer + 1], nextLayer[2 * indexInLayer + 1], nextLayer[2 * indexInLayer], curLayer[indexInLayer] };
+                    potential = potential.AddCycle(new DetachedCycle<int>(squareVertices), -1);
+                }
+
+                // Remaining layers (only squares)
+                for (int layerIndex = 1; layerIndex < numLayers - 2; layerIndex++) // 0-based layer index
+                {
+                    curLayer = GetLayerVertices(layerIndex);
+                    nextLayer = GetLayerVertices(layerIndex + 1);
+                    for (int indexInLayer = 0; indexInLayer < numVerticesInFullInnerLayer; indexInLayer++)
+                    {
+                        int sign = (layerIndex + indexInLayer).Modulo(2) == 1 ? +1 : -1;
+
+                        var squareVertices = sign == +1 ?
+                            new int[] { curLayer[indexInLayer + 1], curLayer[indexInLayer], nextLayer[indexInLayer], nextLayer[indexInLayer + 1], curLayer[indexInLayer + 1] } :
+                            new int[] { curLayer[indexInLayer], curLayer[indexInLayer + 1], nextLayer[indexInLayer + 1], nextLayer[indexInLayer], curLayer[indexInLayer] };
+                        potential = potential.AddCycle(new DetachedCycle<int>(squareVertices), sign);
+                    }
+                }
+            }
+
+            // Outer layer
+            {
+                int layerIndex = numLayers - 2;
+                var curLayer = GetLayerVertices(layerIndex);
+                var nextLayer = GetLayerVertices(layerIndex + 1);
+                if (numLayers == 2)
+                {
+                    // Add squares and diamonds in this degenerate case
+                    for (int indexInLayer = 0; indexInLayer < curLayer.Count; indexInLayer++)
+                    {
+                        var diamondVertices = new int[] { curLayer[indexInLayer], nextLayer[3 * indexInLayer - 2], nextLayer[3 * indexInLayer - 1], nextLayer[3 * indexInLayer], curLayer[indexInLayer] };
+                        potential = potential.AddCycle(new DetachedCycle<int>(diamondVertices), +1);
+
+                        var squareVertices = new int[] { curLayer[indexInLayer], curLayer[indexInLayer + 1], nextLayer[3 * indexInLayer + 1], nextLayer[3 * indexInLayer], curLayer[indexInLayer] };
+                        potential = potential.AddCycle(new DetachedCycle<int>(squareVertices), -1);
+                    }
+                }
+                else
+                {
+                    // Add squares and pentagons in the non-degenerate case
+                    for (int indexInCenterLayer = 0; indexInCenterLayer < numVerticesInCenterPolygon; indexInCenterLayer++)
+                    {
+                        // Add square
+                        int indexInPenultimateLayer = 2 * indexInCenterLayer;
+                        int indexInUltimateLayer = 3 * indexInCenterLayer;
+                        int squareSign = layerIndex.Modulo(2) == 1 ? +1 : -1; // Remember that layerIndex is the index of the *penultimate* layer
+                        var squareVertices = squareSign == +1 ?
+                            new int[] { curLayer[indexInPenultimateLayer + 1], curLayer[indexInPenultimateLayer], nextLayer[indexInUltimateLayer], nextLayer[indexInUltimateLayer + 1], curLayer[indexInPenultimateLayer + 1] } :
+                            new int[] { curLayer[indexInPenultimateLayer], curLayer[indexInPenultimateLayer + 1], nextLayer[indexInUltimateLayer + 1], nextLayer[indexInUltimateLayer], curLayer[indexInPenultimateLayer] };
+                        potential = potential.AddCycle(new DetachedCycle<int>(squareVertices), squareSign);
+
+                        // Add pentagon
+                        int pentagonSign = -squareSign;
+                        indexInPenultimateLayer += 1;
+                        indexInUltimateLayer += 1;
+                        var pentagonVertices = pentagonSign == +1 ?
+                            new int[] { curLayer[indexInPenultimateLayer + 1], curLayer[indexInPenultimateLayer], nextLayer[indexInUltimateLayer], nextLayer[indexInUltimateLayer + 1], nextLayer[indexInUltimateLayer + 2], curLayer[indexInPenultimateLayer + 1] } :
+                            new int[] { curLayer[indexInPenultimateLayer], curLayer[indexInPenultimateLayer + 1], nextLayer[indexInUltimateLayer + 2], nextLayer[indexInUltimateLayer + 1], nextLayer[indexInUltimateLayer], curLayer[indexInPenultimateLayer] };
+                        potential = potential.AddCycle(new DetachedCycle<int>(pentagonVertices), pentagonSign);
+                    }
+                }
+            }
+
+            var qp = new QuiverWithPotential<int>(potential);
+            return qp;
+
+            CircularList<int> GetLayerVertices(int layerIndex)
+                => new CircularList<int>(GetVerticesInEvenFlowerType2QPLayer(numVerticesInCenterPolygon, layerIndex, firstVertex));
+        }
+
+        public static IEnumerable<int> GetVerticesInEvenFlowerType2QPLayer(int numVerticesInCenterPolygon, int layerIndex, int firstVertex = DefaultFirstVertex)
+            => UsefulQuivers.GetVerticesInEvenFlowerType2QuiverLayer(numVerticesInCenterPolygon, layerIndex, firstVertex);
         #endregion
 
         #region Pointed flower

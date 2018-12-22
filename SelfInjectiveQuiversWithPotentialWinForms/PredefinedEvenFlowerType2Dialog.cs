@@ -7,14 +7,15 @@ using System.Windows.Forms;
 
 namespace SelfInjectiveQuiversWithPotentialWinForms
 {
-    public class PredefinedEvenFlowerType1Dialog : CustomDialog
+    class PredefinedEvenFlowerType2Dialog : CustomDialog
     {
+
         private Label lblNumVerticesInCenterPolygon;
         private NumericUpDown nudNumVerticesInCenterPolygon;
 
         public int NumVerticesInCenterPolygon => (int)nudNumVerticesInCenterPolygon.Value;
 
-        public PredefinedEvenFlowerType1Dialog()
+        public PredefinedEvenFlowerType2Dialog()
         {
             InitializeComponent();
         }
@@ -36,13 +37,9 @@ namespace SelfInjectiveQuiversWithPotentialWinForms
             ((System.ComponentModel.ISupportInitialize)(this.nudNumVerticesInCenterPolygon)).BeginInit();
             this.SuspendLayout();
             // 
-            // btnOK
-            // 
-            this.btnOK.TabIndex = 2;
-            // 
             // btnCancel
             // 
-            this.btnCancel.TabIndex = 3;
+            this.btnCancel.Location = new System.Drawing.Point(117, 52);
             // 
             // lblNumVerticesInCenterPolygon
             // 
@@ -50,7 +47,7 @@ namespace SelfInjectiveQuiversWithPotentialWinForms
             this.lblNumVerticesInCenterPolygon.Location = new System.Drawing.Point(12, 9);
             this.lblNumVerticesInCenterPolygon.Name = "lblNumVerticesInCenterPolygon";
             this.lblNumVerticesInCenterPolygon.Size = new System.Drawing.Size(180, 13);
-            this.lblNumVerticesInCenterPolygon.TabIndex = 0;
+            this.lblNumVerticesInCenterPolygon.TabIndex = 2;
             this.lblNumVerticesInCenterPolygon.Text = "Number of vertices in center polygon";
             // 
             // nudNumVerticesInCenterPolygon
@@ -68,20 +65,20 @@ namespace SelfInjectiveQuiversWithPotentialWinForms
             0});
             this.nudNumVerticesInCenterPolygon.Name = "nudNumVerticesInCenterPolygon";
             this.nudNumVerticesInCenterPolygon.Size = new System.Drawing.Size(65, 20);
-            this.nudNumVerticesInCenterPolygon.TabIndex = 1;
+            this.nudNumVerticesInCenterPolygon.TabIndex = 3;
             this.nudNumVerticesInCenterPolygon.Value = new decimal(new int[] {
             4,
             0,
             0,
             0});
             // 
-            // PredefinedEvenFlowerType1Dialog
+            // PredefinedEvenFlowerType2Dialog
             // 
             this.ClientSize = new System.Drawing.Size(204, 87);
             this.Controls.Add(this.nudNumVerticesInCenterPolygon);
             this.Controls.Add(this.lblNumVerticesInCenterPolygon);
-            this.Name = "PredefinedEvenFlowerType1Dialog";
-            this.Text = "Load even flower, type 1";
+            this.Name = "PredefinedEvenFlowerType2Dialog";
+            this.Text = "Load even flower, type 2";
             this.Controls.SetChildIndex(this.btnOK, 0);
             this.Controls.SetChildIndex(this.btnCancel, 0);
             this.Controls.SetChildIndex(this.lblNumVerticesInCenterPolygon, 0);

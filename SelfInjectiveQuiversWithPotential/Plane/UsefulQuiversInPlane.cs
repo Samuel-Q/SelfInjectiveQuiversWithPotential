@@ -244,6 +244,46 @@ namespace SelfInjectiveQuiversWithPotential.Plane
             => UsefulQuivers.GetVerticesInEvenFlowerType1QuiverLayer(numVerticesInCenterPolygon, layerIndex, firstVertex);
         #endregion
 
+        #region Even flower, type 2
+        public static bool EvenFlowerType2ParameterIsValid(int numVerticesInCenterPolygon) => UsefulQuivers.EvenFlowerType2ParameterIsValid(numVerticesInCenterPolygon);
+
+        public static string EvenFlowerType2ParameterValidityDescription { get => UsefulQuivers.EvenFlowerType2ParameterValidityDescription; }
+
+        public static int GetNumberOfLayersInEvenFlowerType2QuiverInPlane(int numVerticesInCenterPolygon)
+            => UsefulQuivers.GetNumberOfLayersInEvenFlowerType2Quiver(numVerticesInCenterPolygon);
+
+        public static QuiverInPlane<int> GetEvenFlowerType2QuiverInPlane(int numVerticesInCenterPolygon, int innermostRadius, int firstVertex = DefaultFirstVertex)
+        {
+            if (!EvenFlowerType2ParameterIsValid(numVerticesInCenterPolygon)) throw new ArgumentOutOfRangeException(nameof(numVerticesInCenterPolygon));
+
+            var quiver = UsefulQuivers.GetEvenFlowerType2Quiver(numVerticesInCenterPolygon, firstVertex);
+
+            int numLayers = UsefulQuivers.GetNumberOfLayersInEvenFlowerType2Quiver(numVerticesInCenterPolygon);
+
+            var vertexPositions = new Dictionary<int, Point>();
+            for (int layerIndex = 0; layerIndex < numLayers; layerIndex++)
+            {
+                var radius = (layerIndex + 1) * innermostRadius;
+                var layer = UsefulQuivers.GetVerticesInEvenFlowerType2QuiverLayer(numVerticesInCenterPolygon, layerIndex, firstVertex);
+                double angle = 2 * Math.PI / layer.Count();
+                foreach (var (vertex, indexInLayer) in layer.EnumerateWithIndex())
+                {
+                    double angleMultiplier =
+                        layerIndex == 0 ? indexInLayer :
+                        layerIndex < numLayers - 1 ? (indexInLayer + 0.5) :
+                        indexInLayer + 1;
+
+                    vertexPositions[vertex] = new Point(radius * Math.Cos(angleMultiplier * angle), radius * Math.Sin(angleMultiplier * angle));
+                }
+            }
+
+            return new QuiverInPlane<int>(quiver, vertexPositions);
+        }
+
+        public static IEnumerable<int> GetVerticesInEvenFlowerType2QuiverInPlaneLayer(int numVerticesInCenterPolygon, int layerIndex, int firstVertex = DefaultFirstVertex)
+            => UsefulQuivers.GetVerticesInEvenFlowerType2QuiverLayer(numVerticesInCenterPolygon, layerIndex, firstVertex);
+        #endregion
+
         #region Pointed flower
         public static bool PointedFlowerParameterIsValid(int numPeriods) => UsefulQuivers.PointedFlowerParameterIsValid(numPeriods);
 

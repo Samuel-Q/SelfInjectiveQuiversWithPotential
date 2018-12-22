@@ -698,6 +698,13 @@ namespace SelfInjectiveQuiversWithPotentialWinForms
                     validateParameter = param => UsefulQuiversInPlane.EvenFlowerType1ParameterIsValid(param);
                     parameterValidityDescription = UsefulQuiversInPlane.EvenFlowerType1ParameterValidityDescription;
                     break;
+                case PredefinedQuiver.EvenFlowerType2:
+                    var evenFlowerType2Dialog = new PredefinedEvenFlowerType2Dialog();
+                    dialog = evenFlowerType2Dialog;
+                    getQuiverParameter = () => evenFlowerType2Dialog.NumVerticesInCenterPolygon;
+                    validateParameter = param => UsefulQuiversInPlane.EvenFlowerType2ParameterIsValid(param);
+                    parameterValidityDescription = UsefulQuiversInPlane.EvenFlowerType2ParameterValidityDescription;
+                    break;
                 case PredefinedQuiver.PointedFlower:
                     var pointedFlowerDialog = new PredefinedPointedFlowerDialog();
                     dialog = pointedFlowerDialog;

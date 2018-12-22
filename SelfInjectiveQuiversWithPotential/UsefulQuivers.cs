@@ -250,6 +250,54 @@ namespace SelfInjectiveQuiversWithPotential
         }
         #endregion
 
+        #region Even flower, type 2
+        public static bool EvenFlowerType2ParameterIsValid(int numVerticesInCenterPolygon)
+        {
+            return numVerticesInCenterPolygon >= 4 && numVerticesInCenterPolygon.Modulo(2) == 0;
+        }
+
+        public static string EvenFlowerType2ParameterValidityDescription
+            => "The number of vertices in the center polygon must be an even number greater than or equal to 4.";
+
+        public static int GetNumberOfLayersInEvenFlowerType2Quiver(int numVerticesInCenterPolygon)
+        {
+            if (!EvenFlowerType2ParameterIsValid(numVerticesInCenterPolygon)) throw new ArgumentOutOfRangeException(nameof(numVerticesInCenterPolygon));
+            return numVerticesInCenterPolygon / 2;
+        }
+
+        public static Quiver<int> GetEvenFlowerType2Quiver(int numVerticesInCenterPolygon, int firstVertex = DefaultFirstVertex)
+        {
+            if (!EvenFlowerType2ParameterIsValid(numVerticesInCenterPolygon)) throw new ArgumentOutOfRangeException(nameof(numVerticesInCenterPolygon));
+
+            // Sort of backwards to construct the entire QP only to return just the quiver
+            // But this reduces duplicated logic
+            var qp = UsefulQPs.GetEvenFlowerType2QP(numVerticesInCenterPolygon, firstVertex);
+            return qp.Quiver;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="numVerticesInCenterPolygon"></param>
+        /// <param name="layerIndex">The 0-based layer index.</param>
+        /// <param name="firstVertex"></param>
+        /// <returns></returns>
+        public static IEnumerable<int> GetVerticesInEvenFlowerType2QuiverLayer(int numVerticesInCenterPolygon, int layerIndex, int firstVertex = DefaultFirstVertex)
+        {
+            if (!EvenFlowerType2ParameterIsValid(numVerticesInCenterPolygon)) throw new ArgumentOutOfRangeException(nameof(numVerticesInCenterPolygon));
+            int numLayers = GetNumberOfLayersInEvenFlowerType2Quiver(numVerticesInCenterPolygon);
+            if (layerIndex < 0 || layerIndex >= numLayers) throw new ArgumentOutOfRangeException(nameof(layerIndex));
+
+            int numVerticesInFullInnerLayer = 2 * numVerticesInCenterPolygon;
+            int numVerticesInOuterLayer = 3 * numVerticesInCenterPolygon;
+
+            if (layerIndex == 0) return Enumerable.Range(firstVertex, numVerticesInCenterPolygon);
+            int startVertex = layerIndex * numVerticesInFullInnerLayer - numVerticesInCenterPolygon + firstVertex;
+            int numVertices = layerIndex < numLayers - 1 ? numVerticesInFullInnerLayer : numVerticesInOuterLayer;
+            return Enumerable.Range(startVertex, numVertices);
+        }
+        #endregion
+
         #region Pointed flower
         public static bool PointedFlowerParameterIsValid(int numPeriods)
         {

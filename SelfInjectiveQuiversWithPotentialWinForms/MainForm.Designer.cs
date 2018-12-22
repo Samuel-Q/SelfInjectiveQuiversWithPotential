@@ -90,6 +90,7 @@
             this.lblCenterOfCanvas = new System.Windows.Forms.Label();
             this.lblMousePointerOnCanvasLocation = new System.Windows.Forms.Label();
             this.canvas = new SelfInjectiveQuiversWithPotentialWinForms.Canvas();
+            this.evenFlowerType2ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nudVertexToAdd)).BeginInit();
             this.grpTools.SuspendLayout();
@@ -131,6 +132,7 @@
             this.cobwebToolStripMenuItem,
             this.oddFlowerToolStripMenuItem,
             this.evenFlowerType1ToolStripMenuItem,
+            this.evenFlowerType2ToolStripMenuItem,
             this.pointedFlowerToolStripMenuItem,
             this.separatorToolStripMenuItem2,
             this.generalizedCobwebToolStripMenuItem});
@@ -640,6 +642,12 @@
             this.canvas.Size = new System.Drawing.Size(770, 776);
             this.canvas.TabIndex = 1;
             // 
+            // evenFlowerType2ToolStripMenuItem
+            // 
+            this.evenFlowerType2ToolStripMenuItem.Name = "evenFlowerType2ToolStripMenuItem";
+            this.evenFlowerType2ToolStripMenuItem.Size = new System.Drawing.Size(189, 22);
+            this.evenFlowerType2ToolStripMenuItem.Text = "Even flower, type 2...";
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -746,6 +754,7 @@
         private System.Windows.Forms.ToolStripMenuItem rotateVerticesToolStripMenuItem;
         private System.Windows.Forms.Label lblMousePointerOnCanvasLocation;
         private System.Windows.Forms.Label lblAnalysisMainResultStatic;
+        private System.Windows.Forms.ToolStripMenuItem evenFlowerType2ToolStripMenuItem;
     }
 }
 
