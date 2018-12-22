@@ -379,6 +379,101 @@ namespace SelfInjectiveQuiversWithPotentialTests
         }
         #endregion
 
+        #region Even flower, type 2
+        [TestCase(0)]
+        [TestCase(-1)]
+        [TestCase(-5)]
+        [TestCase(-6)]
+        [TestCase(1)]
+        [TestCase(2)]
+        [TestCase(3)]
+        [TestCase(5)]
+        [TestCase(19)]
+        public void GetNumberOfLayersInEvenFlowerType2QP_ThrowsOnBadNumberOfVerticesInCenterPolygon(int numVerticesInCenterPolygon)
+        {
+            Assert.That(() => UsefulQPs.GetNumberOfLayersInEvenFlowerType2QP(numVerticesInCenterPolygon), Throws.InstanceOf<ArgumentOutOfRangeException>());
+        }
+
+        [TestCase(4, 2)]
+        [TestCase(6, 3)]
+        [TestCase(8, 4)]
+        [TestCase(10, 5)]
+        public void GetNumberOfLayersInEvenFlowerType2QP_Works(int numVerticesInCenterPolygon, int expectedNumLayers)
+        {
+            Assert.That(UsefulQPs.GetNumberOfLayersInEvenFlowerType2QP(numVerticesInCenterPolygon), Is.EqualTo(expectedNumLayers));
+        }
+
+        [TestCase(0)]
+        [TestCase(-1)]
+        [TestCase(-5)]
+        [TestCase(-6)]
+        [TestCase(1)]
+        [TestCase(3)]
+        [TestCase(5)]
+        [TestCase(19)]
+        public void GetVerticesInEvenFlowerType2QPLayer_ThrowsOnBadNumberOfVerticesInCenterPolygon(int numVerticesInCenterPolygon)
+        {
+            int layerIndex = 0;
+            Assert.That(() => UsefulQPs.GetVerticesInEvenFlowerType2QPLayer(numVerticesInCenterPolygon, layerIndex), Throws.InstanceOf<ArgumentOutOfRangeException>());
+        }
+
+        [TestCase(-1)]
+        [TestCase(-2)]
+        [TestCase(-5)]
+        [TestCase(Int32.MinValue)]
+        public void GetVerticesInEvenFlowerType2QPLayer_ThrowsOnBadLayerIndex(int layerIndex)
+        {
+            int numVerticesInCenterPolygon = 6;
+            Assert.That(() => UsefulQPs.GetVerticesInEvenFlowerType2QPLayer(numVerticesInCenterPolygon, layerIndex), Throws.InstanceOf<ArgumentOutOfRangeException>());
+        }
+
+        [TestCase(4, 0, 0, new int[] { 0, 1, 2, 3 })]
+        [TestCase(4, 0, 1, new int[] { 1, 2, 3, 4 })]
+        [TestCase(4, 0, 10, new int[] { 10, 11, 12, 13 })]
+        [TestCase(4, 0, -1, new int[] { -1, 0, 1, 2 })]
+        [TestCase(4, 0, -10, new int[] { -10, -9, -8, -7 })]
+        [TestCase(4, 1, 0, new int[] { 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15 })]
+        [TestCase(4, 1, 1, new int[] { 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16 })]
+        [TestCase(4, 1, 10, new int[] { 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25 })]
+        [TestCase(4, 1, -1, new int[] { 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14 })]
+        [TestCase(4, 1, -10, new int[] { -6, -5, -4, -3, -2, -1, 0, 1, 2, 3, 4, 5 })]
+        [TestCase(6, 0, 0, new int[] { 0, 1, 2, 3, 4, 5 })]
+        [TestCase(6, 0, 1, new int[] { 1, 2, 3, 4, 5, 6 })]
+        [TestCase(6, 0, 10, new int[] { 10, 11, 12, 13, 14, 15 })]
+        [TestCase(6, 0, -1, new int[] { -1, 0, 1, 2, 3, 4 })]
+        [TestCase(6, 0, -10, new int[] { -10, -9, -8, -7, -6, -5 })]
+        [TestCase(6, 1, 0, new int[] { 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17 })]
+        [TestCase(6, 1, 1, new int[] { 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18 })]
+        [TestCase(6, 1, 10, new int[] { 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27 })]
+        [TestCase(6, 1, -1, new int[] { 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16 })]
+        [TestCase(6, 1, -10, new int[] { -4, -3, -2, -1, 0, 1, 2, 3, 4, 5, 6, 7 })]
+        [TestCase(6, 2, 0, new int[] { 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35 })]
+        [TestCase(6, 2, 1, new int[] { 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36 })]
+        [TestCase(6, 2, 10, new int[] { 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45 })]
+        [TestCase(6, 2, -1, new int[] { 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34 })]
+        [TestCase(6, 2, -10, new int[] { 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25 })]
+        [TestCase(8, 0, 0, new int[] { 0, 1, 2, 3, 4, 5, 6, 7 })]
+        [TestCase(8, 0, 1, new int[] { 1, 2, 3, 4, 5, 6, 7, 8 })]
+        [TestCase(8, 0, 10, new int[] { 10, 11, 12, 13, 14, 15, 16, 17 })]
+        [TestCase(8, 0, -1, new int[] { -1, 0, 1, 2, 3, 4, 5, 6 })]
+        [TestCase(8, 0, -10, new int[] { -10, -9, -8, -7, -6, -5, -4, -3 })]
+        [TestCase(8, 1, 0, new int[] { 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23 })]
+        [TestCase(8, 1, 1, new int[] { 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24 })]
+        [TestCase(8, 1, 10, new int[] { 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33 })]
+        [TestCase(8, 1, -1, new int[] { 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22 })]
+        [TestCase(8, 1, -10, new int[] { -2, -1, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13 })]
+        [TestCase(8, 2, 0, new int[] { 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39 })]
+        [TestCase(8, 2, 1, new int[] { 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40 })]
+        [TestCase(8, 2, 10, new int[] { 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49 })]
+        [TestCase(8, 2, -1, new int[] { 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38 })]
+        [TestCase(8, 2, -10, new int[] { 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29 })]
+        public void GetVerticesInEvenFlowerType2QPLayer_Works(int numVerticesInCenterPolygon, int layerIndex, int firstVertex, params int[] expectedVertices)
+        {
+            var actualVertices = UsefulQPs.GetVerticesInEvenFlowerType2QPLayer(numVerticesInCenterPolygon, layerIndex, firstVertex);
+            Assert.That(actualVertices, Is.EqualTo(expectedVertices));
+        }
+        #endregion
+
         #region Pointed flower
         [TestCase(0)]
         [TestCase(-1)]
@@ -567,6 +662,13 @@ namespace SelfInjectiveQuiversWithPotentialTests
         }
 
         [Test]
+        public void EvenFlowersOfType2_AreSelfInjective()
+        {
+            var qps = Utility.InfiniteRange(4, 2).Select(k => UsefulQPs.GetEvenFlowerType2QP(k)).TakeWhile(qp => qp.Quiver.Vertices.Count <= 36);
+            AssertAreSelfInjective(qps);
+        }
+
+        [Test]
         public void PointedFlowers_AreSelfInjective()
         {
             var qps = Utility.InfiniteRange(3, 2).Select(k => UsefulQPs.GetPointedFlowerQP(k)).TakeWhile(qp => qp.Quiver.Vertices.Count <= 50);
@@ -618,6 +720,14 @@ namespace SelfInjectiveQuiversWithPotentialTests
         {
             const int FirstVertex = -123;
             var qps = Utility.InfiniteRange(4, 2).Select(k => UsefulQPs.GetEvenFlowerType1QP(k, FirstVertex)).TakeWhile(qp => qp.Quiver.Vertices.Count <= 36);
+            AssertAreSelfInjective(qps);
+        }
+
+        [Test]
+        public void EvenFlowersOfType2_AreSelfInjective_WithUnusualFirstVertex()
+        {
+            const int FirstVertex = -123;
+            var qps = Utility.InfiniteRange(4, 2).Select(k => UsefulQPs.GetEvenFlowerType2QP(k, FirstVertex)).TakeWhile(qp => qp.Quiver.Vertices.Count <= 36);
             AssertAreSelfInjective(qps);
         }
 

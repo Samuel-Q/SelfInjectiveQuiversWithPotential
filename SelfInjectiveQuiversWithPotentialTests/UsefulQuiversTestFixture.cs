@@ -673,6 +673,161 @@ namespace SelfInjectiveQuiversWithPotentialTests
         }
         #endregion
 
+        #region Even flower, type 2
+        [TestCase(0)]
+        [TestCase(-1)]
+        [TestCase(-5)]
+        [TestCase(-6)]
+        [TestCase(1)]
+        [TestCase(2)]
+        [TestCase(3)]
+        [TestCase(5)]
+        [TestCase(19)]
+        public void GetNumberOfLayersInEvenFlowerType2Quiver_ThrowsOnBadNumberOfVerticesInCenterPolygon(int numVerticesInCenterPolygon)
+        {
+            Assert.That(() => UsefulQuivers.GetNumberOfLayersInEvenFlowerType2Quiver(numVerticesInCenterPolygon), Throws.InstanceOf<ArgumentOutOfRangeException>());
+        }
+
+        [TestCase(4, 2)]
+        [TestCase(6, 3)]
+        [TestCase(8, 4)]
+        [TestCase(10, 5)]
+        public void GetNumberOfLayersInEvenFlowerType2Quiver_Works(int numVerticesInCenterPolygon, int expectedNumLayers)
+        {
+            Assert.That(UsefulQuivers.GetNumberOfLayersInEvenFlowerType2Quiver(numVerticesInCenterPolygon), Is.EqualTo(expectedNumLayers));
+        }
+
+        [TestCase(0)]
+        [TestCase(-1)]
+        [TestCase(-5)]
+        [TestCase(-6)]
+        [TestCase(1)]
+        [TestCase(2)]
+        [TestCase(3)]
+        [TestCase(5)]
+        [TestCase(19)]
+        public void GetEvenFlowerType2Quiver_ThrowsOnBadNumberOfVerticesInCenterPolygon(int numVerticesInCenterPolygon)
+        {
+            Assert.That(() => UsefulQuivers.GetEvenFlowerType2Quiver(numVerticesInCenterPolygon), Throws.InstanceOf<ArgumentOutOfRangeException>());
+        }
+
+        [TestCase(4, 0)]
+        [TestCase(4, 1)]
+        [TestCase(4, 10)]
+        [TestCase(4, -1)]
+        [TestCase(4, -10)]
+        [TestCase(6, 0)]
+        [TestCase(6, 1)]
+        [TestCase(6, 10)]
+        [TestCase(6, -1)]
+        [TestCase(6, -10)]
+        [TestCase(12, 0)]
+        [TestCase(12, 1)]
+        [TestCase(12, 10)]
+        [TestCase(12, -1)]
+        [TestCase(12, -10)]
+        public void GetEvenFlowerType2Quiver_QuiverHasCorrectVertices(int numVerticesInCenterPolygon, int firstVertex)
+        {
+            int expectedNumLayers = numVerticesInCenterPolygon / 2; // One small layer, one outer layer of three times the small layer size, and the rest normal full layer
+            int expectedNumVerticesInNormalFullLayer = 2 * numVerticesInCenterPolygon;
+            int expectedNumVerticesInOuterLayer = 3 * numVerticesInCenterPolygon;
+            int expectedNumVertices = numVerticesInCenterPolygon + (expectedNumLayers - 2) * expectedNumVerticesInNormalFullLayer + expectedNumVerticesInOuterLayer;
+            var expectedVertices = Enumerable.Range(firstVertex, expectedNumVertices);
+            var quiver = UsefulQuivers.GetEvenFlowerType2Quiver(numVerticesInCenterPolygon, firstVertex);
+            CollectionAssert.AreEquivalent(expectedVertices, quiver.Vertices);
+        }
+
+        [TestCase(4, 24)] // 4+8+12: 4 in the center polygon, 8 "vertical" arrows, and 12 horizontal arrows in the outer layer                   (24 = 3*8  here, and 21 = 3*7  for OddFlower(3))
+        [TestCase(6, 60)] // 30+12+18: 30 in the cobweb, 12 vertical arrows to/from the outer layer, and 18 horizontal arrows in the outer layer (60 = 5*12 here, and 55 = 5*11 for OddFlower(5))
+        public void GetEvenFlowerType2Quiver_QuiverHasCorrectNumberOfArrows(int numVerticesInCenterPolygon, int expectedNumArrows)
+        {
+            var quiver = UsefulQuivers.GetEvenFlowerType2Quiver(numVerticesInCenterPolygon);
+            Assert.That(quiver.Arrows.Count, Is.EqualTo(expectedNumArrows));
+            quiver = UsefulQuivers.GetEvenFlowerType2Quiver(numVerticesInCenterPolygon, 0);
+            Assert.That(quiver.Arrows.Count, Is.EqualTo(expectedNumArrows));
+            quiver = UsefulQuivers.GetEvenFlowerType2Quiver(numVerticesInCenterPolygon, -6);
+            Assert.That(quiver.Arrows.Count, Is.EqualTo(expectedNumArrows));
+        }
+
+        [TestCase(0)]
+        [TestCase(-1)]
+        [TestCase(-5)]
+        [TestCase(-6)]
+        [TestCase(1)]
+        [TestCase(2)]
+        [TestCase(3)]
+        [TestCase(5)]
+        [TestCase(19)]
+        public void GetVerticesInEvenFlowerType2QuiverLayer_ThrowsOnBadNumberOfVerticesInCenterPolygon(int numVerticesInCenterPolygon)
+        {
+            int layerIndex = 0;
+            Assert.That(() => UsefulQuivers.GetVerticesInEvenFlowerType2QuiverLayer(numVerticesInCenterPolygon, layerIndex), Throws.InstanceOf<ArgumentOutOfRangeException>());
+        }
+
+        [TestCase(4, Int32.MinValue)]
+        [TestCase(4, -2)]
+        [TestCase(4, -1)]
+        [TestCase(4, 2)]
+        [TestCase(4, 3)]
+        [TestCase(4, Int32.MaxValue)]
+        [TestCase(6, Int32.MinValue)]
+        [TestCase(6, -2)]
+        [TestCase(6, -1)]
+        [TestCase(6, 3)]
+        [TestCase(6, 4)]
+        [TestCase(6, Int32.MaxValue)]
+        public void GetVerticesInEvenFlowerType2QuiverLayer_ThrowsOnBadLayerIndex(int numVerticesInCenterPolygon, int layerIndex)
+        {
+            Assert.That(() => UsefulQuivers.GetVerticesInEvenFlowerType2QuiverLayer(numVerticesInCenterPolygon, layerIndex), Throws.InstanceOf<ArgumentOutOfRangeException>());
+        }
+
+        [TestCase(4, 0, 0, new int[] { 0, 1, 2, 3 })]
+        [TestCase(4, 0, 1, new int[] { 1, 2, 3, 4 })]
+        [TestCase(4, 0, 10, new int[] { 10, 11, 12, 13 })]
+        [TestCase(4, 0, -1, new int[] { -1, 0, 1, 2 })]
+        [TestCase(4, 0, -10, new int[] { -10, -9, -8, -7 })]
+        [TestCase(4, 1, 0, new int[] { 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15 })]
+        [TestCase(4, 1, 1, new int[] { 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16 })]
+        [TestCase(4, 1, 10, new int[] { 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25 })]
+        [TestCase(4, 1, -1, new int[] { 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14 })]
+        [TestCase(4, 1, -10, new int[] { -6, -5, -4, -3, -2, -1, 0, 1, 2, 3, 4, 5 })]
+        [TestCase(6, 0, 0, new int[] { 0, 1, 2, 3, 4, 5 })]
+        [TestCase(6, 0, 1, new int[] { 1, 2, 3, 4, 5, 6 })]
+        [TestCase(6, 0, 10, new int[] { 10, 11, 12, 13, 14, 15 })]
+        [TestCase(6, 0, -1, new int[] { -1, 0, 1, 2, 3, 4 })]
+        [TestCase(6, 0, -10, new int[] { -10, -9, -8, -7, -6, -5 })]
+        [TestCase(6, 1, 0, new int[] { 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17 })]
+        [TestCase(6, 1, 1, new int[] { 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18 })]
+        [TestCase(6, 1, 10, new int[] { 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27 })]
+        [TestCase(6, 1, -1, new int[] { 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16 })]
+        [TestCase(6, 1, -10, new int[] { -4, -3, -2, -1, 0, 1, 2, 3, 4, 5, 6, 7 })]
+        [TestCase(6, 2, 0, new int[] { 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35 })]
+        [TestCase(6, 2, 1, new int[] { 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36 })]
+        [TestCase(6, 2, 10, new int[] { 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45 })]
+        [TestCase(6, 2, -1, new int[] { 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34 })]
+        [TestCase(6, 2, -10, new int[] { 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25 })]
+        [TestCase(8, 0, 0, new int[] { 0, 1, 2, 3, 4, 5, 6, 7 })]
+        [TestCase(8, 0, 1, new int[] { 1, 2, 3, 4, 5, 6, 7, 8 })]
+        [TestCase(8, 0, 10, new int[] { 10, 11, 12, 13, 14, 15, 16, 17 })]
+        [TestCase(8, 0, -1, new int[] { -1, 0, 1, 2, 3, 4, 5, 6 })]
+        [TestCase(8, 0, -10, new int[] { -10, -9, -8, -7, -6, -5, -4, -3 })]
+        [TestCase(8, 1, 0, new int[] { 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23 })]
+        [TestCase(8, 1, 1, new int[] { 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24 })]
+        [TestCase(8, 1, 10, new int[] { 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33 })]
+        [TestCase(8, 1, -1, new int[] { 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22 })]
+        [TestCase(8, 1, -10, new int[] { -2, -1, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13 })]
+        [TestCase(8, 2, 0, new int[] { 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39 })]
+        [TestCase(8, 2, 1, new int[] { 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40 })]
+        [TestCase(8, 2, 10, new int[] { 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49 })]
+        [TestCase(8, 2, -1, new int[] { 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38 })]
+        [TestCase(8, 2, -10, new int[] { 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29 })]
+        public void GetVerticesInEvenFlowerType2QuiverLayer_Works(int numVerticesInCenterPolygon, int layerIndex, int firstVertex, params int[] expectedVertices)
+        {
+            var actualVertices = UsefulQuivers.GetVerticesInEvenFlowerType2QuiverLayer(numVerticesInCenterPolygon, layerIndex, firstVertex);
+            Assert.That(actualVertices, Is.EqualTo(expectedVertices));
+        }
+        #endregion
+
         #region Pointed flower
         [TestCase(0)]
         [TestCase(-1)]
