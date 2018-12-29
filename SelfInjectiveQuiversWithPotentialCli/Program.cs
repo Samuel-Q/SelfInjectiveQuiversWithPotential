@@ -38,19 +38,18 @@ namespace SelfInjectiveQuiversWithPotentialCli
         /// <param name="taskIndex">Output parameter for the zero-based task index obtained from
         /// the user.</param>
         /// <returns><see langword="true"/> if the user (eventually) entered a task index.
-        /// <see langword="false"/> if the user entered the &quot;no task&quot; index.</returns>
+        /// <see langword="false"/> if the user specified the exit option.</returns>
         private static bool TryGetTaskIndex(ITask[] tasks, out int taskIndex)
         {
             while (true)
             {
                 PrintTasks(tasks);
+                Console.Write("Task: ");
+                string taskIndexString = Console.ReadLine();
 
-                Console.Write("Specify a task: ");
-                string taskNumberString = Console.ReadLine();
-
-                if (!int.TryParse(taskNumberString, out int oneBasedTaskIndex))
+                if (!int.TryParse(taskIndexString, out int oneBasedTaskIndex))
                 {
-                    Console.WriteLine($"Failed to parse '{taskNumberString}' as an integer.");
+                    Console.WriteLine($"Failed to parse '{taskIndexString}' as an integer.");
                     continue;
                 }
 
@@ -66,7 +65,7 @@ namespace SelfInjectiveQuiversWithPotentialCli
         }
 
         /// <summary>
-        /// Prints the tasks and their one-based indices, including an &quot;exit task&quot;.
+        /// Prints the tasks and their one-based indices, including an exit option.
         /// </summary>
         /// <param name="tasks">The tasks to print.</param>
         private static void PrintTasks(ITask[] tasks)
