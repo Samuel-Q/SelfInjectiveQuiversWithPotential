@@ -24,9 +24,9 @@ namespace SelfInjectiveQuiversWithPotentialTests
             return new QPAnalysisSettings(detectNonCancellativity: true);
         }
 
-        private static QPAnalysisSettings CreateSettings(int maxPathLength)
+        private static QPAnalysisSettings CreateSettings(int maxPathLength, EarlyTerminationCondition earlyTerminationCondition)
         {
-            return new QPAnalysisSettings(detectNonCancellativity: true, maxPathLength);
+            return new QPAnalysisSettings(detectNonCancellativity: true, maxPathLength, earlyTerminationCondition);
         }
 
         private static KnownSelfInjectiveQPs CreateKnownSelfInjectiveQPs()
@@ -343,7 +343,7 @@ namespace SelfInjectiveQuiversWithPotentialTests
             });
             var qp = new QuiverWithPotential<int>(potential);
             var analyzer = CreateAnalyzer();
-            var settings = CreateSettings(maxPathLength: 20);
+            var settings = CreateSettings(maxPathLength: 20, EarlyTerminationCondition.None);
             Assert.That(() => analyzer.Analyze(qp, settings), Throws.Nothing);
         }
 
@@ -374,7 +374,7 @@ namespace SelfInjectiveQuiversWithPotentialTests
             });
             var qp = new QuiverWithPotential<int>(potential);
             var analyzer = CreateAnalyzer();
-            var settings = CreateSettings(maxPathLength: 20);
+            var settings = CreateSettings(maxPathLength: 20, EarlyTerminationCondition.None);
             Assert.That(() => analyzer.Analyze(qp, settings), Throws.Nothing);
         }
     }

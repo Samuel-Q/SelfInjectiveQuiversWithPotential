@@ -12,22 +12,34 @@ namespace SelfInjectiveQuiversWithPotential.Analysis
     /// </summary>
     public static class AnalysisSettingsFactory
     {
-        public static SemimonomialUnboundQuiverAnalysisSettings CreateSemimonomialUnboundQuiverAnalysisSettings(QPAnalysisSettings settings)
-        {
-            if (settings is null) throw new ArgumentNullException(nameof(settings));
-
-            return new SemimonomialUnboundQuiverAnalysisSettings(
-                settings.DetectNonCancellativity,
-                settings.MaxPathLength);
-        }
-
         public static MaximalNonzeroEquivalenceClassRepresentativeComputationSettings CreateMaximalNonzeroEquivalenceClassRepresentativeComputationSettings(SemimonomialUnboundQuiverAnalysisSettings settings)
         {
             if (settings is null) throw new ArgumentNullException(nameof(settings));
 
             return new MaximalNonzeroEquivalenceClassRepresentativeComputationSettings(
                 settings.DetectNonCancellativity,
-                settings.MaxPathLength);
+                settings.MaxPathLength,
+                settings.EarlyTerminationCondition);
+        }
+
+        public static SemimonomialUnboundQuiverAnalysisSettings CreateSemimonomialUnboundQuiverAnalysisSettings(QPAnalysisSettings settings)
+        {
+            if (settings is null) throw new ArgumentNullException(nameof(settings));
+
+            return new SemimonomialUnboundQuiverAnalysisSettings(
+                settings.DetectNonCancellativity,
+                settings.MaxPathLength,
+                settings.EarlyTerminationCondition);
+        }
+
+        public static QPAnalysisSettings CreateQPAnalysisSettings(QuiverInPlaneAnalysisSettings settings)
+        {
+            if (settings is null) throw new ArgumentNullException(nameof(settings));
+
+            return new QPAnalysisSettings(
+                settings.DetectNonCancellativity,
+                settings.MaxPathLength,
+                settings.EarlyTerminationCondition);
         }
     }
 }

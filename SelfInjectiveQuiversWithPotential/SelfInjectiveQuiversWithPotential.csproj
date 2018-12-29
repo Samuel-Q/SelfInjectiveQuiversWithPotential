@@ -72,6 +72,7 @@
     <Compile Include="Analysis\AnalysisResultsForSingleStartingVertex.cs" />
     <Compile Include="Analysis\AnalysisSettingsFactory.cs" />
     <Compile Include="Analysis\AnalysisStateForSingleStartingVertex.cs" />
+    <Compile Include="Analysis\EarlyTerminationCondition.cs" />
     <Compile Include="Analysis\IMaximalNonzeroEquivalenceClassRepresentativeComputer.cs" />
     <Compile Include="Analysis\MaximalNonzeroEquivalenceClassRepresentativeComputer.cs" />
     <Compile Include="Analysis\MaximalNonzeroEquivalenceClassRepresentativeComputationSettings.cs" />

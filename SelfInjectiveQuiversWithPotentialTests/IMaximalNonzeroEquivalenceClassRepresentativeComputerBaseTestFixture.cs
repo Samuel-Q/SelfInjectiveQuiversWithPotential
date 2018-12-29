@@ -39,16 +39,18 @@ namespace SelfInjectiveQuiversWithPotentialTests
 
         private MaximalNonzeroEquivalenceClassRepresentativeComputationSettings GetSettings(
             bool detectNonCancellativity = false,
-            int maxPathLength = -1)
+            int maxPathLength = -1,
+            EarlyTerminationCondition earlyTerminationCondition = EarlyTerminationCondition.None)
         {
-            return new MaximalNonzeroEquivalenceClassRepresentativeComputationSettings(detectNonCancellativity, maxPathLength);
+            return new MaximalNonzeroEquivalenceClassRepresentativeComputationSettings(detectNonCancellativity, maxPathLength, earlyTerminationCondition);
         }
 
         private QPAnalysisSettings GetQPAnalysisSettings(
             bool detectNonCancellativity = false,
-            int maxPathLength = -1)
+            int maxPathLength = -1,
+            EarlyTerminationCondition earlyTerminationCondition = EarlyTerminationCondition.None)
         {
-            return new QPAnalysisSettings(detectNonCancellativity, maxPathLength);
+            return new QPAnalysisSettings(detectNonCancellativity, maxPathLength, earlyTerminationCondition);
         }
 
         private void DoSetup(QuiverWithPotential<int> qp, out TransformationRuleTreeNode<int> ruleTree)

@@ -50,7 +50,7 @@ namespace SelfInjectiveQuiversWithPotential.Analysis
             }
 
             var analyzer = new QPAnalyzer();
-            var qpAnalyzerSettings = new QPAnalysisSettings(settings.DetectNonCancellativity, settings.MaxPathLength);
+            var qpAnalyzerSettings = AnalysisSettingsFactory.CreateQPAnalysisSettings(settings);
             var qpAnalysisResults = analyzer.Analyze(qp, qpAnalyzerSettings);
             var analysisResults = AnalysisResultsFactory.CreateQuiverInPlaneAnalysisResults(qpAnalysisResults);
             return analysisResults;
