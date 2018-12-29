@@ -13,6 +13,8 @@ namespace SelfInjectiveQuiversWithPotential.Analysis
     [Flags]
     public enum QPAnalysisMainResult
     {
+        None = 0,
+
         /// <summary>
         /// Indicates that the analysis was successful (but the QP was not necessarily self-injective).
         /// </summary>

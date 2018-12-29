@@ -13,6 +13,8 @@ namespace SelfInjectiveQuiversWithPotential.Analysis
     [Flags]
     public enum SemimonomialUnboundQuiverAnalysisMainResult
     {
+        None = 0,
+
         /// <summary>
         /// Indicates that the analysis was successful (but the semimonomial unbound quiver was not
         /// necessarily self-injective).

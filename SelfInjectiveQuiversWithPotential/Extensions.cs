@@ -18,7 +18,14 @@ namespace SelfInjectiveQuiversWithPotential
 
         public static ISet<T> ToSet<T>(this IEnumerable<T> enumerable)
         {
+            if (enumerable is null) throw new ArgumentNullException(nameof(enumerable));
             return new HashSet<T>(enumerable);
+        }
+
+        public static IReadOnlyDictionary<TKey, TValue> ToReadOnlyDictionary<TKey, TValue>(this IDictionary<TKey, TValue> dictionary)
+        {
+            if (dictionary is null) throw new ArgumentNullException(nameof(dictionary));
+            return dictionary.ToDictionary(pair => pair.Key, pair => pair.Value);
         }
 
         /// <summary>

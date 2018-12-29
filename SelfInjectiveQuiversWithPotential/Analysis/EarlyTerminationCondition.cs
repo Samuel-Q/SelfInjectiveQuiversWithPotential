@@ -37,6 +37,6 @@ namespace SelfInjectiveQuiversWithPotential.Analysis
         /// The condition that the tentative Nakayama permutation is found not to be a permutation
         /// (i.e., non-injective).
         /// </summary>
-        PermutationFails = 0x08
+        PermutationFails = 0x08,
     }
 }

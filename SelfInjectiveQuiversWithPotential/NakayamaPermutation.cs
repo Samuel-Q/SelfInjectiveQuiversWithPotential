@@ -72,6 +72,35 @@ namespace SelfInjectiveQuiversWithPotential
         }
 
         /// <summary>
+        /// Initializes a new instance of the <see cref="NakayamaPermutation{TVertex}"/> class.
+        /// </summary>
+        /// <param name="nakayamaPermutation">The Nakayama permutation represented by a dictionary.</param>
+        /// <exception cref="ArgumentNullException"><paramref name="nakayamaPermutation"/> is
+        /// <see langword="null"/>.</exception>
+        /// <exception cref="ArgumentException"><paramref name="nakayamaPermutation"/> does not
+        /// represent a permutation.</exception>
+        public NakayamaPermutation(IDictionary<TVertex, TVertex> nakayamaPermutation)
+        {
+            if (nakayamaPermutation is null) throw new ArgumentNullException(nameof(nakayamaPermutation));
+            UnderlyingDictionary = nakayamaPermutation.ToDictionary(p => p.Key, p => p.Value);
+            if (!nakayamaPermutation.Keys.EqualUpToOrder(nakayamaPermutation.Values))
+            {
+                throw new ArgumentException("The dictionary does not represent a permutation.", nameof(nakayamaPermutation));
+            }
+        }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="NakayamaPermutation{TVertex}"/> class.
+        /// </summary>
+        /// <param name="nakayamaPermutation">The Nakayama permutation represented by a dictionary.</param>
+        /// <exception cref="ArgumentNullException"><paramref name="nakayamaPermutation"/> is
+        /// <see langword="null"/>.</exception>
+        /// <exception cref="ArgumentException"><paramref name="nakayamaPermutation"/> does not
+        /// represent a permutation.</exception>
+        public NakayamaPermutation(Dictionary<TVertex, TVertex> nakayamaPermutation) : this((IReadOnlyDictionary<TVertex, TVertex>)nakayamaPermutation)
+        { }
+
+        /// <summary>
         /// Gets the orbit of a vertex.
         /// </summary>
         /// <param name="vertex">The vertex whose orbit to get.</param>

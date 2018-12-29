@@ -16,6 +16,8 @@ namespace SelfInjectiveQuiversWithPotential.Analysis
     [Flags]
     public enum QuiverInPlaneAnalysisMainResult
     {
+        None = 0,
+
         /// <summary>
         /// The analysis was successful (but the quiver in plane does not necessarily induce a QP
         /// that is self-injective).

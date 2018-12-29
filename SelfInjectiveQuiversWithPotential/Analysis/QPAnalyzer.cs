@@ -101,6 +101,100 @@ namespace SelfInjectiveQuiversWithPotential.Analysis
             return results;
         }
 
+        /// <summary>
+        /// Analyzes a QP in a way that utilizes the &quot;periodicity&quot; of the QP and
+        /// concurrently.
+        /// </summary>
+        /// <typeparam name="TVertex">The type of the vertices of the quiver.</typeparam>
+        /// <param name="qp">The quiver with potential.</param>
+        /// <param name="periods">A collection of consecutive non-empty periods of the QP that are
+        /// jointly exhaustive and mutually exclusive.</param>
+        /// <param name="settings">The settings for the analysis.</param>
+        /// <returns>The results of the analysis.</returns>
+        /// <exception cref="ArgumentNullException"><paramref name="qp"/> is
+        /// <see langword="null"/>,
+        /// or <paramref name="periods"/> is <see langword="null"/>,
+        /// or <paramref name="settings"/> is <see langword="null"/>.</exception>
+        /// <exception cref="NotSupportedException">The potential of <paramref name="qp"/> has a
+        /// cycle with coefficient not equal to either of -1 and +1,
+        /// or some arrow occurs multiple times in a single cycle of the potential of
+        /// <paramref name="qp"/>.</exception>
+        /// <exception cref="ArgumentException">For some arrow in the potential of
+        /// <paramref name="qp"/> and sign, the arrow is contained in more than one cycle of that
+        /// sign, or some of the periods in <paramref name="periods"/> overlap, or the union of all
+        /// periods in <paramref name="periods"/> is not precisely the collection of all vertices
+        /// in the quiver.</exception>
+        /// <remarks>
+        /// <para>Some validation of <paramref name="periods"/> is done, but
+        /// <paramref name="periods"/> is not verified to constitute a sequence of consecutive
+        /// &quot;periods&quot; of the QP.</para>
+        /// </remarks>
+        public IQPAnalysisResults<TVertex> AnalyzeUtilizingPeriodicityConcurrently<TVertex>(
+            QuiverWithPotential<TVertex> qp,
+            IEnumerable<IEnumerable<TVertex>> periods,
+            QPAnalysisSettings settings)
+            where TVertex : IEquatable<TVertex>, IComparable<TVertex>
+        {
+            return AnalyzeUtilizingPeriodicityConcurrently(
+                qp,
+                periods,
+                settings,
+                defaultComputer);
+        }
+
+        /// <summary>
+        /// Analyzes a QP in a way that utilizes the &quot;periodicity&quot; of the QP and
+        /// concurrently. The analysis is done using a specified computer of maximal nonzero
+        /// equivalence class representatives.
+        /// </summary>
+        /// <typeparam name="TVertex">The type of the vertices of the quiver.</typeparam>
+        /// <param name="qp">The quiver with potential.</param>
+        /// <param name="periods">A collection of consecutive non-empty periods of the QP that are
+        /// jointly exhaustive and mutually exclusive.</param>
+        /// <param name="settings">The settings for the analysis.</param>
+        /// <param name="computer">A computer of maximal nonzero equivalence class representatives.</param>
+        /// <returns>The results of the analysis.</returns>
+        /// <exception cref="ArgumentNullException"><paramref name="qp"/> is
+        /// <see langword="null"/>,
+        /// or <paramref name="periods"/> is <see langword="null"/>,
+        /// or <paramref name="settings"/> is <see langword="null"/>,
+        /// or <paramref name="computer"/> is <see langword="null"/>.</exception>
+        /// <exception cref="NotSupportedException">The potential of <paramref name="qp"/> has a
+        /// cycle with coefficient not equal to either of -1 and +1,
+        /// or some arrow occurs multiple times in a single cycle of the potential of
+        /// <paramref name="qp"/>.</exception>
+        /// <exception cref="ArgumentException">For some arrow in the potential of
+        /// <paramref name="qp"/> and sign, the arrow is contained in more than one cycle of that
+        /// sign, or some of the periods in <paramref name="periods"/> overlap, or the union of all
+        /// periods in <paramref name="periods"/> is not precisely the collection of all vertices
+        /// in the quiver.</exception>
+        /// <remarks>
+        /// <para>Some validation of <paramref name="periods"/> is done, but
+        /// <paramref name="periods"/> is not verified to constitute a sequence of consecutive
+        /// &quot;periods&quot; of the QP.</para>
+        /// </remarks>
+        public IQPAnalysisResults<TVertex> AnalyzeUtilizingPeriodicityConcurrently<TVertex>(
+            QuiverWithPotential<TVertex> qp,
+            IEnumerable<IEnumerable<TVertex>> periods,
+            QPAnalysisSettings settings,
+            IMaximalNonzeroEquivalenceClassRepresentativeComputer computer)
+            where TVertex : IEquatable<TVertex>, IComparable<TVertex>
+        {
+            if (qp is null) throw new ArgumentNullException(nameof(qp));
+            if (periods is null) throw new ArgumentNullException(nameof(periods));
+            if (settings is null) throw new ArgumentNullException(nameof(settings));
+            if (computer is null) throw new ArgumentNullException(nameof(computer));
+
+            // Simply get the underlying semimonomial unbound quiver and analyze it using the appropriate analyzer
+            var semimonomialUnboundQuiver = SemimonomialUnboundQuiverFactory.CreateSemimonomialUnboundQuiverFromQP(qp);
+            var suqAnalyzer = new SemimonomialUnboundQuiverAnalyzer();
+            var suqSettings = AnalysisSettingsFactory.CreateSemimonomialUnboundQuiverAnalysisSettings(settings);
+            var suqResults = suqAnalyzer.AnalyzeUtilizingPeriodicityConcurrently(semimonomialUnboundQuiver, periods, suqSettings, computer);
+            var results = AnalysisResultsFactory.CreateQPAnalysisResults(suqResults);
+
+            return results;
+        }
+
         // After figuring out the use cases (high performance?) for these methods and figuring out
         // whether to change the interface, implement the counterparts of the methods in
         // SemimonomialUnboundQuiverAnalyzer and have the public methods of this class just be a
