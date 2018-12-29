@@ -615,8 +615,8 @@ namespace SelfInjectiveQuiversWithPotential
         public static IEnumerable<int> GetVerticesInPointedFlowerQPLayer(int numPeriods, int layerIndex, int firstVertex = DefaultFirstVertex)
             => UsefulQuivers.GetVerticesInPointedFlowerQuiverLayer(numPeriods, layerIndex, firstVertex);
 
-        public static IEnumerable<IEnumerable<int>> GetPeriodsOfPointedFlowerQPWithoutFixedPoint(int numVerticesInCenterPolygon, int firstVertex = DefaultFirstVertex)
-            => UsefulQuivers.GetPeriodsOfPointedFlowerQuiverWithoutFixedPoint(numVerticesInCenterPolygon, firstVertex);
+        public static IEnumerable<IEnumerable<int>> GetPeriodsOfPointedFlowerQPWithoutFixedPoint(int numPeriods, int firstVertex = DefaultFirstVertex)
+            => UsefulQuivers.GetPeriodsOfPointedFlowerQuiverWithoutFixedPoint(numPeriods, firstVertex);
         #endregion
 
         #region Generalized cobwebs
