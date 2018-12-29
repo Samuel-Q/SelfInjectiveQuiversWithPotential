@@ -281,6 +281,9 @@ namespace SelfInjectiveQuiversWithPotential
 
         public static IEnumerable<int> GetVerticesInOddFlowerQPLayer(int numVerticesInCenterPolygon, int layerIndex, int firstVertex = DefaultFirstVertex)
             => UsefulQuivers.GetVerticesInOddFlowerQuiverLayer(numVerticesInCenterPolygon, layerIndex, firstVertex);
+
+        public static IEnumerable<IEnumerable<int>> GetPeriodsOfOddFlowerQP(int numVerticesInCenterPolygon, int firstVertex = DefaultFirstVertex)
+            => UsefulQuivers.GetPeriodsOfOddFlowerQuiver(numVerticesInCenterPolygon, firstVertex);
         #endregion
 
         #region Even flower, type 1
@@ -388,6 +391,9 @@ namespace SelfInjectiveQuiversWithPotential
 
         public static IEnumerable<int> GetVerticesInEvenFlowerType1QPLayer(int numVerticesInCenterPolygon, int layerIndex, int firstVertex = DefaultFirstVertex)
             => UsefulQuivers.GetVerticesInEvenFlowerType1QuiverLayer(numVerticesInCenterPolygon, layerIndex, firstVertex);
+
+        public static IEnumerable<IEnumerable<int>> GetPeriodsOfEvenFlowerType1QP(int numVerticesInCenterPolygon, int firstVertex = DefaultFirstVertex)
+            => UsefulQuivers.GetPeriodsOfEvenFlowerType1Quiver(numVerticesInCenterPolygon, firstVertex);
         #endregion
 
         #region Even flower, type 2
@@ -495,6 +501,9 @@ namespace SelfInjectiveQuiversWithPotential
 
         public static IEnumerable<int> GetVerticesInEvenFlowerType2QPLayer(int numVerticesInCenterPolygon, int layerIndex, int firstVertex = DefaultFirstVertex)
             => UsefulQuivers.GetVerticesInEvenFlowerType2QuiverLayer(numVerticesInCenterPolygon, layerIndex, firstVertex);
+
+        public static IEnumerable<IEnumerable<int>> GetPeriodsOfEvenFlowerType2QP(int numVerticesInCenterPolygon, int firstVertex = DefaultFirstVertex)
+            => UsefulQuivers.GetPeriodsOfEvenFlowerType2Quiver(numVerticesInCenterPolygon, firstVertex);
         #endregion
 
         #region Pointed flower
@@ -605,6 +614,9 @@ namespace SelfInjectiveQuiversWithPotential
 
         public static IEnumerable<int> GetVerticesInPointedFlowerQPLayer(int numPeriods, int layerIndex, int firstVertex = DefaultFirstVertex)
             => UsefulQuivers.GetVerticesInPointedFlowerQuiverLayer(numPeriods, layerIndex, firstVertex);
+
+        public static IEnumerable<IEnumerable<int>> GetPeriodsOfPointedFlowerQPWithoutFixedPoint(int numVerticesInCenterPolygon, int firstVertex = DefaultFirstVertex)
+            => UsefulQuivers.GetPeriodsOfPointedFlowerQuiverWithoutFixedPoint(numVerticesInCenterPolygon, firstVertex);
         #endregion
 
         #region Generalized cobwebs

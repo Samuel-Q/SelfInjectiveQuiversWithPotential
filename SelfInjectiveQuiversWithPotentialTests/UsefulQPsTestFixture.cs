@@ -10,7 +10,7 @@ using SelfInjectiveQuiversWithPotential.Analysis;
 
 namespace SelfInjectiveQuiversWithPotentialTests
 {
-    // The tests for the GetVertices... have been copy-pasted from UsefulQuiversTestFixture
+    // The tests for the GetVertices... and GetPeriods... have been copy-pasted from UsefulQuiversTestFixture
     [TestFixture]
     public class UsefulQPsTestFixture
     {
@@ -282,6 +282,78 @@ namespace SelfInjectiveQuiversWithPotentialTests
             var actualVertices = UsefulQPs.GetVerticesInOddFlowerQPLayer(numVerticesInCenterPolygon, layerIndex, firstVertex);
             Assert.That(actualVertices, Is.EqualTo(expectedVertices));
         }
+
+        [TestCase(0, 0)]
+        [TestCase(-1, 0)]
+        [TestCase(-5, 0)]
+        [TestCase(-6, 0)]
+        [TestCase(1, 0)]
+        [TestCase(2, 0)]
+        [TestCase(4, 0)]
+        [TestCase(6, 0)]
+        [TestCase(20, 0)]
+        [TestCase(0, -1)]
+        [TestCase(-1, -1)]
+        [TestCase(-5, -1)]
+        [TestCase(-6, -1)]
+        [TestCase(1, -1)]
+        [TestCase(2, -1)]
+        [TestCase(4, -1)]
+        [TestCase(6, -1)]
+        [TestCase(20, -1)]
+        [TestCase(0, 1)]
+        [TestCase(-1, 1)]
+        [TestCase(-5, 1)]
+        [TestCase(-6, 1)]
+        [TestCase(1, 1)]
+        [TestCase(2, 1)]
+        [TestCase(4, 1)]
+        [TestCase(6, 1)]
+        [TestCase(20, 1)]
+        public void GetPeriodsOfOddFlowerQP_ThrowsArgumentOutOfRangeException_OnBadNumberOfVerticesInCenterPolygon(int numVerticesInCenterPolygon, int firstVertex)
+        {
+            Assert.That(() => UsefulQPs.GetPeriodsOfOddFlowerQP(numVerticesInCenterPolygon, firstVertex), Throws.InstanceOf<ArgumentOutOfRangeException>());
+        }
+
+        static IEnumerable<TestCaseData> GetPeriodsOfOddFlowerQP_Works_TestCaseSource()
+        {
+            var firstVertices = new int[] { -1, 0, 1 };
+
+            int numVerticesInCenterPolygon = 3;
+            var zeroBasedPeriods = new int[][]
+            {
+                new int[] { 0, 3, 4, 5, 6 },
+                new int[] { 1, 7, 8, 9, 10 },
+                new int[] { 2, 11, 12, 13, 14 }
+            };
+            foreach (int firstVertex in firstVertices)
+            {
+                var expectedPeriods = zeroBasedPeriods.Select(period => period.Select(vertex => vertex + firstVertex));
+                yield return new TestCaseData(numVerticesInCenterPolygon, firstVertex, expectedPeriods);
+            }
+
+            numVerticesInCenterPolygon = 5;
+            zeroBasedPeriods = new int[][]
+            {
+                new int[] { 0, 5, 6, 15, 16, 17, 18 },
+                new int[] { 1, 7, 8, 19, 20, 21, 22 },
+                new int[] { 2, 9, 10, 23, 24, 25, 26 },
+                new int[] { 3, 11, 12, 27, 28, 29, 30 },
+                new int[] { 4, 13, 14, 31, 32, 33, 34 }
+            };
+            foreach (int firstVertex in firstVertices)
+            {
+                var expectedPeriods = zeroBasedPeriods.Select(period => period.Select(vertex => vertex + firstVertex));
+                yield return new TestCaseData(numVerticesInCenterPolygon, firstVertex, expectedPeriods);
+            }
+        }
+
+        [TestCaseSource(nameof(GetPeriodsOfOddFlowerQP_Works_TestCaseSource))]
+        public void GetPeriodsOfOddFlowerQP_Works(int numVerticesInCenterPolygon, int firstVertex, IEnumerable<IEnumerable<int>> expectedPeriods)
+        {
+            var actualPeriods = UsefulQPs.GetPeriodsOfOddFlowerQP(numVerticesInCenterPolygon, firstVertex);
+            Assert.That(actualPeriods, Is.EqualTo(expectedPeriods));
+        }
         #endregion
 
         #region Even flower, type 1
@@ -377,6 +449,80 @@ namespace SelfInjectiveQuiversWithPotentialTests
             var actualVertices = UsefulQPs.GetVerticesInEvenFlowerType1QPLayer(numVerticesInCenterPolygon, layerIndex, firstVertex);
             Assert.That(actualVertices, Is.EqualTo(expectedVertices));
         }
+
+        [TestCase(0, 0)]
+        [TestCase(-1, 0)]
+        [TestCase(-5, 0)]
+        [TestCase(-6, 0)]
+        [TestCase(1, 0)]
+        [TestCase(2, 0)]
+        [TestCase(3, 0)]
+        [TestCase(5, 0)]
+        [TestCase(19, 0)]
+        [TestCase(0, -1)]
+        [TestCase(-1, -1)]
+        [TestCase(-5, -1)]
+        [TestCase(-6, -1)]
+        [TestCase(1, -1)]
+        [TestCase(2, -1)]
+        [TestCase(3, -1)]
+        [TestCase(5, -1)]
+        [TestCase(19, -1)]
+        [TestCase(0, 1)]
+        [TestCase(-1, 1)]
+        [TestCase(-5, 1)]
+        [TestCase(-6, 1)]
+        [TestCase(1, 1)]
+        [TestCase(2, 1)]
+        [TestCase(3, 1)]
+        [TestCase(5, 1)]
+        [TestCase(19, 1)]
+        public void GetPeriodsOfEvenFlowerType1QP_ThrowsArgumentOutOfRangeException_OnBadNumberOfVerticesInCenterPolygon(int numVerticesInCenterPolygon, int firstVertex)
+        {
+            Assert.That(() => UsefulQPs.GetPeriodsOfEvenFlowerType1QP(numVerticesInCenterPolygon, firstVertex), Throws.InstanceOf<ArgumentOutOfRangeException>());
+        }
+
+        static IEnumerable<TestCaseData> GetPeriodsOfEvenFlowerType1QP_Works_TestCaseSource()
+        {
+            var firstVertices = new int[] { -1, 0, 1 };
+
+            int numVerticesInCenterPolygon = 4;
+            var zeroBasedPeriods = new int[][]
+            {
+                new int[] { 0, 4, 5, 6 },
+                new int[] { 1, 7, 8, 9 },
+                new int[] { 2, 10, 11, 12 },
+                new int[] { 3, 13, 14, 15 }
+            };
+            foreach (int firstVertex in firstVertices)
+            {
+                var expectedPeriods = zeroBasedPeriods.Select(period => period.Select(vertex => vertex + firstVertex));
+                yield return new TestCaseData(numVerticesInCenterPolygon, firstVertex, expectedPeriods);
+            }
+
+            numVerticesInCenterPolygon = 6;
+            zeroBasedPeriods = new int[][]
+            {
+                new int[] { 0, 6, 7, 18, 19, 20 },
+                new int[] { 1, 8, 9, 21, 22, 23 },
+                new int[] { 2, 10, 11, 24, 25, 26 },
+                new int[] { 3, 12, 13, 27, 28, 29 },
+                new int[] { 4, 14, 15, 30, 31, 32 },
+                new int[] { 5, 16, 17, 33, 34, 35 }
+            };
+            foreach (int firstVertex in firstVertices)
+            {
+                var expectedPeriods = zeroBasedPeriods.Select(period => period.Select(vertex => vertex + firstVertex));
+                yield return new TestCaseData(numVerticesInCenterPolygon, firstVertex, expectedPeriods);
+            }
+        }
+
+        [TestCaseSource(nameof(GetPeriodsOfEvenFlowerType1QP_Works_TestCaseSource))]
+        public void GetPeriodsOfEvenFlowerType1QP_Works(int numVerticesInCenterPolygon, int firstVertex, IEnumerable<IEnumerable<int>> expectedPeriods)
+        {
+            var actualPeriods = UsefulQPs.GetPeriodsOfEvenFlowerType1QP(numVerticesInCenterPolygon, firstVertex);
+            Assert.That(actualPeriods, Is.EqualTo(expectedPeriods));
+        }
         #endregion
 
         #region Even flower, type 2
@@ -471,6 +617,80 @@ namespace SelfInjectiveQuiversWithPotentialTests
         {
             var actualVertices = UsefulQPs.GetVerticesInEvenFlowerType2QPLayer(numVerticesInCenterPolygon, layerIndex, firstVertex);
             Assert.That(actualVertices, Is.EqualTo(expectedVertices));
+        }
+
+        [TestCase(0, 0)]
+        [TestCase(-1, 0)]
+        [TestCase(-5, 0)]
+        [TestCase(-6, 0)]
+        [TestCase(1, 0)]
+        [TestCase(2, 0)]
+        [TestCase(3, 0)]
+        [TestCase(5, 0)]
+        [TestCase(19, 0)]
+        [TestCase(0, -1)]
+        [TestCase(-1, -1)]
+        [TestCase(-5, -1)]
+        [TestCase(-6, -1)]
+        [TestCase(1, -1)]
+        [TestCase(2, -1)]
+        [TestCase(3, -1)]
+        [TestCase(5, -1)]
+        [TestCase(19, -1)]
+        [TestCase(0, 1)]
+        [TestCase(-1, 1)]
+        [TestCase(-5, 1)]
+        [TestCase(-6, 1)]
+        [TestCase(1, 1)]
+        [TestCase(2, 1)]
+        [TestCase(3, 1)]
+        [TestCase(5, 1)]
+        [TestCase(19, 1)]
+        public void GetPeriodsOfEvenFlowerType2QP_ThrowsArgumentOutOfRangeException_OnBadNumberOfVerticesInCenterPolygon(int numVerticesInCenterPolygon, int firstVertex)
+        {
+            Assert.That(() => UsefulQPs.GetPeriodsOfEvenFlowerType2QP(numVerticesInCenterPolygon, firstVertex), Throws.InstanceOf<ArgumentOutOfRangeException>());
+        }
+
+        static IEnumerable<TestCaseData> GetPeriodsOfEvenFlowerType2QP_Works_TestCaseSource()
+        {
+            var firstVertices = new int[] { -1, 0, 1 };
+
+            int numVerticesInCenterPolygon = 4;
+            var zeroBasedPeriods = new int[][]
+            {
+                new int[] { 0, 4, 5, 6 },
+                new int[] { 1, 7, 8, 9 },
+                new int[] { 2, 10, 11, 12 },
+                new int[] { 3, 13, 14, 15 }
+            };
+            foreach (int firstVertex in firstVertices)
+            {
+                var expectedPeriods = zeroBasedPeriods.Select(period => period.Select(vertex => vertex + firstVertex));
+                yield return new TestCaseData(numVerticesInCenterPolygon, firstVertex, expectedPeriods);
+            }
+
+            numVerticesInCenterPolygon = 6;
+            zeroBasedPeriods = new int[][]
+            {
+                new int[] { 0, 6, 7, 18, 19, 20 },
+                new int[] { 1, 8, 9, 21, 22, 23 },
+                new int[] { 2, 10, 11, 24, 25, 26 },
+                new int[] { 3, 12, 13, 27, 28, 29 },
+                new int[] { 4, 14, 15, 30, 31, 32 },
+                new int[] { 5, 16, 17, 33, 34, 35 }
+            };
+            foreach (int firstVertex in firstVertices)
+            {
+                var expectedPeriods = zeroBasedPeriods.Select(period => period.Select(vertex => vertex + firstVertex));
+                yield return new TestCaseData(numVerticesInCenterPolygon, firstVertex, expectedPeriods);
+            }
+        }
+
+        [TestCaseSource(nameof(GetPeriodsOfEvenFlowerType2QP_Works_TestCaseSource))]
+        public void GetPeriodsOfEvenFlowerType2QP_Works(int numVerticesInCenterPolygon, int firstVertex, IEnumerable<IEnumerable<int>> expectedPeriods)
+        {
+            var actualPeriods = UsefulQPs.GetPeriodsOfEvenFlowerType2QP(numVerticesInCenterPolygon, firstVertex);
+            Assert.That(actualPeriods, Is.EqualTo(expectedPeriods));
         }
         #endregion
 
@@ -578,6 +798,78 @@ namespace SelfInjectiveQuiversWithPotentialTests
         {
             var actualVertices = UsefulQPs.GetVerticesInPointedFlowerQPLayer(numPeriods, layerIndex, firstVertex);
             Assert.That(actualVertices, Is.EqualTo(expectedVertices));
+        }
+
+        [TestCase(0, 0)]
+        [TestCase(-1, 0)]
+        [TestCase(-5, 0)]
+        [TestCase(-6, 0)]
+        [TestCase(1, 0)]
+        [TestCase(2, 0)]
+        [TestCase(4, 0)]
+        [TestCase(6, 0)]
+        [TestCase(20, 0)]
+        [TestCase(0, -1)]
+        [TestCase(-1, -1)]
+        [TestCase(-5, -1)]
+        [TestCase(-6, -1)]
+        [TestCase(1, -1)]
+        [TestCase(2, -1)]
+        [TestCase(4, -1)]
+        [TestCase(6, -1)]
+        [TestCase(20, -1)]
+        [TestCase(0, 1)]
+        [TestCase(-1, 1)]
+        [TestCase(-5, 1)]
+        [TestCase(-6, 1)]
+        [TestCase(1, 1)]
+        [TestCase(2, 1)]
+        [TestCase(4, 1)]
+        [TestCase(6, 1)]
+        [TestCase(20, 1)]
+        public void GetPeriodsOfPointedFlowerQP_ThrowsArgumentOutOfRangeException_OnBadNumberOfVerticesInCenterPolygon(int numPeriods, int firstVertex)
+        {
+            Assert.That(() => UsefulQPs.GetPeriodsOfPointedFlowerQPWithoutFixedPoint(numPeriods, firstVertex), Throws.InstanceOf<ArgumentOutOfRangeException>());
+        }
+
+        static IEnumerable<TestCaseData> GetPeriodsOfPointedFlowerQP_Works_TestCaseSource()
+        {
+            var firstVertices = new int[] { -1, 0, 1 };
+
+            int numPeriods = 3;
+            var zeroBasedPeriods = new int[][]
+            {
+                new int[] { 1, 2, 3 },
+                new int[] { 4, 5, 6 },
+                new int[] { 7, 8, 9 },
+            };
+            foreach (int firstVertex in firstVertices)
+            {
+                var expectedPeriods = zeroBasedPeriods.Select(period => period.Select(vertex => vertex + firstVertex));
+                yield return new TestCaseData(numPeriods, firstVertex, expectedPeriods);
+            }
+
+            numPeriods = 5;
+            zeroBasedPeriods = new int[][]
+            {
+                new int[] { 1, 2, 11, 12, 13 },
+                new int[] { 3, 4, 14, 15, 16 },
+                new int[] { 5, 6, 17, 18, 19 },
+                new int[] { 7, 8, 20, 21, 22 },
+                new int[] { 9, 10, 23, 24, 25 }
+            };
+            foreach (int firstVertex in firstVertices)
+            {
+                var expectedPeriods = zeroBasedPeriods.Select(period => period.Select(vertex => vertex + firstVertex));
+                yield return new TestCaseData(numPeriods, firstVertex, expectedPeriods);
+            }
+        }
+
+        [TestCaseSource(nameof(GetPeriodsOfPointedFlowerQP_Works_TestCaseSource))]
+        public void GetPeriodsOfPointedFlowerQP_Works(int numPeriods, int firstVertex, IEnumerable<IEnumerable<int>> expectedPeriods)
+        {
+            var actualPeriods = UsefulQPs.GetPeriodsOfPointedFlowerQPWithoutFixedPoint(numPeriods, firstVertex);
+            Assert.That(actualPeriods, Is.EqualTo(expectedPeriods));
         }
         #endregion
 
