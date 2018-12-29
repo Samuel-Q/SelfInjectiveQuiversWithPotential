@@ -200,6 +200,42 @@ namespace SelfInjectiveQuiversWithPotential
             int numVertices = layerIndex < numLayers - 1 ? numVerticesInFullInnerLayer : numVerticesInOuterLayer;
             return Enumerable.Range(startVertex, numVertices);
         }
+
+        /// <summary>
+        /// Gets the vertices of an odd flower partitioned into consecutive periods.
+        /// </summary>
+        /// <param name="numVerticesInCenterPolygon">The number of vertices in the center polygon.</param>
+        /// <param name="firstVertex">The first vertex of the quiver.</param>
+        /// <returns>An <see cref="IEnumerable{IEnumerable{int}}"/> containing the periods.</returns>
+        /// <exception cref="ArgumentOutOfRangeException"><paramref name="numVerticesInCenterPolygon"/>
+        /// is not a valid parameter for an odd flower.</exception>
+        public static IEnumerable<IEnumerable<int>> GetPeriodsOfOddFlowerQuiver(int numVerticesInCenterPolygon, int firstVertex = DefaultFirstVertex)
+        {
+            if (!OddFlowerParameterIsValid(numVerticesInCenterPolygon)) throw new ArgumentOutOfRangeException(nameof(numVerticesInCenterPolygon));
+
+            return GetEnumerable();
+
+            IEnumerable<IEnumerable<int>> GetEnumerable()
+            {
+                int numLayers = GetNumberOfLayersInOddFlowerQuiver(numVerticesInCenterPolygon);
+                var layers = Enumerable.Range(0, numLayers)
+                                       .Select(layerIndex => GetVerticesInOddFlowerQuiverLayer(numVerticesInCenterPolygon, layerIndex, firstVertex).ToArray())
+                                       .ToList();
+
+                int numPeriods = numVerticesInCenterPolygon;
+                foreach (int periodIndex in Enumerable.Range(0, numPeriods))
+                {
+                    var period = layers.SelectMany(layer =>
+                    {
+                        var sizeOfPeriodInLayer = layer.Length / numPeriods;
+                        int offsetOfPeriodInLayer = periodIndex * sizeOfPeriodInLayer;
+                        return new ArraySegment<int>(layer, offsetOfPeriodInLayer, sizeOfPeriodInLayer);
+                    });
+
+                    yield return period;
+                }
+            }
+        }
         #endregion
 
         #region Even flower, type 1
@@ -237,6 +273,7 @@ namespace SelfInjectiveQuiversWithPotential
         public static IEnumerable<int> GetVerticesInEvenFlowerType1QuiverLayer(int numVerticesInCenterPolygon, int layerIndex, int firstVertex = DefaultFirstVertex)
         {
             if (!EvenFlowerType1ParameterIsValid(numVerticesInCenterPolygon)) throw new ArgumentOutOfRangeException(nameof(numVerticesInCenterPolygon));
+
             int numLayers = GetNumberOfLayersInEvenFlowerType1Quiver(numVerticesInCenterPolygon);
             if (layerIndex < 0 || layerIndex >= numLayers) throw new ArgumentOutOfRangeException(nameof(layerIndex));
 
@@ -247,6 +284,42 @@ namespace SelfInjectiveQuiversWithPotential
             int startVertex = layerIndex * numVerticesInFullInnerLayer - numVerticesInCenterPolygon + firstVertex;
             int numVertices = layerIndex < numLayers - 1 ? numVerticesInFullInnerLayer : numVerticesInOuterLayer;
             return Enumerable.Range(startVertex, numVertices);
+        }
+
+        /// <summary>
+        /// Gets the vertices of an even flower of type 1 partitioned into consecutive periods.
+        /// </summary>
+        /// <param name="numVerticesInCenterPolygon">The number of vertices in the center polygon.</param>
+        /// <param name="firstVertex">The first vertex of the quiver.</param>
+        /// <returns>An <see cref="IEnumerable{IEnumerable{int}}"/> containing the periods.</returns>
+        /// <exception cref="ArgumentOutOfRangeException"><paramref name="numVerticesInCenterPolygon"/>
+        /// is not a valid parameter for an even flower of type 1.</exception>
+        public static IEnumerable<IEnumerable<int>> GetPeriodsOfEvenFlowerType1Quiver(int numVerticesInCenterPolygon, int firstVertex = DefaultFirstVertex)
+        {
+            if (!EvenFlowerType1ParameterIsValid(numVerticesInCenterPolygon)) throw new ArgumentOutOfRangeException(nameof(numVerticesInCenterPolygon));
+
+            return GetEnumerable();
+
+            IEnumerable<IEnumerable<int>> GetEnumerable()
+            {
+                int numLayers = GetNumberOfLayersInEvenFlowerType1Quiver(numVerticesInCenterPolygon);
+                var layers = Enumerable.Range(0, numLayers)
+                                       .Select(layerIndex => GetVerticesInEvenFlowerType1QuiverLayer(numVerticesInCenterPolygon, layerIndex, firstVertex).ToArray())
+                                       .ToList();
+
+                int numPeriods = numVerticesInCenterPolygon;
+                foreach (int periodIndex in Enumerable.Range(0, numPeriods))
+                {
+                    var period = layers.SelectMany(layer =>
+                    {
+                        var sizeOfPeriodInLayer = layer.Length / numPeriods;
+                        int offsetOfPeriodInLayer = periodIndex * sizeOfPeriodInLayer;
+                        return new ArraySegment<int>(layer, offsetOfPeriodInLayer, sizeOfPeriodInLayer);
+                    });
+
+                    yield return period;
+                }
+            }
         }
         #endregion
 
@@ -296,6 +369,42 @@ namespace SelfInjectiveQuiversWithPotential
             int numVertices = layerIndex < numLayers - 1 ? numVerticesInFullInnerLayer : numVerticesInOuterLayer;
             return Enumerable.Range(startVertex, numVertices);
         }
+
+        /// <summary>
+        /// Gets the vertices of an even flower of type 2 partitioned into consecutive periods.
+        /// </summary>
+        /// <param name="numVerticesInCenterPolygon">The number of vertices in the center polygon.</param>
+        /// <param name="firstVertex">The first vertex of the quiver.</param>
+        /// <returns>An <see cref="IEnumerable{IEnumerable{int}}"/> containing the periods.</returns>
+        /// <exception cref="ArgumentOutOfRangeException"><paramref name="numVerticesInCenterPolygon"/>
+        /// is not a valid parameter for an even flower of type 2.</exception>
+        public static IEnumerable<IEnumerable<int>> GetPeriodsOfEvenFlowerType2Quiver(int numVerticesInCenterPolygon, int firstVertex = DefaultFirstVertex)
+        {
+            if (!EvenFlowerType2ParameterIsValid(numVerticesInCenterPolygon)) throw new ArgumentOutOfRangeException(nameof(numVerticesInCenterPolygon));
+
+            return GetEnumerable();
+
+            IEnumerable<IEnumerable<int>> GetEnumerable()
+            {
+                int numLayers = GetNumberOfLayersInEvenFlowerType2Quiver(numVerticesInCenterPolygon);
+                var layers = Enumerable.Range(0, numLayers)
+                                       .Select(layerIndex => GetVerticesInEvenFlowerType2QuiverLayer(numVerticesInCenterPolygon, layerIndex, firstVertex).ToArray())
+                                       .ToList();
+
+                int numPeriods = numVerticesInCenterPolygon;
+                foreach (int periodIndex in Enumerable.Range(0, numPeriods))
+                {
+                    var period = layers.SelectMany(layer =>
+                    {
+                        var sizeOfPeriodInLayer = layer.Length / numPeriods;
+                        int offsetOfPeriodInLayer = periodIndex * sizeOfPeriodInLayer;
+                        return new ArraySegment<int>(layer, offsetOfPeriodInLayer, sizeOfPeriodInLayer);
+                    });
+
+                    yield return period;
+                }
+            }
+        }
         #endregion
 
         #region Pointed flower
@@ -343,6 +452,43 @@ namespace SelfInjectiveQuiversWithPotential
             int startVertex = 1 + (layerIndex-1) * (numVerticesInFullInnerLayer) + firstVertex;
             int numVertices = layerIndex < numLayers - 1 ? numVerticesInFullInnerLayer : numVerticesInOuterLayer;
             return Enumerable.Range(startVertex, numVertices);
+        }
+
+        /// <summary>
+        /// Gets the vertices (except for the center vertex) of a pointed flower partitioned into
+        /// consecutive periods.
+        /// </summary>
+        /// <param name="numPeriods">The number of periods (as a parameter for the pointed flower
+        /// family).</param>
+        /// <param name="firstVertex">The first vertex of the quiver.</param>
+        /// <returns>An <see cref="IEnumerable{IEnumerable{int}}"/> containing the periods.</returns>
+        /// <exception cref="ArgumentOutOfRangeException"><paramref name="numPeriods"/>
+        /// is not a valid parameter for a pointed flower.</exception>
+        public static IEnumerable<IEnumerable<int>> GetPeriodsOfPointedFlowerQuiverWithoutFixedPoint(int numPeriods, int firstVertex = DefaultFirstVertex)
+        {
+            if (!PointedFlowerParameterIsValid(numPeriods)) throw new ArgumentOutOfRangeException(nameof(numPeriods));
+
+            return GetEnumerable();
+
+            IEnumerable<IEnumerable<int>> GetEnumerable()
+            {
+                int numLayers = GetNumberOfLayersInPointedFlowerQuiver(numPeriods);
+                var layers = Enumerable.Range(0, numLayers)
+                                       .Select(layerIndex => GetVerticesInPointedFlowerQuiverLayer(numPeriods, layerIndex, firstVertex).ToArray())
+                                       .ToList();
+
+                foreach (int periodIndex in Enumerable.Range(0, numPeriods))
+                {
+                    var period = layers.SelectMany(layer =>
+                    {
+                        var sizeOfPeriodInLayer = layer.Length / numPeriods;
+                        int offsetOfPeriodInLayer = periodIndex * sizeOfPeriodInLayer;
+                        return new ArraySegment<int>(layer, offsetOfPeriodInLayer, sizeOfPeriodInLayer);
+                    });
+
+                    yield return period;
+                }
+            }
         }
         #endregion
 
