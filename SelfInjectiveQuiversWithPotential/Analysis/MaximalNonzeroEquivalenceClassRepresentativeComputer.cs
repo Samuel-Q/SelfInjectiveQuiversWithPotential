@@ -425,10 +425,15 @@ namespace SelfInjectiveQuiversWithPotential.Analysis
             where TVertex : IEquatable<TVertex>, IComparable<TVertex>
         {
             var analysisResults = AnalyzeWithStartingVertex(quiver, startingVertex, transformationRuleTree, settings);
+
+            // The .ToList() call to eagerly evaluate the maximal path representatives is really
+            // important here; otherwise, the MaximalPathRepresentatives property of the
+            // MaximalNonzeroEquivalenceClassRepresentativesResult prevents the entire search tree
+            // of analysisResults from being freed.
             var outputResults = new MaximalNonzeroEquivalenceClassRepresentativesResult<TVertex>(
                 nonCancellativityDetected: analysisResults.NonCancellativityDetected,
                 tooLongPathEncountered: analysisResults.TooLongPathEncountered,
-                analysisResults.MaximalPathRepresentatives.Select(node => node.Path),
+                analysisResults.MaximalPathRepresentatives.Select(node => node.Path).ToList(),
                 longestPathEncountered: analysisResults.LongestPathEncountered);
             return outputResults;
         }
