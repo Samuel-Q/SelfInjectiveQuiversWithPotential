@@ -59,7 +59,7 @@ namespace SelfInjectiveQuiversWithPotential.Analysis
         /// interface from the burden of extracting transformation rules for the semimonomial
         /// unbound quiver while also making more sense performance-wise.</para>
         /// <para></para></remarks>
-        MaximalNonzeroEquivalenceClassRepresentativesResult<TVertex> ComputeMaximalNonzeroEquivalenceClassRepresentativesStartingAt<TVertex>(
+        MaximalNonzeroEquivalenceClassRepresentativesResults<TVertex> ComputeMaximalNonzeroEquivalenceClassRepresentativesStartingAt<TVertex>(
             Quiver<TVertex> quiver,
             TVertex startingVertex,
             TransformationRuleTreeNode<TVertex> transformationRuleTree,

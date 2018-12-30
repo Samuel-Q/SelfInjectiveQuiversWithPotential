@@ -14,7 +14,7 @@ namespace SelfInjectiveQuiversWithPotential.Analysis
     /// <typeparam name="TVertex">The type of the vertices in the quiver.</typeparam>
     /// <remarks>
     /// <para>This class is essentially just a more detailed version of
-    /// <see cref="MaximalNonzeroEquivalenceClassRepresentativesResult{TVertex}"/>.</para>
+    /// <see cref="MaximalNonzeroEquivalenceClassRepresentativesResults{TVertex}"/>.</para>
     /// </remarks>
     public class AnalysisResultsForSingleStartingVertex<TVertex> where TVertex : IEquatable<TVertex>, IComparable<TVertex>
     {

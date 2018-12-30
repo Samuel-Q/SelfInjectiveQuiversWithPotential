@@ -159,7 +159,7 @@
     <Compile Include="Analysis\ExploreChildNodeResult.cs" />
     <Compile Include="Analysis\ExploreChildNodesResult.cs" />
     <Compile Include="Analysis\ISemimonomialUnboundQuiverAnalyzer.cs" />
-    <Compile Include="Analysis\MaximalNonzeroEquivalenceClassRepresentativesResult.cs" />
+    <Compile Include="Analysis\MaximalNonzeroEquivalenceClassRepresentativesResults.cs" />
     <Compile Include="Analysis\SearchTreeNodeOld.cs" />
     <Compile Include="Analysis\SemimonomialUnboundQuiverAnalyzer.cs" />
     <Compile Include="Analysis\QPAnalyzer.cs" />

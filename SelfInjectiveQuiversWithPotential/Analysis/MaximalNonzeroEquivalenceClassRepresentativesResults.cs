@@ -11,7 +11,7 @@ namespace SelfInjectiveQuiversWithPotential.Analysis
     /// (<see cref="IMaximalNonzeroEquivalenceClassRepresentativeComputer.ComputeMaximalNonzeroEquivalenceClassRepresentativesStartingAt{TVertex}(Quiver{TVertex}, TVertex, TransformationRuleTreeNode{TVertex}, SemimonomialUnboundQuiverAnalysisSettings)"/>).
     /// </summary>
     /// <typeparam name="TVertex">The type of the vertices in the quiver.</typeparam>
-    public class MaximalNonzeroEquivalenceClassRepresentativesResult<TVertex> where TVertex: IEquatable<TVertex>, IComparable<TVertex>
+    public class MaximalNonzeroEquivalenceClassRepresentativesResults<TVertex> where TVertex: IEquatable<TVertex>, IComparable<TVertex>
     {
         public bool NonCancellativityDetected { get; private set; }
 
@@ -21,7 +21,7 @@ namespace SelfInjectiveQuiversWithPotential.Analysis
 
         public Path<TVertex> LongestPathEncountered { get; private set; }
 
-        public MaximalNonzeroEquivalenceClassRepresentativesResult(
+        public MaximalNonzeroEquivalenceClassRepresentativesResults(
             bool nonCancellativityDetected,
             bool tooLongPathEncountered,
             IEnumerable<Path<TVertex>> maximalNonzeroEquivalenceClassRepresentatives,

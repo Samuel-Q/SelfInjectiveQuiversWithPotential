@@ -429,7 +429,7 @@ namespace SelfInjectiveQuiversWithPotential.Analysis
             return false;
         }
 
-        public MaximalNonzeroEquivalenceClassRepresentativesResult<TVertex> ComputeMaximalNonzeroEquivalenceClassRepresentativesStartingAt<TVertex>(
+        public MaximalNonzeroEquivalenceClassRepresentativesResults<TVertex> ComputeMaximalNonzeroEquivalenceClassRepresentativesStartingAt<TVertex>(
             QuiverWithPotential<TVertex> qp,
             TVertex startingVertex,
             TransformationRuleTreeNode<TVertex> transformationRuleTree,
@@ -437,7 +437,7 @@ namespace SelfInjectiveQuiversWithPotential.Analysis
             where TVertex : IEquatable<TVertex>, IComparable<TVertex>
         {
             var analysisResults = AnalyzeWithStartingVertex(qp, startingVertex, transformationRuleTree, settings);
-            var outputResults = new MaximalNonzeroEquivalenceClassRepresentativesResult<TVertex>(
+            var outputResults = new MaximalNonzeroEquivalenceClassRepresentativesResults<TVertex>(
                 analysisResults.NonCancellativityDetected,
                 analysisResults.TooLongPathEncountered,
                 analysisResults.MaximalPathRepresentatives.Select(node => node.Path),
