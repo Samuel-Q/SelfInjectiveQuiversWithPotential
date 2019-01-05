@@ -105,18 +105,21 @@ namespace SelfInjectiveQuiversWithPotential.Analysis
 
                 if (representativesResult.WeakCancellativityFailureDetected)
                 {
-                    mainResult |= SemimonomialUnboundQuiverAnalysisMainResult.NotCancellative;
+                    mainResult |= SemimonomialUnboundQuiverAnalysisMainResult.NotWeaklyCancellative;
                     if (settings.TerminateEarlyIfWeakCancellativityFails)
                     {
                         return new SemimonomialUnboundQuiverAnalysisResults<TVertex>(
                         mainResult, null, null, longestPath);
                     }
                 }
-                else if (representativesResult.CancellativityFailureDetected && settings.TerminateEarlyIfCancellativityFails)
+                else if (representativesResult.CancellativityFailureDetected)
                 {
-                    mainResult |= SemimonomialUnboundQuiverAnalysisMainResult.NotWeaklyCancellative;
-                    return new SemimonomialUnboundQuiverAnalysisResults<TVertex>(
+                    mainResult |= SemimonomialUnboundQuiverAnalysisMainResult.NotCancellative;
+                    if (settings.TerminateEarlyIfCancellativityFails)
+                    {
+                        return new SemimonomialUnboundQuiverAnalysisResults<TVertex>(
                         mainResult, null, null, longestPath);
+                    }
                 }
                 else if (representativesResult.TooLongPathEncountered)
                 {
