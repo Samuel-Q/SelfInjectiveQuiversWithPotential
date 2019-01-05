@@ -115,7 +115,7 @@ namespace SelfInjectiveQuiversWithPotential.Analysis
             bool shouldDoCancellativityFailureDetection = settings.DetectCancellativityFailure && !state.TooLongPathEncountered;
             bool cancellativityFailureDetected = shouldDoCancellativityFailureDetection ? DetectFailureOfCancellativity(state) : false;
 
-            bool shouldDoWeakCancellativityFailureDetection = settings.DetectCancellativityFailure && !state.TooLongPathEncountered;
+            bool shouldDoWeakCancellativityFailureDetection = settings.DetectWeakCancellativityFailure && !state.TooLongPathEncountered;
             bool weakCancellativityFailureDetected = shouldDoWeakCancellativityFailureDetection ? DetectFailureOfWeakCancellativity(state) : false;
 
             var cancellativityFailuresDetected = CancellativityTypes.None;
