@@ -52,6 +52,34 @@ namespace SelfInjectiveQuiversWithPotential.Analysis
             TooLongPath
         }
 
+        enum WeakCancellativityStateForPath
+        {
+            /// <summary>
+            /// Indicates that the path has a distinguishing arrow.
+            /// </summary>
+            HasDistinguishingArrow,
+
+            /// <summary>
+            /// Indicates that a distinguishing arrow for the path has not been found yet.
+            /// </summary>
+            /// <remarks>
+            /// <para>At the end of the weak-cancellativity check, this value indicates that the
+            /// path has no distinguishing arrow period.</para>
+            /// </remarks>
+            HasNoDistinguishingArrowSoFar,
+
+            /// <summary>
+            /// Indicates that for the current equivalence class, p+I is so far distinguished by an
+            /// arrow.
+            /// </summary>
+            /// <remarks>
+            /// <para>Technically, we could do without this value and use non-membership in d but
+            /// membership in parentDict to indicate this value, but it seems a lot cleaner to just
+            /// use third explicit value.</para>
+            /// </remarks>
+            HasDistinguishingArrowForCurrentChildClass,
+        }
+
         /// <summary>
         /// Essentially <see cref="ComputeMaximalNonzeroEquivalenceClassRepresentativesStartingAt"/>
         /// but with a more detailed, implementation-specific return value.
@@ -80,7 +108,7 @@ namespace SelfInjectiveQuiversWithPotential.Analysis
 
             // Do cancellativity check
             bool shouldDoNonCancellativityDetection = settings.DetectNonCancellativity && !state.TooLongPathEncountered;
-            bool nonCancellativityDetected = shouldDoNonCancellativityDetection ? DetectNonCancellativity(state) : false;
+            bool nonCancellativityDetected = shouldDoNonCancellativityDetection ? DetectFailureOfCancellativity(state) : false;
 
             // Return results
             var results = new AnalysisResultsForSingleStartingVertex<TVertex>(state, nonCancellativityDetected);
@@ -154,20 +182,49 @@ namespace SelfInjectiveQuiversWithPotential.Analysis
         }
 
         /// <summary>
-        /// Detects non-cancellativity.
+        /// Detects failure of cancellativity.
         /// </summary>
         /// <typeparam name="TVertex">The type of the vertices in the quiver.</typeparam>
         /// <param name="state">The state of the analysis after having done the search in the path
         /// tree.</param>
-        /// <returns><see langword="true"/> if non-cancellativity was detected; <see langword=""/> otherwise.</returns>
-        private bool DetectNonCancellativity<TVertex>(AnalysisStateForSingleStartingVertex<TVertex> state) where TVertex : IEquatable<TVertex>, IComparable<TVertex>
+        /// <returns><see langword="true"/> if the analysis state contains a contradiction to
+        /// cancellativity; <see langword="false"/> otherwise.</returns>
+        private bool DetectFailureOfCancellativity<TVertex>(AnalysisStateForSingleStartingVertex<TVertex> state) where TVertex : IEquatable<TVertex>, IComparable<TVertex>
         {
+            // Instead of checking cancellativity in the naïve way:
+            //   for every (canonical representative) path p
+            //     for every (canonical representative) path q
+            //       for every arrow a
+            //         if pa+I = qa+I but p+I != q+I, return NotCancellative
+            //
+            //   return Cancellative
+            //
+            // the code below checks cancellativity by iterating only once over the quotient set
+            // (set of all equivalence classes). The intuition is that it operates on pa+I instead
+            // of on p+I. That is, instead of looking at all equivalence classes that p+I extends to,
+            // we look at equivalence classes that extend into pa+I.
+            // Thus, the work of checking whether a path satisfies cancellativity (corresponding to
+            // the body of the loop over p in the pseudocode above) is split over potentially
+            // several iterations (each such iteration corresponding to only one extending class pa+I).
+            //
+            // It should be noted that the nested loop above might not be as awful as it seems,
+            // because we loop only over the *representative* paths (i.e., a transversal of the
+            // quotient set). The naïve implementation might thus perform better than the
+            // implementation below or at least not considerably much worse and have the benefit of
+            // clarity and correctness.
+            //
+            // It should be straightforward that the below code only indicates that cancellativity
+            // fails when it actually fails. Conversely, if cancellativity fails, say for a path p
+            // and arrow a, then the below code indicates that cancellativity fails when the
+            // equivalence class pa+I is processed.
+
             var zeroNode = state.ZeroDummyNode;
             var stationaryPathNode = state.SearchTree;
             foreach (var equivalenceClass in state.EquivalenceClasses.GetSets())
             {
-                // Exclude the zero path and the stationary path, because they do not have a parent
-                // (the below code accesses the parent) and cannot ruin cancellativity
+                // Exclude the zero class and the stationary class -- the zero class because
+                // pa +I = 0+I is not interesting for cancellativity and the stationary class
+                // because it is not of the form pa+I.
                 if (equivalenceClass.Contains(zeroNode) || equivalenceClass.Contains(stationaryPathNode)) continue;
 
                 // Dictionary to contain the canonical representative of an arbitrary parent for every distinct last arrow
@@ -192,6 +249,124 @@ namespace SelfInjectiveQuiversWithPotential.Analysis
             }
 
             return false;
+        }
+
+        /// <summary>
+        /// Detects failure of weak cancellativity.
+        /// </summary>
+        /// <typeparam name="TVertex">The type of the vertices in the quiver.</typeparam>
+        /// <param name="state">The state of the analysis after having done the search in the path
+        /// tree.</param>
+        /// <returns><see langword="true"/> if the analysis state contains a contradiction to weak
+        /// cancellativity; <see langword="false"/> otherwise.</returns>
+        private bool DetectFailureOfWeakCancellativity<TVertex>(AnalysisStateForSingleStartingVertex<TVertex> state) where TVertex : IEquatable<TVertex>, IComparable<TVertex>
+        {
+            // Instead of checking weak cancellativity in the naïve way:
+            //   for every (canonical representative) path p
+            //     check if there an arrow a with the following:
+            //       for every (canonical representative) path q
+            //         pa+I = qa+I implies p+I = q+I
+            //     if not, return NotWeaklyCancellative
+            //
+            //   return WeaklyCancellative
+            //
+            // the code below checks cancellativity by iterating only once over the quotient set
+            // (set of all equivalence classes). The intuition is that it operates on pa+I instead
+            // of on p+I. That is, instead of looking at all equivalence classes that p+I extends to,
+            // we look at equivalence classes that extend into pa+I.
+            // Thus, the work of checking whether a path satisfies weak cancellativity
+            // (corresponding to the body of the loop over p in the pseudocode above) is split over
+            // potentially several iterations (each such iteration corresponding to only one
+            // extending class pa+I).
+            //
+            // It should be noted that the nested loop above might not be as awful as it seems,
+            // because we loop only over the *representative* paths (i.e., a transversal of the
+            // quotient set). The naïve implementation might thus perform better than the
+            // implementation below or at least not considerably much worse and have the benefit of
+            // clarity and correctness.
+            //
+            // Unlike in the similar implementation for strong cancellativity, where a single counter-
+            // example (p,a) suffices to terminate with NotCancellative, this implementation
+            // requires for some path p and *all* arrows a the pair (p,a) to fail the second
+            // condition of weak cancellativity. Because the work for a single path p is typically
+            // split across several iterations, we need to keep track of the state for p between
+            // iterations (whether or not we have found a distinguishing ("non-counterexample")
+            // arrow for p yet). This is done with the dictionary d.
+            //
+            // The assumption that the quiver has no parallel arrows should be necessary in order
+            // for the below code to be correct. Otherwise, a path p with pa+I = pb+I = qb+I might
+            // be incorrectly flagged as not having a distinguishing arrow even if a
+            // distinguishes p from other paths.
+
+            // Dictionary that will associate to every canonical representative path that is not
+            // maximal nonzero-equivalent a value indicating whether the path has a
+            // "distinguishing" arrow, i.e., an arrow a satisfying the second condition of weak
+            // cancellativity for the path (p say):
+            //   for all paths q: pa+I = qa+I implies p+I = q+I
+            // Important to note is that a fourth value is stored implicitly as non-membership in d.
+            // This value indicates that no nonzero extension class has been processed yet (at the
+            // end, it means that the canonical representative path has no nonzero extension class,
+            // i.e., is maximal nonzero-equivalent).
+            var d = new Dictionary<SearchTreeNode<TVertex>, WeakCancellativityStateForPath>();
+            var zeroNode = state.ZeroDummyNode;
+            var stationaryPathNode = state.SearchTree;
+
+            foreach (var equivalenceClass in state.EquivalenceClasses.GetSets())
+            {
+                // Exclude the zero class and the stationary class -- the zero path because
+                // pa+I = 0+I is not interesting for the second condition for weak cancellativity
+                // and the stationary path because it is not of the form pa+I.
+                if (equivalenceClass.Contains(zeroNode) || equivalenceClass.Contains(stationaryPathNode)) continue;
+
+                // Below, equivalenceClass is denoted by pa+I.
+                // Dictionary to contain the canonical representative of the parent class p+I for
+                // every distinct last arrow (the *only* parent for that arrow a iff the path
+                // and arrow p,a satisfy the second condition of weak cancellativity)
+                // This is used to detect for each arrow whether it fails the second condition of
+                // weak cancellativity (for all paths q: pa+I = qa+I implies p+I = q+I).
+                var parentDict = new Dictionary<Arrow<TVertex>, SearchTreeNode<TVertex>>();
+
+                foreach (var pathNode in equivalenceClass)
+                {
+                    var curParent = pathNode.Parent;
+                    var canonicalParent = state.EquivalenceClasses.FindSet(curParent);
+                    var lastArrow = pathNode.ReversePathOfArrows.First();
+
+                    // If we have already found a distinguishing arrow for the canonical parent,
+                    // there's no need for additional work.
+                    if (d.TryGetValue(canonicalParent, out var pathState) && pathState == WeakCancellativityStateForPath.HasDistinguishingArrow)
+                        continue;
+
+                    if (!parentDict.TryGetValue(lastArrow, out var storedParent))
+                    {
+                        // Note that the parent is stored in the parentDict only if d[parent] is
+                        // not HasDistinguishingArrow. This makes sure that the else clause below
+                        // does not overwrite HasDistinguishingArrow with HasNoDistinguishingArrowSoFar.
+                        parentDict[lastArrow] = canonicalParent;
+                        // Also, this write does not overwrite HasDistinguishingArrow either
+                        d[canonicalParent] = WeakCancellativityStateForPath.HasDistinguishingArrowForCurrentChildClass;
+                    }
+                    else if (!canonicalParent.Equals(storedParent))
+                    {
+                        // Insert HasNoDistinguishingArrowSoFar into d if necessary (if not, the
+                        // write is a no-op) indicating that the parents are not maximal
+                        // nonzero-equivalent and that we have not yet found a distinguishing arrow
+                        // for them.
+                        d[canonicalParent] = WeakCancellativityStateForPath.HasNoDistinguishingArrowSoFar;
+                        d[storedParent] = WeakCancellativityStateForPath.HasNoDistinguishingArrowSoFar;
+                    }
+                }
+
+                foreach (var (_, storedParent) in parentDict)
+                {
+                    if (d[storedParent] == WeakCancellativityStateForPath.HasNoDistinguishingArrowSoFar)
+                    {
+                        d[storedParent] = WeakCancellativityStateForPath.HasDistinguishingArrow;
+                    }
+                }
+            }
+
+            return d.Values.All(pathState => pathState == WeakCancellativityStateForPath.HasDistinguishingArrow);
         }
 
         /// <summary>
