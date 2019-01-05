@@ -103,27 +103,14 @@ namespace SelfInjectiveQuiversWithPotential.Analysis
                 if (longestPath is null || representativesResult.LongestPathEncountered.Length > longestPath.Length)
                     longestPath = representativesResult.LongestPathEncountered;
 
-                if (representativesResult.WeakCancellativityFailureDetected)
+                if (representativesResult.WeakCancellativityFailureDetected) mainResults |= SemimonomialUnboundQuiverAnalysisMainResults.NotWeaklyCancellative;
+                if (representativesResult.CancellativityFailureDetected) mainResults |= SemimonomialUnboundQuiverAnalysisMainResults.NotCancellative;
+                if (representativesResult.TooLongPathEncountered) mainResults |= SemimonomialUnboundQuiverAnalysisMainResults.Aborted;
+
+                if ((representativesResult.WeakCancellativityFailureDetected && settings.TerminateEarlyIfWeakCancellativityFails)
+                    || (representativesResult.CancellativityFailureDetected && settings.TerminateEarlyIfCancellativityFails)
+                    || (representativesResult.TooLongPathEncountered))
                 {
-                    mainResults |= SemimonomialUnboundQuiverAnalysisMainResults.NotWeaklyCancellative;
-                    if (settings.TerminateEarlyIfWeakCancellativityFails)
-                    {
-                        return new SemimonomialUnboundQuiverAnalysisResults<TVertex>(
-                        mainResults, null, null, longestPath);
-                    }
-                }
-                else if (representativesResult.CancellativityFailureDetected)
-                {
-                    mainResults |= SemimonomialUnboundQuiverAnalysisMainResults.NotCancellative;
-                    if (settings.TerminateEarlyIfCancellativityFails)
-                    {
-                        return new SemimonomialUnboundQuiverAnalysisResults<TVertex>(
-                        mainResults, null, null, longestPath);
-                    }
-                }
-                else if (representativesResult.TooLongPathEncountered)
-                {
-                    mainResults |= SemimonomialUnboundQuiverAnalysisMainResults.Aborted;
                     return new SemimonomialUnboundQuiverAnalysisResults<TVertex>(mainResults, null, null, longestPath);
                 }
 

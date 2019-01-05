@@ -694,6 +694,21 @@ namespace SelfInjectiveQuiversWithPotential
 
             return qp;
         }
+
+        /// <summary>
+        /// Gets the &quot;classic&quot; weakly but not strongly cancellative QP.
+        /// </summary>
+        /// <returns>The &quot;classic&quot; weakly but not strongly cancellative QP.</returns>
+        public static QuiverWithPotential<int> GetClassicWeaklyButNotStronglyCancellativeQP()
+        {
+            var baseQP = GetClassicNonCancellativeQP();
+            var vertices = baseQP.Quiver.Vertices.Append(6);
+            var arrows = baseQP.Quiver.Arrows.Append(new Arrow<int>(4, 6));
+            var quiver = new Quiver<int>(vertices, arrows);
+            var qp = new QuiverWithPotential<int>(quiver, baseQP.Potential);
+
+            return qp;
+        }
         #endregion
     }
 }

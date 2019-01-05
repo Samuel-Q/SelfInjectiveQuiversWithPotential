@@ -266,7 +266,7 @@ namespace SelfInjectiveQuiversWithPotentialTests
         }
 
         [Test]
-        public void ComputeMaximalNonzeroEquivalenceClassRepresentativesStartingAt_OnClassicNonCancellativeExample_IndicatesNotCancellative()
+        public void ComputeMaximalNonzeroEquivalenceClassRepresentativesStartingAt_OnClassicNonCancellativeExample_IndicatesNotStronglyCancellative()
         {
             if (!Computer.SupportsNonCancellativityDetection) return;
 
@@ -287,6 +287,35 @@ namespace SelfInjectiveQuiversWithPotentialTests
             DoSetup(qp, out var ruleTree);
             var result = Computer.ComputeMaximalNonzeroEquivalenceClassRepresentativesStartingAt(qp.Quiver, 1, ruleTree, settings);
             Assert.That(result.WeakCancellativityFailureDetected, Is.True);
+        }
+
+        [Test]
+        public void ComputeMaximalNonzeroEquivalenceClassRepresentativesStartingAt_OnClassicWeaklyButNotStronglyCancellativeExample_IndicatesCancellativityCorrectly()
+        {
+            var qp = UsefulQPs.GetClassicNonCancellativeQP();
+            DoSetup(qp, out var ruleTree);
+
+            if (Computer.SupportsNonCancellativityDetection)
+            {
+                var settings = GetSettings(CancellativityTypes.Cancellativity);
+                var result = Computer.ComputeMaximalNonzeroEquivalenceClassRepresentativesStartingAt(qp.Quiver, 1, ruleTree, settings);
+                Assert.That(result.CancellativityFailureDetected, Is.True);
+            }
+
+            if (Computer.SupportsNonWeakCancellativityDetection)
+            {
+                var settings = GetSettings(CancellativityTypes.WeakCancellativity);
+                var result = Computer.ComputeMaximalNonzeroEquivalenceClassRepresentativesStartingAt(qp.Quiver, 1, ruleTree, settings);
+                Assert.That(result.WeakCancellativityFailureDetected, Is.True);
+            }
+
+            if (Computer.SupportsNonCancellativityDetection && Computer.SupportsNonWeakCancellativityDetection)
+            {
+                var settings = GetSettings(CancellativityTypes.WeakCancellativity | CancellativityTypes.Cancellativity);
+                var result = Computer.ComputeMaximalNonzeroEquivalenceClassRepresentativesStartingAt(qp.Quiver, 1, ruleTree, settings);
+                Assert.That(result.CancellativityFailureDetected, Is.True);
+                Assert.That(result.WeakCancellativityFailureDetected, Is.True);
+            }
         }
 
         // This region contains tests that have not been verified by hand to be correct

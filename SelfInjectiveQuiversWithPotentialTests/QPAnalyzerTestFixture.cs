@@ -22,7 +22,12 @@ namespace SelfInjectiveQuiversWithPotentialTests
         private static QPAnalysisSettings CreateSettings(bool detectNonCancellativity)
         {
             var cancellativityFailureDetection = detectNonCancellativity ? CancellativityTypes.Cancellativity : CancellativityTypes.None;
-            return new QPAnalysisSettings(CancellativityTypes.Cancellativity);
+            return CreateSettings(cancellativityFailureDetection);
+        }
+
+        private static QPAnalysisSettings CreateSettings(CancellativityTypes cancellativityFailureDetection)
+        {
+            return new QPAnalysisSettings(cancellativityFailureDetection);
         }
 
         private static QPAnalysisSettings CreateSettings(int maxPathLength, EarlyTerminationConditions earlyTerminationConditions)
@@ -305,21 +310,59 @@ namespace SelfInjectiveQuiversWithPotentialTests
         }
 
         [Test]
-        public void Analyze_IndicatesNotCancellative_ForNotCancellativeQP()
+        public void Analyze_IndicatesCancellativityCorrectly_ForClassicNonCancellativeQP()
         {
-            var potential = new Potential<int>(new Dictionary<DetachedCycle<int>, int>
-            {
-                { new DetachedCycle<int>(1, 2, 4, 5, 1), +1},
-                { new DetachedCycle<int>(1, 3, 4, 5, 1), -1}
-            });
-            var qp = new QuiverWithPotential<int>(potential);
+            var qp = UsefulQPs.GetClassicNonCancellativeQP();
             var analyzer = CreateAnalyzer();
-            var settings = CreateSettings(detectNonCancellativity: true);
-            var results = analyzer.Analyze(qp, settings);
 
+            var settings = CreateSettings(CancellativityTypes.Cancellativity);
+            var results = analyzer.Analyze(qp, settings);
             Assert.That(
                 results.MainResults.HasFlag(QPAnalysisMainResults.NotCancellative),
                 $"The main result was {results.MainResults}, which does not indicate that the QP fails to be cancellative.");
+
+            settings = CreateSettings(CancellativityTypes.WeakCancellativity);
+            results = analyzer.Analyze(qp, settings);
+            Assert.That(
+                results.MainResults.HasFlag(QPAnalysisMainResults.NotWeaklyCancellative),
+                $"The main result was {results.MainResults}, which does not indicate that the QP fails to be weakly cancellative.");
+
+            settings = CreateSettings(CancellativityTypes.Cancellativity | CancellativityTypes.WeakCancellativity);
+            results = analyzer.Analyze(qp, settings);
+            Assert.That(
+                results.MainResults.HasFlag(QPAnalysisMainResults.NotCancellative),
+                $"The main result was {results.MainResults}, which does not indicate that the QP fails to be cancellative.");
+            Assert.That(
+                results.MainResults.HasFlag(QPAnalysisMainResults.NotWeaklyCancellative),
+                $"The main result was {results.MainResults}, which does not indicate that the QP fails to be weakly cancellative.");
+        }
+
+        [Test]
+        public void Analyze_IndicatesCancellativityCorrectly_ForClassicWeaklyButNotStronglyCancellativeQP()
+        {
+            var qp = UsefulQPs.GetClassicWeaklyButNotStronglyCancellativeQP();
+            var analyzer = CreateAnalyzer();
+
+            var settings = CreateSettings(CancellativityTypes.Cancellativity);
+            var results = analyzer.Analyze(qp, settings);
+            Assert.That(
+                results.MainResults.HasFlag(QPAnalysisMainResults.NotCancellative),
+                $"The main result was {results.MainResults}, which does not indicate that the QP fails to be cancellative.");
+
+            settings = CreateSettings(CancellativityTypes.WeakCancellativity);
+            results = analyzer.Analyze(qp, settings);
+            Assert.That(
+                !results.MainResults.HasFlag(QPAnalysisMainResults.NotWeaklyCancellative),
+                $"The main result was {results.MainResults}, which indicates that the QP fails to be weakly cancellative.");
+
+            settings = CreateSettings(CancellativityTypes.Cancellativity | CancellativityTypes.WeakCancellativity);
+            results = analyzer.Analyze(qp, settings);
+            Assert.That(
+                results.MainResults.HasFlag(QPAnalysisMainResults.NotCancellative),
+                $"The main result was {results.MainResults}, which does not indicate that the QP fails to be cancellative.");
+            Assert.That(
+                !results.MainResults.HasFlag(QPAnalysisMainResults.NotWeaklyCancellative),
+                $"The main result was {results.MainResults}, which indicates that the QP fails to be weakly cancellative.");
         }
 
         // Regression test
