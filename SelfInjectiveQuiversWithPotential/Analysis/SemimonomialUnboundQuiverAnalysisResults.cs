@@ -7,13 +7,13 @@ using System.Threading.Tasks;
 namespace SelfInjectiveQuiversWithPotential.Analysis
 {
     public class SemimonomialUnboundQuiverAnalysisResults<TVertex> :
-        AnalysisResults<TVertex, SemimonomialUnboundQuiverAnalysisMainResult>, ISemimonomialUnboundQuiverAnalysisResults<TVertex>
+        AnalysisResults<TVertex, SemimonomialUnboundQuiverAnalysisMainResults>, ISemimonomialUnboundQuiverAnalysisResults<TVertex>
         where TVertex : IEquatable<TVertex>, IComparable<TVertex>
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="SemimonomialUnboundQuiverAnalysisResults{TVertex}"/> class.
         /// </summary>
-        /// <param name="mainResult">The main result.</param>
+        /// <param name="mainResults">The main results.</param>
         /// <param name="maximalPathRepresentatives">A dictionary mapping every vertex of the
         /// quiver to a collection of representatives of all maximal non-zero equivalence classes
         /// of paths starting at the vertex, or <see langword="null"/> depending on whether the
@@ -26,16 +26,16 @@ namespace SelfInjectiveQuiversWithPotential.Analysis
         /// during the analysis, or <see langword="null"/> if no path was encountered during the
         /// analysis (i.e., if the quiver was empty).</param>
         public SemimonomialUnboundQuiverAnalysisResults(
-            SemimonomialUnboundQuiverAnalysisMainResult mainResult,
+            SemimonomialUnboundQuiverAnalysisMainResults mainResults,
             IReadOnlyDictionary<TVertex, IEnumerable<Path<TVertex>>> maximalPathRepresentatives,
             NakayamaPermutation<TVertex> nakayamaPermutation,
             Path<TVertex> longestPathEncountered)
-            : base(mainResult, maximalPathRepresentatives, nakayamaPermutation, longestPathEncountered)
+            : base(mainResults, maximalPathRepresentatives, nakayamaPermutation, longestPathEncountered)
         {
-            if (mainResult.HasFlag(SemimonomialUnboundQuiverAnalysisMainResult.Success) && maximalPathRepresentatives is null)
+            if (mainResults.HasFlag(SemimonomialUnboundQuiverAnalysisMainResults.Success) && maximalPathRepresentatives is null)
                 throw new ArgumentNullException(nameof(maximalPathRepresentatives));
 
-            if (mainResult.IndicatesSelfInjectivity() && nakayamaPermutation is null)
+            if (mainResults.IndicatesSelfInjectivity() && nakayamaPermutation is null)
                 throw new ArgumentNullException(nameof(nakayamaPermutation));
         }
     }

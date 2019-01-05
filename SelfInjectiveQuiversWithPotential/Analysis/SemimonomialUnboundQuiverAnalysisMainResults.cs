@@ -11,36 +11,36 @@ namespace SelfInjectiveQuiversWithPotential.Analysis
     /// (a sort of status code for the analysis, if you will).
     /// </summary>
     [Flags]
-    public enum SemimonomialUnboundQuiverAnalysisMainResult
+    public enum SemimonomialUnboundQuiverAnalysisMainResults
     {
         None = 0,
 
         /// <summary>
         /// Indicates that the analysis was successful in that it was not terminated early.
         /// </summary>
-        Success = 1,
+        Success = 0x01,
 
         /// <summary>
         /// Indicates that the analysis was aborted (because an infinite loop was detected or so).
         /// </summary>
-        Aborted = 2,
+        Aborted = 0x02,
 
         /// <summary>
         /// Indicates that the analysis was cancelled (by the user, typically)
         /// </summary>
-        Cancelled = 4,
+        Cancelled = 0x04,
 
         /// <summary>
         /// Indicates that the analysis showed that the semimonomial unbound quiver is not
         /// cancellative.
         /// </summary>
-        NotCancellative = 8,
+        NotCancellative = 0x08,
 
         /// <summary>
         /// Indicates that the analysis showed that the semimonomial unbound quiver is not weakly
         /// cancellative.
         /// </summary>
-        NotWeaklyCancellative = 16,
+        NotWeaklyCancellative = 0x10,
 
         /// <summary>
         /// Indicates that the analysis showed that some starting point had more than one maximal
@@ -53,7 +53,7 @@ namespace SelfInjectiveQuiversWithPotential.Analysis
         /// a possibly strictly stronger condition if the bound quiver is not weakly cancellative.
         /// This is not to mention what could happen if the ideal is not admissible.</para>
         /// </remarks>
-        MultipleMaximalNonzeroClasses = 32,
+        MultipleMaximalNonzeroClasses = 0x20,
 
         /// <summary>
         /// Indicates that the analysis showed that the tentative Nakayama permutation (mapping a
@@ -66,54 +66,54 @@ namespace SelfInjectiveQuiversWithPotential.Analysis
         /// (failure of being a single-valued function might seem to fall under PermutationFails,
         /// but this problem is captured by <see cref="MultipleMaximalNonzeroClasses"/>).</para>
         /// </remarks>
-        NonInjectiveTentativeNakayamaPermutation = 64
+        NonInjectiveTentativeNakayamaPermutation = 0x40
     }
 
-    public static class SemimonomialUnboundQuiverAnalysisMainResultExtensions
+    public static class SemimonomialUnboundQuiverAnalysisMainResultsExtensions
     {
         /// <summary>
         /// Returns a boolean value indicating whether the specified results indicate that the
         /// unbound quiver is self-injective.
         /// </summary>
-        /// <param name="result">The results.</param>
-        /// <returns><see langword="true"/> if <paramref name="result"/> indicates that the unbound
+        /// <param name="results">The results.</param>
+        /// <returns><see langword="true"/> if <paramref name="results"/> indicates that the unbound
         /// quiver is self-injective. <see langword="false"/> otherwise.</returns>
         /// <remarks>
         /// <para>If the analysis settings dictate that weak cancellativity should not be checked,
-        /// the bound quiver could fail to be weakly cancellative without <paramref name="result"/>
+        /// the bound quiver could fail to be weakly cancellative without <paramref name="results"/>
         /// indicating this. In that case, the bound quiver algebra could fail to be self-injective
         /// but this method could still return <see langword="true"/>.</para>
         /// </remarks>
-        public static bool IndicatesSelfInjectivity(this SemimonomialUnboundQuiverAnalysisMainResult result)
+        public static bool IndicatesSelfInjectivity(this SemimonomialUnboundQuiverAnalysisMainResults results)
         {
-            return result.HasFlag(SemimonomialUnboundQuiverAnalysisMainResult.Success)
-                && !result.HasFlag(SemimonomialUnboundQuiverAnalysisMainResult.NotWeaklyCancellative)
-                && !result.HasFlag(SemimonomialUnboundQuiverAnalysisMainResult.MultipleMaximalNonzeroClasses)
-                && !result.HasFlag(SemimonomialUnboundQuiverAnalysisMainResult.NonInjectiveTentativeNakayamaPermutation);
+            return results.HasFlag(SemimonomialUnboundQuiverAnalysisMainResults.Success)
+                && !results.HasFlag(SemimonomialUnboundQuiverAnalysisMainResults.NotWeaklyCancellative)
+                && !results.HasFlag(SemimonomialUnboundQuiverAnalysisMainResults.MultipleMaximalNonzeroClasses)
+                && !results.HasFlag(SemimonomialUnboundQuiverAnalysisMainResults.NonInjectiveTentativeNakayamaPermutation);
         }
 
         /// <summary>
         /// Returns a boolean value indicating whether the specified results indicate that the
         /// unbound quiver is self-injective.
         /// </summary>
-        /// <param name="result">The results.</param>
-        /// <returns><see langword="true"/> if <paramref name="result"/> indicates that the unbound
+        /// <param name="results">The results.</param>
+        /// <returns><see langword="true"/> if <paramref name="results"/> indicates that the unbound
         /// quiver is self-injective. <see langword="false"/> otherwise.</returns>
         /// <remarks>
         /// <para>This method uses strong cancellativity instead of weak cancellativity to ensure
         /// that the socles of the indecomposable projective modules are spanned by the
         /// corresponding maximal nonzero equivalence classes.</para>
         /// <para>If the analysis settings dictate that cancellativity should not be checked,
-        /// the bound quiver could fail to be cancellative without <paramref name="result"/>
+        /// the bound quiver could fail to be cancellative without <paramref name="results"/>
         /// indicating this. In that case, the bound quiver algebra could fail to be self-injective
         /// but this method could still return <see langword="true"/>.</para>
         /// </remarks>
-        public static bool IndicatesSelfInjectivityUsingStrongCancellativity(this SemimonomialUnboundQuiverAnalysisMainResult result)
+        public static bool IndicatesSelfInjectivityUsingStrongCancellativity(this SemimonomialUnboundQuiverAnalysisMainResults results)
         {
-            return result.HasFlag(SemimonomialUnboundQuiverAnalysisMainResult.Success)
-                && !result.HasFlag(SemimonomialUnboundQuiverAnalysisMainResult.NotCancellative)
-                && !result.HasFlag(SemimonomialUnboundQuiverAnalysisMainResult.MultipleMaximalNonzeroClasses)
-                && !result.HasFlag(SemimonomialUnboundQuiverAnalysisMainResult.NonInjectiveTentativeNakayamaPermutation);
+            return results.HasFlag(SemimonomialUnboundQuiverAnalysisMainResults.Success)
+                && !results.HasFlag(SemimonomialUnboundQuiverAnalysisMainResults.NotCancellative)
+                && !results.HasFlag(SemimonomialUnboundQuiverAnalysisMainResults.MultipleMaximalNonzeroClasses)
+                && !results.HasFlag(SemimonomialUnboundQuiverAnalysisMainResults.NonInjectiveTentativeNakayamaPermutation);
         }
     }
 }

@@ -12,12 +12,12 @@ namespace SelfInjectiveQuiversWithPotential.Analysis
     /// </summary>
     /// <typeparam name="TVertex">The type of the vertices in the QP.</typeparam>
     /// <remarks>The counterpart for quivers in plane (though immutable) is <see cref="Plane.QuiverInPlaneAnalysisResults{TVertex}"/></remarks>
-    public class QPAnalysisResults<TVertex> : AnalysisResults<TVertex, QPAnalysisMainResult>, IQPAnalysisResults<TVertex> where TVertex : IEquatable<TVertex>, IComparable<TVertex>
+    public class QPAnalysisResults<TVertex> : AnalysisResults<TVertex, QPAnalysisMainResults>, IQPAnalysisResults<TVertex> where TVertex : IEquatable<TVertex>, IComparable<TVertex>
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="QPAnalysisResults{TVertex}"/> class.
         /// </summary>
-        /// <param name="mainResult">The main result.</param>
+        /// <param name="mainResults">The main results.</param>
         /// <param name="maximalPathRepresentatives">A dictionary mapping every vertex of the
         /// quiver to a collection of representatives of all maximal non-zero equivalence classes
         /// of paths starting at the vertex, or <see langword="null"/> depending on whether the
@@ -29,16 +29,16 @@ namespace SelfInjectiveQuiversWithPotential.Analysis
         /// during the analysis, or <see langword="null"/> if no path was encountered (i.e., if the
         /// quiver was empty).</param>
         public QPAnalysisResults(
-            QPAnalysisMainResult mainResult,
+            QPAnalysisMainResults mainResults,
             IReadOnlyDictionary<TVertex, IEnumerable<Path<TVertex>>> maximalPathRepresentatives,
             NakayamaPermutation<TVertex> nakayamaPermutation,
             Path<TVertex> longestPathEncountered)
-            : base(mainResult, maximalPathRepresentatives, nakayamaPermutation, longestPathEncountered)
+            : base(mainResults, maximalPathRepresentatives, nakayamaPermutation, longestPathEncountered)
         {
-            if (mainResult.HasFlag(QPAnalysisMainResult.Success) && maximalPathRepresentatives is null)
+            if (mainResults.HasFlag(QPAnalysisMainResults.Success) && maximalPathRepresentatives is null)
                 throw new ArgumentNullException(nameof(maximalPathRepresentatives));
 
-            if (mainResult.IndicatesSelfInjectivity() && nakayamaPermutation is null)
+            if (mainResults.IndicatesSelfInjectivity() && nakayamaPermutation is null)
                 throw new ArgumentNullException(nameof(nakayamaPermutation));
         }
     }

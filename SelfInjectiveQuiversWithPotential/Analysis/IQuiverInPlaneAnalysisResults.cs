@@ -11,7 +11,7 @@ namespace SelfInjectiveQuiversWithPotential.Analysis
         /// <summary>
         /// Gets the main result of the analysis (whether it was successful or why it failed).
         /// </summary>
-        QuiverInPlaneAnalysisMainResult MainResult { get; }
+        QuiverInPlaneAnalysisMainResults MainResults { get; }
 
         /// <summary>
         /// Gets a dictionary mapping every vertex of the quiver to a collection of representatives

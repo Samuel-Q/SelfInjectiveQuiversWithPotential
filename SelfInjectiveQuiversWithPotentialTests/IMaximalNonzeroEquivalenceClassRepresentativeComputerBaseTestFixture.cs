@@ -35,15 +35,19 @@ namespace SelfInjectiveQuiversWithPotentialTests
         private MaximalNonzeroEquivalenceClassRepresentativeComputationSettings GetSettings(bool detectNonCancellativity)
         {
             var cancellativityFailureDetection = detectNonCancellativity ? CancellativityTypes.Cancellativity : CancellativityTypes.None;
+            return GetSettings(cancellativityFailureDetection);
+        }
+
+        private MaximalNonzeroEquivalenceClassRepresentativeComputationSettings GetSettings(CancellativityTypes cancellativityFailureDetection)
+        {
             return new MaximalNonzeroEquivalenceClassRepresentativeComputationSettings(cancellativityFailureDetection);
         }
 
         private MaximalNonzeroEquivalenceClassRepresentativeComputationSettings GetSettings(
-            bool detectNonCancellativity = false,
+            CancellativityTypes cancellativityFailureDetection,
             int maxPathLength = -1,
             EarlyTerminationConditions earlyTerminationCondition = EarlyTerminationConditions.None)
         {
-            var cancellativityFailureDetection = detectNonCancellativity ? CancellativityTypes.Cancellativity : CancellativityTypes.None;
             return new MaximalNonzeroEquivalenceClassRepresentativeComputationSettings(cancellativityFailureDetection, maxPathLength, earlyTerminationCondition);
         }
 
@@ -278,11 +282,11 @@ namespace SelfInjectiveQuiversWithPotentialTests
         {
             if (!Computer.SupportsNonWeakCancellativityDetection) return;
 
-            var settings = GetSettings(detectNonCancellativity: true);
+            var settings = GetSettings(CancellativityTypes.WeakCancellativity);
             var qp = UsefulQPs.GetClassicNonCancellativeQP();
             DoSetup(qp, out var ruleTree);
             var result = Computer.ComputeMaximalNonzeroEquivalenceClassRepresentativesStartingAt(qp.Quiver, 1, ruleTree, settings);
-            Assert.That(result.CancellativityFailureDetected, Is.True);
+            Assert.That(result.WeakCancellativityFailureDetected, Is.True);
         }
 
         // This region contains tests that have not been verified by hand to be correct
@@ -360,12 +364,12 @@ namespace SelfInjectiveQuiversWithPotentialTests
                 bool nonCancellativityDefinitelyExpected = NonCancellativeIndicesForTest1.Except(NonAdmissibleIndicesForTest1).Contains(index);
                 bool eitherOfNonCancellativityAndNonAdmissibilityExpected = NonCancellativeIndicesForTest1.Intersect(NonAdmissibleIndicesForTest1).Contains(index);
 
-                if (nonCancellativityDefinitelyExpected) Assert.That(results.MainResult.HasFlag(QPAnalysisMainResult.NotCancellative));
+                if (nonCancellativityDefinitelyExpected) Assert.That(results.MainResults.HasFlag(QPAnalysisMainResults.NotCancellative));
                 else if (eitherOfNonCancellativityAndNonAdmissibilityExpected)
                 {
-                    Assert.That(results.MainResult.HasFlag(QPAnalysisMainResult.NotCancellative) || results.MainResult.HasFlag(QPAnalysisMainResult.Aborted));
+                    Assert.That(results.MainResults.HasFlag(QPAnalysisMainResults.NotCancellative) || results.MainResults.HasFlag(QPAnalysisMainResults.Aborted));
                 }
-                else Assert.That(results.MainResult.HasFlag(QPAnalysisMainResult.NotCancellative), Is.False);
+                else Assert.That(results.MainResults.HasFlag(QPAnalysisMainResults.NotCancellative), Is.False);
             }
         }
 
@@ -390,12 +394,12 @@ namespace SelfInjectiveQuiversWithPotentialTests
                 bool nonAdmissibilityDefinitelyExpected = NonAdmissibleIndicesForTest1.Except(NonCancellativeIndicesForTest1).Contains(index);
                 bool eitherOfNonAdmissibilityAndNonCancellativityExpected = NonAdmissibleIndicesForTest1.Intersect(NonCancellativeIndicesForTest1).Contains(index);
 
-                if (nonAdmissibilityDefinitelyExpected) Assert.That(results.MainResult.HasFlag(QPAnalysisMainResult.Aborted));
+                if (nonAdmissibilityDefinitelyExpected) Assert.That(results.MainResults.HasFlag(QPAnalysisMainResults.Aborted));
                 else if (eitherOfNonAdmissibilityAndNonCancellativityExpected)
                 {
-                    Assert.That(results.MainResult.HasFlag(QPAnalysisMainResult.Aborted) || results.MainResult.HasFlag(QPAnalysisMainResult.NotCancellative));
+                    Assert.That(results.MainResults.HasFlag(QPAnalysisMainResults.Aborted) || results.MainResults.HasFlag(QPAnalysisMainResults.NotCancellative));
                 }
-                else Assert.That(results.MainResult.HasFlag(QPAnalysisMainResult.Aborted), Is.False);
+                else Assert.That(results.MainResults.HasFlag(QPAnalysisMainResults.Aborted), Is.False);
             }
         }
         #endregion

@@ -19,7 +19,7 @@ namespace SelfInjectiveQuiversWithPotentialTests
         {
             var analyzer = new QPAnalyzer();
             var result = analyzer.Analyze(qp, new QPAnalysisSettings(CancellativityTypes.Cancellativity));
-            Assert.That(result.MainResult.IndicatesSelfInjectivity());
+            Assert.That(result.MainResults.IndicatesSelfInjectivity());
         }
 
         private void AssertAreSelfInjective<TVertex>(IEnumerable<QuiverWithPotential<TVertex>> qps)

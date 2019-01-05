@@ -42,7 +42,7 @@ namespace SelfInjectiveQuiversWithPotentialWinForms
 
             editorModel.QuiverLoaded += EditorModel_QuiverLoaded;
 
-            analysisSettings = new QuiverInPlaneAnalysisSettings(detectNonCancellativity: true);
+            analysisSettings = new QuiverInPlaneAnalysisSettings(CancellativityTypes.Cancellativity | CancellativityTypes.WeakCancellativity);
         }
 
         private void ClearAnalyzerModel()
@@ -91,7 +91,7 @@ namespace SelfInjectiveQuiversWithPotentialWinForms
         // "Update" is sort of a misnomer; there is no field or property to update (as of this writing)
         private void UpdateMaximalPathRepresentatives(int vertex)
         {
-            if (analysisResults?.MainResult.HasFlag(QuiverInPlaneAnalysisMainResult.Success) ?? false)
+            if (analysisResults?.MainResults.HasFlag(QuiverInPlaneAnalysisMainResult.Success) ?? false)
             {
                 var maximalPathRepresentatives = analysisResults.MaximalPathRepresentatives[vertex];
                 MaximalPathRepresentativesChanged?.Invoke(this, new MaximalPathRepresentativesChangedEventArgs(maximalPathRepresentatives));
@@ -107,7 +107,7 @@ namespace SelfInjectiveQuiversWithPotentialWinForms
         // "Update" is sort of a misnomer; there is no field or property to update (as of this writing)
         private void UpdateOrbit(int vertex)
         {
-            if (analysisResults?.MainResult.HasFlag(QuiverInPlaneAnalysisMainResult.QPIsSelfInjective) ?? false)
+            if ((analysisResults?.MainResults.IndicatesSelfInjectivity()) ?? false)
             {
                 var orbit = analysisResults.NakayamaPermutation.GetOrbit(vertex);
                 OrbitChanged?.Invoke(this, new OrbitChangedEventArgs(orbit));

@@ -24,7 +24,7 @@ namespace SelfInjectiveQuiversWithPotentialTests
             var analyzer = new QPAnalyzer();
             var settings = GetSettings(detectNonCancellativity: true);
             var result = analyzer.Analyze(selfInjectiveQP.QP, settings);
-            Assert.That(result.MainResult.IndicatesSelfInjectivity());
+            Assert.That(result.MainResults.IndicatesSelfInjectivity());
             Assert.That(selfInjectiveQP.NakayamaPermutation.Equals(result.NakayamaPermutation));
         }
 

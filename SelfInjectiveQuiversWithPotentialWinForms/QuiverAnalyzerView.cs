@@ -100,17 +100,21 @@ namespace SelfInjectiveQuiversWithPotentialWinForms
 
         private void UpdateMainResultText(IQuiverInPlaneAnalysisResults<int> analysisResults)
         {
-            var mainResult = analysisResults.MainResult;
+            var mainResult = analysisResults.MainResults;
             var mainResultText =
-                mainResult.HasFlag(QuiverInPlaneAnalysisMainResult.QPIsSelfInjective) ? "Quiver induces a self-injective planar QP" :
-                mainResult.HasFlag(QuiverInPlaneAnalysisMainResult.QuiverHasLoops) ? "Quiver has loops" :
-                mainResult.HasFlag(QuiverInPlaneAnalysisMainResult.QuiverHasAntiParallelArrows) ? "Quiver has anti-parallel arrows" :
-                mainResult.HasFlag(QuiverInPlaneAnalysisMainResult.QuiverHasFaceWithInconsistentOrientation) ? "Quiver has face with inconsistent orientation" :
-                mainResult.HasFlag(QuiverInPlaneAnalysisMainResult.QuiverIsNotPlane) ? "Quiver is not plane" :
-                mainResult.HasFlag(QuiverInPlaneAnalysisMainResult.QPAnalysisAborted) ? "QP analysis was aborted" :
-                mainResult.HasFlag(QuiverInPlaneAnalysisMainResult.QPAnalysisCancelled) ? "QP analysis was cancelled" :
-                mainResult.HasFlag(QuiverInPlaneAnalysisMainResult.QPIsNotCancellative) ? "Quiver induces a non-cancellative planar QP" :
-                "Quiver induces a cancellative planar QP that is not self-injective";
+                mainResult.HasFlag(QuiverInPlaneAnalysisMainResults.QuiverHasLoops) ? "Quiver has loops" :
+                mainResult.HasFlag(QuiverInPlaneAnalysisMainResults.QuiverHasAntiParallelArrows) ? "Quiver has anti-parallel arrows" :
+                mainResult.HasFlag(QuiverInPlaneAnalysisMainResults.QuiverHasFaceWithInconsistentOrientation) ? "Quiver has face with inconsistent orientation" :
+                mainResult.HasFlag(QuiverInPlaneAnalysisMainResults.QuiverIsNotPlane) ? "Quiver is not plane" :
+                mainResult.HasFlag(QuiverInPlaneAnalysisMainResults.QPAnalysisAborted) ? "QP analysis was aborted" :
+                mainResult.HasFlag(QuiverInPlaneAnalysisMainResults.QPAnalysisCancelled) ? "QP analysis was cancelled" :
+                mainResult.HasFlag(QuiverInPlaneAnalysisMainResults.QPIsNotWeaklyCancellative) ? "Quiver induces a planar QP that is not weakly cancellative" :
+                mainResult.HasFlag(QuiverInPlaneAnalysisMainResults.QPIsNotCancellative) ?
+                    mainResult.IndicatesSelfInjectivity() ?
+                    "Quiver induces a planar QP that is weakly (but not strongly) cancellative and self-injective" :
+                    "Quiver induces a planar QP that is weakly (but not strongly) cancellative" :
+                mainResult.IndicatesSelfInjectivity() ? "Quiver induces a (strongly) cancellative planar QP that is self-injective" :
+                "Quiver induces a (strongly) cancellative planar QP that is not self-injective.";
 
             SetMainResultText(mainResultText);
         }
@@ -123,7 +127,7 @@ namespace SelfInjectiveQuiversWithPotentialWinForms
         private void UpdateNakayamaPermutationListView(IQuiverInPlaneAnalysisResults<int> analysisResults)
         {
             nakayamaPermutationListView.Items.Clear();
-            if (analysisResults.MainResult.HasFlag(QuiverInPlaneAnalysisMainResult.QPIsSelfInjective))
+            if (analysisResults.MainResults.IndicatesSelfInjectivity())
             {
                 var listViewItems = analysisResults.NakayamaPermutation.OrderBy(p => p.Key).Select(p => CreateListViewItemForNakayamaMapping(p.Key, p.Value));
                 nakayamaPermutationListView.Items.AddRange(listViewItems.ToArray());

@@ -24,25 +24,25 @@ namespace SelfInjectiveQuiversWithPotentialTests
         {
             var qpExtractionResult = QPExtractionResult.QuiverHasLoops;
             var results = AnalysisResultsFactory.CreateQuiverInPlaneAnalysisResults<int>(qpExtractionResult);
-            Assert.That(results.MainResult, Is.EqualTo(QuiverInPlaneAnalysisMainResult.QuiverHasLoops));
+            Assert.That(results.MainResults, Is.EqualTo(QuiverInPlaneAnalysisMainResult.QuiverHasLoops));
             Assert.That(results.MaximalPathRepresentatives, Is.Null);
             Assert.That(results.NakayamaPermutation, Is.Null);
 
             qpExtractionResult = QPExtractionResult.QuiverHasAntiParallelArrows;
             results = AnalysisResultsFactory.CreateQuiverInPlaneAnalysisResults<int>(qpExtractionResult);
-            Assert.That(results.MainResult, Is.EqualTo(QuiverInPlaneAnalysisMainResult.QuiverHasAntiParallelArrows));
+            Assert.That(results.MainResults, Is.EqualTo(QuiverInPlaneAnalysisMainResult.QuiverHasAntiParallelArrows));
             Assert.That(results.MaximalPathRepresentatives, Is.Null);
             Assert.That(results.NakayamaPermutation, Is.Null);
 
             qpExtractionResult = QPExtractionResult.QuiverIsNotPlane;
             results = AnalysisResultsFactory.CreateQuiverInPlaneAnalysisResults<int>(qpExtractionResult);
-            Assert.That(results.MainResult, Is.EqualTo(QuiverInPlaneAnalysisMainResult.QuiverIsNotPlane));
+            Assert.That(results.MainResults, Is.EqualTo(QuiverInPlaneAnalysisMainResult.QuiverIsNotPlane));
             Assert.That(results.MaximalPathRepresentatives, Is.Null);
             Assert.That(results.NakayamaPermutation, Is.Null);
 
             qpExtractionResult = QPExtractionResult.QuiverHasFaceWithInconsistentOrientation;
             results = AnalysisResultsFactory.CreateQuiverInPlaneAnalysisResults<int>(qpExtractionResult);
-            Assert.That(results.MainResult, Is.EqualTo(QuiverInPlaneAnalysisMainResult.QuiverHasFaceWithInconsistentOrientation));
+            Assert.That(results.MainResults, Is.EqualTo(QuiverInPlaneAnalysisMainResult.QuiverHasFaceWithInconsistentOrientation));
             Assert.That(results.MaximalPathRepresentatives, Is.Null);
             Assert.That(results.NakayamaPermutation, Is.Null);
         }
@@ -55,49 +55,49 @@ namespace SelfInjectiveQuiversWithPotentialTests
             var defaultLongestPath = new Path<int>(startingPoint: 1);
 
             var qpAnalysisResults = CreateQPAnalysisResults(
-                QPAnalysisMainResult.Success,
+                QPAnalysisMainResults.Success,
                 defaultMaximalReps,
                 defaultNakayamaPermutation,
                 defaultLongestPath);
 
             var results = AnalysisResultsFactory.CreateQuiverInPlaneAnalysisResults(qpAnalysisResults);
-            Assert.That(results.MainResult, Is.EqualTo(QuiverInPlaneAnalysisMainResult.Success));
+            Assert.That(results.MainResults, Is.EqualTo(QuiverInPlaneAnalysisMainResult.Success));
 
             qpAnalysisResults = CreateQPAnalysisResults(
-                QPAnalysisMainResult.Success,
+                QPAnalysisMainResults.Success,
                 defaultMaximalReps,
                 defaultNakayamaPermutation,
                 defaultLongestPath);
             results = AnalysisResultsFactory.CreateQuiverInPlaneAnalysisResults(qpAnalysisResults);
-            Assert.That(results.MainResult, Is.EqualTo(QuiverInPlaneAnalysisMainResult.Success));
-            Assert.That(results.MainResult.IndicatesSelfInjectivity());
+            Assert.That(results.MainResults, Is.EqualTo(QuiverInPlaneAnalysisMainResult.Success));
+            Assert.That(results.MainResults.IndicatesSelfInjectivity());
 
             qpAnalysisResults = CreateQPAnalysisResults(
-                QPAnalysisMainResult.Aborted,
+                QPAnalysisMainResults.Aborted,
                 null,
                 null,
                 defaultLongestPath);
             results = AnalysisResultsFactory.CreateQuiverInPlaneAnalysisResults(qpAnalysisResults);
-            Assert.That(results.MainResult, Is.EqualTo(QuiverInPlaneAnalysisMainResult.QPAnalysisAborted));
+            Assert.That(results.MainResults, Is.EqualTo(QuiverInPlaneAnalysisMainResult.QPAnalysisAborted));
 
             qpAnalysisResults = CreateQPAnalysisResults(
-                QPAnalysisMainResult.Cancelled,
+                QPAnalysisMainResults.Cancelled,
                 null,
                 null,
                 defaultLongestPath);
             results = AnalysisResultsFactory.CreateQuiverInPlaneAnalysisResults(qpAnalysisResults);
-            Assert.That(results.MainResult, Is.EqualTo(QuiverInPlaneAnalysisMainResult.QPAnalysisCancelled));
+            Assert.That(results.MainResults, Is.EqualTo(QuiverInPlaneAnalysisMainResult.QPAnalysisCancelled));
 
             qpAnalysisResults = CreateQPAnalysisResults(
-                QPAnalysisMainResult.NotCancellative,
+                QPAnalysisMainResults.NotCancellative,
                 null,
                 null,
                 defaultLongestPath);
             results = AnalysisResultsFactory.CreateQuiverInPlaneAnalysisResults(qpAnalysisResults);
-            Assert.That(results.MainResult, Is.EqualTo(QuiverInPlaneAnalysisMainResult.QPIsNotCancellative));
+            Assert.That(results.MainResults, Is.EqualTo(QuiverInPlaneAnalysisMainResult.QPIsNotCancellative));
 
             QPAnalysisResults<int> CreateQPAnalysisResults(
-                QPAnalysisMainResult mainResult,
+                QPAnalysisMainResults mainResult,
                 Dictionary<int, IEnumerable<Path<int>>> maximalPathRepresentatives,
                 NakayamaPermutation<int> nakayamaPermutation,
                 Path<int> longestPathEncountered)

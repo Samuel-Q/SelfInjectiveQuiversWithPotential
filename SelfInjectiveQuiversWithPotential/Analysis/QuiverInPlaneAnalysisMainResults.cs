@@ -12,9 +12,9 @@ namespace SelfInjectiveQuiversWithPotential.Analysis
     /// </summary>
     /// <remarks>Because the analysis of quivers in the plane is just QP extraction
     /// (see <see cref="QPExtractor"/>) followed by analysis of the QP, this enum is essentially
-    /// the union of <see cref="QPExtractionResult"/> and <see cref="QPAnalysisMainResult"/>.</remarks>
+    /// the union of <see cref="QPExtractionResult"/> and <see cref="QPAnalysisMainResults"/>.</remarks>
     [Flags]
-    public enum QuiverInPlaneAnalysisMainResult
+    public enum QuiverInPlaneAnalysisMainResults
     {
         None = 0,
 
@@ -91,35 +91,35 @@ namespace SelfInjectiveQuiversWithPotential.Analysis
         TentativeNakayamaPermutationIsNonInjective = 0x400
     }
 
-    public static class QuiverInPlaneAnalysisMainResultExtensions
+    public static class QuiverInPlaneAnalysisMainResultsExtensions
     {
         /// <summary>
         /// Returns a boolean value indicating whether the specified results indicate that the QP
         /// is self-injective.
         /// </summary>
-        /// <param name="result">The results.</param>
-        /// <returns><see langword="true"/> if <paramref name="result"/> indicates that the QP is
+        /// <param name="results">The results.</param>
+        /// <returns><see langword="true"/> if <paramref name="results"/> indicates that the QP is
         /// self-injective. <see langword="false"/> otherwise.</returns>
         /// <remarks>
         /// <para>If the analysis settings dictate that weak cancellativity should not be checked,
         /// the underlying bound quiver could fail to be weakly cancellative without
-        /// <paramref name="result"/> indicating this. In that case, the bound quiver algebra could
+        /// <paramref name="results"/> indicating this. In that case, the bound quiver algebra could
         /// fail to be self-injective but this method could still return <see langword="true"/>.</para>
         /// </remarks>
-        public static bool IndicatesSelfInjectivity(this QuiverInPlaneAnalysisMainResult result)
+        public static bool IndicatesSelfInjectivity(this QuiverInPlaneAnalysisMainResults results)
         {
-            return result.HasFlag(QuiverInPlaneAnalysisMainResult.Success)
-                && !result.HasFlag(QuiverInPlaneAnalysisMainResult.QPIsNotWeaklyCancellative)
-                && !result.HasFlag(QuiverInPlaneAnalysisMainResult.SomeVertexHasMultipleMaximalNonzeroClasses)
-                && !result.HasFlag(QuiverInPlaneAnalysisMainResult.TentativeNakayamaPermutationIsNonInjective);
+            return results.HasFlag(QuiverInPlaneAnalysisMainResults.Success)
+                && !results.HasFlag(QuiverInPlaneAnalysisMainResults.QPIsNotWeaklyCancellative)
+                && !results.HasFlag(QuiverInPlaneAnalysisMainResults.SomeVertexHasMultipleMaximalNonzeroClasses)
+                && !results.HasFlag(QuiverInPlaneAnalysisMainResults.TentativeNakayamaPermutationIsNonInjective);
         }
 
         /// <summary>
         /// Returns a boolean value indicating whether the specified results indicate that the QP
         /// is self-injective.
         /// </summary>
-        /// <param name="result">The results.</param>
-        /// <returns><see langword="true"/> if <paramref name="result"/> indicates that the QP is
+        /// <param name="results">The results.</param>
+        /// <returns><see langword="true"/> if <paramref name="results"/> indicates that the QP is
         /// self-injective. <see langword="false"/> otherwise.</returns>
         /// <remarks>
         /// <para>This method uses strong cancellativity instead of weak cancellativity to ensure
@@ -127,15 +127,15 @@ namespace SelfInjectiveQuiversWithPotential.Analysis
         /// corresponding maximal nonzero equivalence classes.</para>
         /// <para>If the analysis settings dictate that cancellativity should not be checked,
         /// the underlying bound quiver could fail to be cancellative without
-        /// <paramref name="result"/> indicating this. In that case, the bound quiver algebra could
+        /// <paramref name="results"/> indicating this. In that case, the bound quiver algebra could
         /// fail to be self-injective but this method could still return <see langword="true"/>.</para>
         /// </remarks>
-        public static bool IndicatesSelfInjectivityUsingStrongCancellativity(this QuiverInPlaneAnalysisMainResult result)
+        public static bool IndicatesSelfInjectivityUsingStrongCancellativity(this QuiverInPlaneAnalysisMainResults results)
         {
-            return result.HasFlag(QuiverInPlaneAnalysisMainResult.Success)
-                && !result.HasFlag(QuiverInPlaneAnalysisMainResult.QPIsNotCancellative)
-                && !result.HasFlag(QuiverInPlaneAnalysisMainResult.SomeVertexHasMultipleMaximalNonzeroClasses)
-                && !result.HasFlag(QuiverInPlaneAnalysisMainResult.TentativeNakayamaPermutationIsNonInjective);
+            return results.HasFlag(QuiverInPlaneAnalysisMainResults.Success)
+                && !results.HasFlag(QuiverInPlaneAnalysisMainResults.QPIsNotCancellative)
+                && !results.HasFlag(QuiverInPlaneAnalysisMainResults.SomeVertexHasMultipleMaximalNonzeroClasses)
+                && !results.HasFlag(QuiverInPlaneAnalysisMainResults.TentativeNakayamaPermutationIsNonInjective);
         }
     }
 }

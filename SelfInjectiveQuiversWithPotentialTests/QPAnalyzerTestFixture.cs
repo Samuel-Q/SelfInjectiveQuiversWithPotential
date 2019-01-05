@@ -254,8 +254,8 @@ namespace SelfInjectiveQuiversWithPotentialTests
             var settings = CreateSettings(detectNonCancellativity: true);
             var results = analyzer.Analyze(selfInjectiveQP.QP, settings);
 
-            Assert.That(results.MainResult.HasFlag(QPAnalysisMainResult.Success));
-            Assert.That(results.MainResult.IndicatesSelfInjectivity());
+            Assert.That(results.MainResults.HasFlag(QPAnalysisMainResults.Success));
+            Assert.That(results.MainResults.IndicatesSelfInjectivity());
 
             Assert.That(selfInjectiveQP.NakayamaPermutation.Equals(results.NakayamaPermutation));
         }
@@ -318,8 +318,8 @@ namespace SelfInjectiveQuiversWithPotentialTests
             var results = analyzer.Analyze(qp, settings);
 
             Assert.That(
-                results.MainResult.HasFlag(QPAnalysisMainResult.NotCancellative),
-                $"The main result was {results.MainResult}, which does not indicate that the QP fails to be cancellative.");
+                results.MainResults.HasFlag(QPAnalysisMainResults.NotCancellative),
+                $"The main result was {results.MainResults}, which does not indicate that the QP fails to be cancellative.");
         }
 
         // Regression test

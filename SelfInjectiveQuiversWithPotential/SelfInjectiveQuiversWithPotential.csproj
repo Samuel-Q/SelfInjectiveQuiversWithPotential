@@ -133,7 +133,7 @@
     <Compile Include="Plane\TripletOrientation.cs" />
     <Compile Include="Plane\UsefulQuiversInPlane.cs" />
     <Compile Include="Plane\VertexInPlane.cs" />
-    <Compile Include="Analysis\QPAnalysisMainResult.cs" />
+    <Compile Include="Analysis\QPAnalysisMainResults.cs" />
     <Compile Include="Analysis\QPAnalysisResults.cs" />
     <Compile Include="QPIsomorphismChecker.cs" />
     <Compile Include="Recipes\AtomicGlueInstruction.cs" />
@@ -152,7 +152,7 @@
     <Compile Include="Analysis\SemimonomialUnboundQuiverAnalysisResults.cs" />
     <Compile Include="SemimonomialIdeal.cs" />
     <Compile Include="SemimonomialUnboundQuiver.cs" />
-    <Compile Include="Analysis\SemimonomialUnboundQuiverAnalysisMainResult.cs" />
+    <Compile Include="Analysis\SemimonomialUnboundQuiverAnalysisMainResults.cs" />
     <Compile Include="Analysis\SemimonomialUnboundQuiverAnalysisSettings.cs" />
     <Compile Include="Analysis\AnalysisResultsForSingleStartingVertexOld.cs" />
     <Compile Include="Analysis\QPAnalysisSettings.cs" />

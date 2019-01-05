@@ -22,9 +22,9 @@ namespace SelfInjectiveQuiversWithPotential.Analysis
         {
             if (suqResults is null) throw new ArgumentNullException(nameof(suqResults));
 
-            var mainResult = (QPAnalysisMainResult)suqResults.MainResult;
+            var mainResults = (QPAnalysisMainResults)suqResults.MainResults;
             return new QPAnalysisResults<TVertex>(
-                mainResult,
+                mainResults,
                 suqResults.MaximalPathRepresentatives,
                 suqResults.NakayamaPermutation,
                 suqResults.LongestPathEncountered);
@@ -44,18 +44,18 @@ namespace SelfInjectiveQuiversWithPotential.Analysis
         public static IQuiverInPlaneAnalysisResults<TVertex> CreateQuiverInPlaneAnalysisResults<TVertex>(QPExtractionResult qpExtractionResult)
             where TVertex : IEquatable<TVertex>, IComparable<TVertex>
         {
-            QuiverInPlaneAnalysisMainResult mainResult;
+            QuiverInPlaneAnalysisMainResults mainResults;
             switch (qpExtractionResult)
             {
                 case QPExtractionResult.Success: throw new ArgumentException($"The QP extraction result must indicate a failure.");
-                case QPExtractionResult.QuiverHasLoops: mainResult = QuiverInPlaneAnalysisMainResult.QuiverHasLoops; break;
-                case QPExtractionResult.QuiverHasAntiParallelArrows: mainResult = QuiverInPlaneAnalysisMainResult.QuiverHasAntiParallelArrows; break;
-                case QPExtractionResult.QuiverIsNotPlane: mainResult = QuiverInPlaneAnalysisMainResult.QuiverIsNotPlane; break;
-                case QPExtractionResult.QuiverHasFaceWithInconsistentOrientation: mainResult = QuiverInPlaneAnalysisMainResult.QuiverHasFaceWithInconsistentOrientation; break;
+                case QPExtractionResult.QuiverHasLoops: mainResults = QuiverInPlaneAnalysisMainResults.QuiverHasLoops; break;
+                case QPExtractionResult.QuiverHasAntiParallelArrows: mainResults = QuiverInPlaneAnalysisMainResults.QuiverHasAntiParallelArrows; break;
+                case QPExtractionResult.QuiverIsNotPlane: mainResults = QuiverInPlaneAnalysisMainResults.QuiverIsNotPlane; break;
+                case QPExtractionResult.QuiverHasFaceWithInconsistentOrientation: mainResults = QuiverInPlaneAnalysisMainResults.QuiverHasFaceWithInconsistentOrientation; break;
                 default: throw new ArgumentOutOfRangeException($"The QP extraction result {qpExtractionResult} is not among the valid QP extraction results.");
             }
 
-            return new QuiverInPlaneAnalysisResults<TVertex>(mainResult, null, null, null);
+            return new QuiverInPlaneAnalysisResults<TVertex>(mainResults, null, null, null);
         }
 
         /// <summary>
@@ -70,14 +70,14 @@ namespace SelfInjectiveQuiversWithPotential.Analysis
         {
             if (qpAnalysisResults is null) throw new ArgumentNullException(nameof(qpAnalysisResults));
 
-            var qpMainResult = qpAnalysisResults.MainResult;
+            var qpMainResults = qpAnalysisResults.MainResults;
             // Shift up the non-first bits (corresponding to everything except Success) by 4 (which is
             // the number of non-success members in the QPExtractionResult enum)
-            qpMainResult = (QPAnalysisMainResult)((int)(qpAnalysisResults.MainResult & ~QPAnalysisMainResult.Success) << 4) | (qpMainResult & QPAnalysisMainResult.Success);
-            var mainResult = (QuiverInPlaneAnalysisMainResult)qpMainResult;
+            qpMainResults = (QPAnalysisMainResults)((int)(qpAnalysisResults.MainResults & ~QPAnalysisMainResults.Success) << 4) | (qpMainResults & QPAnalysisMainResults.Success);
+            var mainResults = (QuiverInPlaneAnalysisMainResults)qpMainResults;
 
             return new QuiverInPlaneAnalysisResults<TVertex>(
-                mainResult,
+                mainResults,
                 qpAnalysisResults.MaximalPathRepresentatives,
                 qpAnalysisResults.NakayamaPermutation,
                 qpAnalysisResults.LongestPathEncountered);

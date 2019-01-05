@@ -95,7 +95,7 @@ namespace SelfInjectiveQuiversWithPotential.Analysis
             var maximalPathRepresentatives = new Dictionary<TVertex, IEnumerable<Path<TVertex>>>();
             var nakayamaPermutationDict = new Dictionary<TVertex, TVertex>();
 
-            var mainResult = SemimonomialUnboundQuiverAnalysisMainResult.None;
+            var mainResults = SemimonomialUnboundQuiverAnalysisMainResults.None;
             Path<TVertex> longestPath = null;
             foreach (var startingVertex in unboundQuiver.Quiver.Vertices)
             {
@@ -105,26 +105,26 @@ namespace SelfInjectiveQuiversWithPotential.Analysis
 
                 if (representativesResult.WeakCancellativityFailureDetected)
                 {
-                    mainResult |= SemimonomialUnboundQuiverAnalysisMainResult.NotWeaklyCancellative;
+                    mainResults |= SemimonomialUnboundQuiverAnalysisMainResults.NotWeaklyCancellative;
                     if (settings.TerminateEarlyIfWeakCancellativityFails)
                     {
                         return new SemimonomialUnboundQuiverAnalysisResults<TVertex>(
-                        mainResult, null, null, longestPath);
+                        mainResults, null, null, longestPath);
                     }
                 }
                 else if (representativesResult.CancellativityFailureDetected)
                 {
-                    mainResult |= SemimonomialUnboundQuiverAnalysisMainResult.NotCancellative;
+                    mainResults |= SemimonomialUnboundQuiverAnalysisMainResults.NotCancellative;
                     if (settings.TerminateEarlyIfCancellativityFails)
                     {
                         return new SemimonomialUnboundQuiverAnalysisResults<TVertex>(
-                        mainResult, null, null, longestPath);
+                        mainResults, null, null, longestPath);
                     }
                 }
                 else if (representativesResult.TooLongPathEncountered)
                 {
-                    mainResult |= SemimonomialUnboundQuiverAnalysisMainResult.Aborted;
-                    return new SemimonomialUnboundQuiverAnalysisResults<TVertex>(mainResult, null, null, longestPath);
+                    mainResults |= SemimonomialUnboundQuiverAnalysisMainResults.Aborted;
+                    return new SemimonomialUnboundQuiverAnalysisResults<TVertex>(mainResults, null, null, longestPath);
                 }
 
                 var maximalNonzeroEquivalenceClassRepresentatives = representativesResult.MaximalNonzeroEquivalenceClassRepresentatives;
@@ -133,10 +133,10 @@ namespace SelfInjectiveQuiversWithPotential.Analysis
                 Debug.Assert(numMaximalNonzeroPathClasses > 0, "Analysis with starting vertex found 0 maximal nonzero classes.");
                 if (numMaximalNonzeroPathClasses > 1)
                 {
-                    mainResult |= SemimonomialUnboundQuiverAnalysisMainResult.MultipleMaximalNonzeroClasses;
+                    mainResults |= SemimonomialUnboundQuiverAnalysisMainResults.MultipleMaximalNonzeroClasses;
                     if (settings.TerminateEarlyOnMultiDimensionalSocle)
                     {
-                        return new SemimonomialUnboundQuiverAnalysisResults<TVertex>(mainResult, null, null, longestPath);
+                        return new SemimonomialUnboundQuiverAnalysisResults<TVertex>(mainResults, null, null, longestPath);
                     }
                 }
                 else
@@ -145,24 +145,24 @@ namespace SelfInjectiveQuiversWithPotential.Analysis
                     // Check if the tentative Nakayama permutation fails to be injective.
                     if (nakayamaPermutationDict.ContainsValue(endingPoint))
                     {
-                        mainResult |= SemimonomialUnboundQuiverAnalysisMainResult.NonInjectiveTentativeNakayamaPermutation;
+                        mainResults |= SemimonomialUnboundQuiverAnalysisMainResults.NonInjectiveTentativeNakayamaPermutation;
                         if (settings.TerminateEarlyIfNakayamaPermutationFails)
                         {
-                            return new SemimonomialUnboundQuiverAnalysisResults<TVertex>(mainResult, null, null, longestPath);
+                            return new SemimonomialUnboundQuiverAnalysisResults<TVertex>(mainResults, null, null, longestPath);
                         }
                     }
                     else nakayamaPermutationDict[startingVertex] = endingPoint;
                 }
             }
 
-            mainResult |= SemimonomialUnboundQuiverAnalysisMainResult.Success;
+            mainResults |= SemimonomialUnboundQuiverAnalysisMainResults.Success;
             NakayamaPermutation<TVertex> nakayamaPermutation = null;
-            if (mainResult.IndicatesSelfInjectivity())
+            if (mainResults.IndicatesSelfInjectivity())
             {
                 nakayamaPermutation = new NakayamaPermutation<TVertex>(nakayamaPermutationDict);
             }
 
-            return new SemimonomialUnboundQuiverAnalysisResults<TVertex>(mainResult, maximalPathRepresentatives, nakayamaPermutation, longestPath);
+            return new SemimonomialUnboundQuiverAnalysisResults<TVertex>(mainResults, maximalPathRepresentatives, nakayamaPermutation, longestPath);
         }
 
         /// <summary>
@@ -430,17 +430,17 @@ namespace SelfInjectiveQuiversWithPotential.Analysis
             where TVertex : IEquatable<TVertex>, IComparable<TVertex>
         {
             // Get main result
-            var mainResult = SemimonomialUnboundQuiverAnalysisMainResult.None;
-            if (!cancelledEarly) mainResult |= SemimonomialUnboundQuiverAnalysisMainResult.Success;
-            if (tooLongPathEncountered) mainResult |= SemimonomialUnboundQuiverAnalysisMainResult.Aborted;
-            if (nonCancellativityDetected) mainResult |= SemimonomialUnboundQuiverAnalysisMainResult.NotCancellative;
-            bool isSelfInjective = mainResult.IndicatesSelfInjectivityUsingStrongCancellativity();
+            var mainResults = SemimonomialUnboundQuiverAnalysisMainResults.None;
+            if (!cancelledEarly) mainResults |= SemimonomialUnboundQuiverAnalysisMainResults.Success;
+            if (tooLongPathEncountered) mainResults |= SemimonomialUnboundQuiverAnalysisMainResults.Aborted;
+            if (nonCancellativityDetected) mainResults |= SemimonomialUnboundQuiverAnalysisMainResults.NotCancellative;
+            bool isSelfInjective = mainResults.IndicatesSelfInjectivityUsingStrongCancellativity();
 
             var periods = new CircularList<IReadOnlyList<TVertex>>(periodsEnumerable.Select(period => period.ToList()));
             if (!periods.Any())
             {
                 return new SemimonomialUnboundQuiverAnalysisResults<TVertex>(
-                    mainResult,
+                    mainResults,
                     maximalPathRepresentativesDict.ToReadOnlyDictionary(),
                     new NakayamaPermutation<TVertex>(nakayamaPermutationDict),
                     longestPathEncountered);
@@ -505,7 +505,7 @@ namespace SelfInjectiveQuiversWithPotential.Analysis
 
             var nakayamaPermutation = isSelfInjective ? new NakayamaPermutation<TVertex>(nakayamaPermutationDict) : null;
             var results = new SemimonomialUnboundQuiverAnalysisResults<TVertex>(
-                mainResult,
+                mainResults,
                 maximalPathRepresentativesDict.ToReadOnlyDictionary(),
                 nakayamaPermutation,
                 longestPathEncountered);

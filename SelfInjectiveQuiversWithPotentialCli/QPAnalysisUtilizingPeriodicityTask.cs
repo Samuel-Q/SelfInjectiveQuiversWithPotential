@@ -56,7 +56,7 @@ namespace SelfInjectiveQuiversWithPotentialCli
 
             var analyzer = new QPAnalyzer();
             var settings = new QPAnalysisSettings(
-                CancellativityTypes.Cancellativity,
+                CancellativityTypes.WeakCancellativity,
                 maxPathLength: -1,
                 EarlyTerminationConditions.None);
 
@@ -68,9 +68,9 @@ namespace SelfInjectiveQuiversWithPotentialCli
 
         private void PrintResults(IQPAnalysisResults<int> results)
         {
-            Console.WriteLine($"Main result: {results.MainResult}.");
+            Console.WriteLine($"Main result: {results.MainResults}.");
 
-            if (results.MainResult.HasFlag(QPAnalysisMainResult.SelfInjective))
+            if (results.MainResults.IndicatesSelfInjectivity())
             {
                 Console.WriteLine("The Nakayama permutation is as follows:");
                 foreach (var (sourceVertex, targetVertex) in results.NakayamaPermutation)

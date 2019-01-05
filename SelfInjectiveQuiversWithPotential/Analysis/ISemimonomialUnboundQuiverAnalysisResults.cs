@@ -16,9 +16,9 @@ namespace SelfInjectiveQuiversWithPotential.Analysis
     public interface ISemimonomialUnboundQuiverAnalysisResults<TVertex> where TVertex : IEquatable<TVertex>, IComparable<TVertex>
     {
         /// <summary>
-        /// Gets the main result of the analysis (whether it was successful or why it failed).
+        /// Gets the main results of the analysis.
         /// </summary>
-        SemimonomialUnboundQuiverAnalysisMainResult MainResult { get; }
+        SemimonomialUnboundQuiverAnalysisMainResults MainResults { get; }
 
         /// <summary>
         /// Gets a dictionary mapping every vertex of the quiver to a collection of representatives

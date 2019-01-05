@@ -682,7 +682,7 @@ namespace SelfInjectiveQuiversWithPotential
 
         #region Miscellaneous
         /// <summary>
-        /// Gets the &quot;classic&quot; non-cancellative QP.
+        /// Gets the &quot;classic&quot; non-cancellative QP, which is not even weakly cancellative.
         /// </summary>
         /// <returns>The &quot;classic&quot; non-cancellative QP.</returns>
         public static QuiverWithPotential<int> GetClassicNonCancellativeQP()

@@ -11,7 +11,7 @@ namespace SelfInjectiveQuiversWithPotential.Analysis
     /// analysis, if you will).
     /// </summary>
     [Flags]
-    public enum QPAnalysisMainResult
+    public enum QPAnalysisMainResults
     {
         None = 0,
 
@@ -67,35 +67,35 @@ namespace SelfInjectiveQuiversWithPotential.Analysis
         NonInjectiveTentativeNakayamaPermutation = 0x40
     }
 
-    public static class QPAnalysisMainResultExtensions
+    public static class QPAnalysisMainResultsExtensions
     {
         /// <summary>
         /// Returns a boolean value indicating whether the specified results indicate that the QP
         /// is self-injective.
         /// </summary>
-        /// <param name="result">The results.</param>
-        /// <returns><see langword="true"/> if <paramref name="result"/> indicates that the QP is
+        /// <param name="results">The results.</param>
+        /// <returns><see langword="true"/> if <paramref name="results"/> indicates that the QP is
         /// self-injective. <see langword="false"/> otherwise.</returns>
         /// <remarks>
         /// <para>If the analysis settings dictate that weak cancellativity should not be checked,
         /// the underlying bound quiver could fail to be weakly cancellative without
-        /// <paramref name="result"/> indicating this. In that case, the bound quiver algebra could
+        /// <paramref name="results"/> indicating this. In that case, the bound quiver algebra could
         /// fail to be self-injective but this method could still return <see langword="true"/>.</para>
         /// </remarks>
-        public static bool IndicatesSelfInjectivity(this QPAnalysisMainResult result)
+        public static bool IndicatesSelfInjectivity(this QPAnalysisMainResults results)
         {
-            return result.HasFlag(QPAnalysisMainResult.Success)
-                && !result.HasFlag(QPAnalysisMainResult.NotWeaklyCancellative)
-                && !result.HasFlag(QPAnalysisMainResult.MultipleMaximalNonzeroClasses)
-                && !result.HasFlag(QPAnalysisMainResult.NonInjectiveTentativeNakayamaPermutation);
+            return results.HasFlag(QPAnalysisMainResults.Success)
+                && !results.HasFlag(QPAnalysisMainResults.NotWeaklyCancellative)
+                && !results.HasFlag(QPAnalysisMainResults.MultipleMaximalNonzeroClasses)
+                && !results.HasFlag(QPAnalysisMainResults.NonInjectiveTentativeNakayamaPermutation);
         }
 
         /// <summary>
         /// Returns a boolean value indicating whether the specified results indicate that the QP
         /// is self-injective.
         /// </summary>
-        /// <param name="result">The results.</param>
-        /// <returns><see langword="true"/> if <paramref name="result"/> indicates that the QP is
+        /// <param name="results">The results.</param>
+        /// <returns><see langword="true"/> if <paramref name="results"/> indicates that the QP is
         /// self-injective. <see langword="false"/> otherwise.</returns>
         /// <remarks>
         /// <para>This method uses strong cancellativity instead of weak cancellativity to ensure
@@ -103,15 +103,15 @@ namespace SelfInjectiveQuiversWithPotential.Analysis
         /// corresponding maximal nonzero equivalence classes.</para>
         /// <para>If the analysis settings dictate that cancellativity should not be checked,
         /// the underlying bound quiver could fail to be cancellative without
-        /// <paramref name="result"/> indicating this. In that case, the bound quiver algebra could
+        /// <paramref name="results"/> indicating this. In that case, the bound quiver algebra could
         /// fail to be self-injective but this method could still return <see langword="true"/>.</para>
         /// </remarks>
-        public static bool IndicatesSelfInjectivityUsingStrongCancellativity(this QPAnalysisMainResult result)
+        public static bool IndicatesSelfInjectivityUsingStrongCancellativity(this QPAnalysisMainResults results)
         {
-            return result.HasFlag(QPAnalysisMainResult.Success)
-                && !result.HasFlag(QPAnalysisMainResult.NotCancellative)
-                && !result.HasFlag(QPAnalysisMainResult.MultipleMaximalNonzeroClasses)
-                && !result.HasFlag(QPAnalysisMainResult.NonInjectiveTentativeNakayamaPermutation);
+            return results.HasFlag(QPAnalysisMainResults.Success)
+                && !results.HasFlag(QPAnalysisMainResults.NotCancellative)
+                && !results.HasFlag(QPAnalysisMainResults.MultipleMaximalNonzeroClasses)
+                && !results.HasFlag(QPAnalysisMainResults.NonInjectiveTentativeNakayamaPermutation);
         }
     }
 }
