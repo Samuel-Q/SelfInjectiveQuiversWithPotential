@@ -82,7 +82,7 @@ namespace SelfInjectiveQuiversWithPotential.Analysis
         /// <para>If the analysis settings dictate that weak cancellativity should not be checked,
         /// the bound quiver could fail to be weakly cancellative without <paramref name="result"/>
         /// indicating this. In that case, the bound quiver algebra could fail to be self-injective
-        /// but this method would still return <see langword="true"/>.</para>
+        /// but this method could still return <see langword="true"/>.</para>
         /// </remarks>
         public static bool IndicatesSelfInjectivity(this SemimonomialUnboundQuiverAnalysisMainResult result)
         {
@@ -106,7 +106,7 @@ namespace SelfInjectiveQuiversWithPotential.Analysis
         /// <para>If the analysis settings dictate that cancellativity should not be checked,
         /// the bound quiver could fail to be cancellative without <paramref name="result"/>
         /// indicating this. In that case, the bound quiver algebra could fail to be self-injective
-        /// but this method would still return <see langword="true"/>.</para>
+        /// but this method could still return <see langword="true"/>.</para>
         /// </remarks>
         public static bool IndicatesSelfInjectivityUsingStrongCancellativity(this SemimonomialUnboundQuiverAnalysisMainResult result)
         {

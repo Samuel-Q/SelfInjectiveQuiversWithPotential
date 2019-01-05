@@ -57,7 +57,7 @@ namespace SelfInjectiveQuiversWithPotentialTests
             var qpAnalysisResults = CreateQPAnalysisResults(
                 QPAnalysisMainResult.Success,
                 defaultMaximalReps,
-                null,
+                defaultNakayamaPermutation,
                 defaultLongestPath);
 
             var results = AnalysisResultsFactory.CreateQuiverInPlaneAnalysisResults(qpAnalysisResults);
@@ -69,7 +69,8 @@ namespace SelfInjectiveQuiversWithPotentialTests
                 defaultNakayamaPermutation,
                 defaultLongestPath);
             results = AnalysisResultsFactory.CreateQuiverInPlaneAnalysisResults(qpAnalysisResults);
-            Assert.That(results.MainResult, Is.EqualTo(QuiverInPlaneAnalysisMainResult.Success | QuiverInPlaneAnalysisMainResult.QPIsSelfInjective));
+            Assert.That(results.MainResult, Is.EqualTo(QuiverInPlaneAnalysisMainResult.Success));
+            Assert.That(results.MainResult.IndicatesSelfInjectivity());
 
             qpAnalysisResults = CreateQPAnalysisResults(
                 QPAnalysisMainResult.Aborted,

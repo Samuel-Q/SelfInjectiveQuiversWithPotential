@@ -35,7 +35,8 @@ namespace SelfInjectiveQuiversWithPotentialTests
             var (analyzer, settings) = CreateAnalyzerWithSettings();
 
             var results = analyzer.Analyze(quiverInPlane, settings);
-            Assert.That(results.MainResult, Is.EqualTo(QuiverInPlaneAnalysisMainResult.Success | QuiverInPlaneAnalysisMainResult.QPIsSelfInjective));
+            Assert.That(results.MainResult, Is.EqualTo(QuiverInPlaneAnalysisMainResult.Success));
+            Assert.That(results.MainResult.IndicatesSelfInjectivity());
             var expectedMaximalPathRepresentatives = vertices.ToDictionary(
                 k => k,
                 k => new Path<int>[] { new Path<int>(Enumerable.Range(k, vertices.Count - 1).Select(l => l.Modulo(vertices.Count))) });
@@ -61,7 +62,8 @@ namespace SelfInjectiveQuiversWithPotentialTests
             var (analyzer, settings) = CreateAnalyzerWithSettings();
 
             var results = analyzer.Analyze(quiverInPlane, settings);
-            Assert.That(results.MainResult, Is.EqualTo(QuiverInPlaneAnalysisMainResult.Success | QuiverInPlaneAnalysisMainResult.QPIsSelfInjective));
+            Assert.That(results.MainResult, Is.EqualTo(QuiverInPlaneAnalysisMainResult.Success));
+            Assert.That(results.MainResult.IndicatesSelfInjectivity());
             var expectedMaximalPathRepresentatives = vertices.ToDictionary(
                 k => k,
                 k => new Path<int>[] { new Path<int>(Enumerable.Range(k, vertices.Count - 1).Select(l => l.Modulo(vertices.Count))) });

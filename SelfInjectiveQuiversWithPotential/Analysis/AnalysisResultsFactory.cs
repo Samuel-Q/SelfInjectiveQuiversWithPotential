@@ -1,9 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using SelfInjectiveQuiversWithPotential.Plane;
+﻿using SelfInjectiveQuiversWithPotential.Plane;
+using System;
 
 namespace SelfInjectiveQuiversWithPotential.Analysis
 {
@@ -75,7 +71,6 @@ namespace SelfInjectiveQuiversWithPotential.Analysis
             if (qpAnalysisResults is null) throw new ArgumentNullException(nameof(qpAnalysisResults));
 
             var qpMainResult = qpAnalysisResults.MainResult;
-            // TODO: This is really broken now
             // Shift up the non-first bits (corresponding to everything except Success) by 4 (which is
             // the number of non-success members in the QPExtractionResult enum)
             qpMainResult = (QPAnalysisMainResult)((int)(qpAnalysisResults.MainResult & ~QPAnalysisMainResult.Success) << 4) | (qpMainResult & QPAnalysisMainResult.Success);

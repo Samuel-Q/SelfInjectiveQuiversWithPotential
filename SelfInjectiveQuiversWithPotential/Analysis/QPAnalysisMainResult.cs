@@ -18,27 +18,27 @@ namespace SelfInjectiveQuiversWithPotential.Analysis
         /// <summary>
         /// Indicates that the analysis was successful in that it was not terminated early.
         /// </summary>
-        Success = 1,
+        Success = 0x01,
 
         /// <summary>
         /// Indicates that the analysis was aborted (because an infinite loop was detected or so).
         /// </summary>
-        Aborted = 2,
+        Aborted = 0x02,
 
         /// <summary>
         /// Indicates that the analysis was cancelled (by the user, typically)
         /// </summary>
-        Cancelled = 4,
+        Cancelled = 0x04,
 
         /// <summary>
         /// Indicates that the analysis showed that the QP is not cancellative.
         /// </summary>
-        NotCancellative = 8,
+        NotCancellative = 0x08,
 
         /// <summary>
         /// Indicates that the analysis showed that the QP is not weakly cancellative.
         /// </summary>
-        NotWeaklyCancellative = 16,
+        NotWeaklyCancellative = 0x10,
 
         /// <summary>
         /// Indicates that the analysis showed that some starting point had more than one maximal
@@ -51,7 +51,7 @@ namespace SelfInjectiveQuiversWithPotential.Analysis
         /// a possibly strictly stronger condition if the underlying bound quiver is not weakly
         /// cancellative. This is not to mention what could happen if the ideal is not admissible.</para>
         /// </remarks>
-        MultipleMaximalNonzeroClasses = 32,
+        MultipleMaximalNonzeroClasses = 0x20,
 
         /// <summary>
         /// Indicates that the analysis showed that the tentative Nakayama permutation (mapping a
@@ -64,7 +64,7 @@ namespace SelfInjectiveQuiversWithPotential.Analysis
         /// (failure of being a single-valued function might seem to fall under PermutationFails,
         /// but this problem is captured by <see cref="MultipleMaximalNonzeroClasses"/>).</para>
         /// </remarks>
-        NonInjectiveTentativeNakayamaPermutation = 64
+        NonInjectiveTentativeNakayamaPermutation = 0x40
     }
 
     public static class QPAnalysisMainResultExtensions
@@ -80,7 +80,7 @@ namespace SelfInjectiveQuiversWithPotential.Analysis
         /// <para>If the analysis settings dictate that weak cancellativity should not be checked,
         /// the underlying bound quiver could fail to be weakly cancellative without
         /// <paramref name="result"/> indicating this. In that case, the bound quiver algebra could
-        /// fail to be self-injective but this method would still return <see langword="true"/>.</para>
+        /// fail to be self-injective but this method could still return <see langword="true"/>.</para>
         /// </remarks>
         public static bool IndicatesSelfInjectivity(this QPAnalysisMainResult result)
         {
@@ -104,7 +104,7 @@ namespace SelfInjectiveQuiversWithPotential.Analysis
         /// <para>If the analysis settings dictate that cancellativity should not be checked,
         /// the underlying bound quiver could fail to be cancellative without
         /// <paramref name="result"/> indicating this. In that case, the bound quiver algebra could
-        /// fail to be self-injective but this method would still return <see langword="true"/>.</para>
+        /// fail to be self-injective but this method could still return <see langword="true"/>.</para>
         /// </remarks>
         public static bool IndicatesSelfInjectivityUsingStrongCancellativity(this QPAnalysisMainResult result)
         {

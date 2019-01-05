@@ -41,7 +41,7 @@ namespace SelfInjectiveQuiversWithPotential.Analysis
             if (mainResult.HasFlag(QuiverInPlaneAnalysisMainResult.Success) && maximalPathRepresentatives is null)
                 throw new ArgumentNullException(nameof(maximalPathRepresentatives));
 
-            if (mainResult.HasFlag(QuiverInPlaneAnalysisMainResult.QPIsSelfInjective) && nakayamaPermutation is null)
+            if (mainResult.IndicatesSelfInjectivity() && nakayamaPermutation is null)
                 throw new ArgumentNullException(nameof(nakayamaPermutation));
         }
     }
