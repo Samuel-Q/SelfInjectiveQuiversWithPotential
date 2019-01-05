@@ -12,6 +12,12 @@ namespace SelfInjectiveQuiversWithPotentialTests
     [TestFixture]
     class CompositeGlueInstructionTestFixture
     {
+        private QPAnalysisSettings GetSettings(bool detectNonCancellativity)
+        {
+            var cancellativityFailureDetection = detectNonCancellativity ? CancellativityTypes.Cancellativity : CancellativityTypes.None;
+            return new QPAnalysisSettings(cancellativityFailureDetection);
+        }
+
         [Test]
         public void Constructor_ThrowsArgumentNullException_OnNullInstructions()
         {
@@ -79,7 +85,8 @@ namespace SelfInjectiveQuiversWithPotentialTests
             var recipe = new PotentialRecipe(instructions);
             var qp = gen.ExecuteRecipe(recipe, 5);
             var analyzer = new QPAnalyzer();
-            var result = analyzer.Analyze(qp, new QPAnalysisSettings(detectNonCancellativity: true));
+            var settings = GetSettings(detectNonCancellativity: true);
+            var result = analyzer.Analyze(qp, settings);
             Assert.That(result.MainResult.HasFlag(QPAnalysisMainResult.SelfInjective));
         }
         #endregion

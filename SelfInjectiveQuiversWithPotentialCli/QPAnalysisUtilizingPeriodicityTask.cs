@@ -56,9 +56,9 @@ namespace SelfInjectiveQuiversWithPotentialCli
 
             var analyzer = new QPAnalyzer();
             var settings = new QPAnalysisSettings(
-                detectNonCancellativity: true,
+                CancellativityTypes.Cancellativity,
                 maxPathLength: -1,
-                EarlyTerminationCondition.None);
+                EarlyTerminationConditions.None);
 
             Console.WriteLine("Analyzing QP ...");
             var results = analyzer.AnalyzeUtilizingPeriodicityConcurrently(qp, periods, settings);

@@ -13,8 +13,13 @@ namespace SelfInjectiveQuiversWithPotential.Analysis
     /// </summary>
     public class MaximalNonzeroEquivalenceClassRepresentativeComputer : IMaximalNonzeroEquivalenceClassRepresentativeComputer
     {
+        /// <inheritdoc/>
         public bool SupportsNonCancellativityDetection => true;
 
+        /// <inheritdoc/>
+        public bool SupportsNonWeakCancellativityDetection => true;
+
+        /// <inheritdoc/>
         public bool SupportsNonAdmissibilityHandling => true;
 
         /// <summary>
@@ -107,11 +112,18 @@ namespace SelfInjectiveQuiversWithPotential.Analysis
             AnalysisStateForSingleStartingVertex<TVertex> state = DoSearchInPathTree(quiver, startingVertex, transformationRuleTree, settings);
 
             // Do cancellativity check
-            bool shouldDoNonCancellativityDetection = settings.DetectNonCancellativity && !state.TooLongPathEncountered;
-            bool nonCancellativityDetected = shouldDoNonCancellativityDetection ? DetectFailureOfCancellativity(state) : false;
+            bool shouldDoCancellativityFailureDetection = settings.DetectCancellativityFailure && !state.TooLongPathEncountered;
+            bool cancellativityFailureDetected = shouldDoCancellativityFailureDetection ? DetectFailureOfCancellativity(state) : false;
+
+            bool shouldDoWeakCancellativityFailureDetection = settings.DetectCancellativityFailure && !state.TooLongPathEncountered;
+            bool weakCancellativityFailureDetected = shouldDoWeakCancellativityFailureDetection ? DetectFailureOfWeakCancellativity(state) : false;
+
+            var cancellativityFailuresDetected = CancellativityTypes.None;
+            if (cancellativityFailureDetected) cancellativityFailuresDetected |= CancellativityTypes.Cancellativity;
+            if (weakCancellativityFailureDetected) cancellativityFailuresDetected |= CancellativityTypes.WeakCancellativity;
 
             // Return results
-            var results = new AnalysisResultsForSingleStartingVertex<TVertex>(state, nonCancellativityDetected);
+            var results = new AnalysisResultsForSingleStartingVertex<TVertex>(state, cancellativityFailuresDetected);
             return results;
         }
 
@@ -605,11 +617,13 @@ namespace SelfInjectiveQuiversWithPotential.Analysis
             // important here; otherwise, the MaximalPathRepresentatives property of the
             // MaximalNonzeroEquivalenceClassRepresentativesResult prevents the entire search tree
             // of analysisResults from being freed.
+            var maximalPathRepresentatives = analysisResults.MaximalPathRepresentatives.Select(node => node.Path).ToList();
+
             var outputResults = new MaximalNonzeroEquivalenceClassRepresentativesResults<TVertex>(
-                nonCancellativityDetected: analysisResults.NonCancellativityDetected,
-                tooLongPathEncountered: analysisResults.TooLongPathEncountered,
-                analysisResults.MaximalPathRepresentatives.Select(node => node.Path).ToList(),
-                longestPathEncountered: analysisResults.LongestPathEncountered);
+                analysisResults.CancellativityFailuresDetected,
+                analysisResults.TooLongPathEncountered,
+                maximalPathRepresentatives,
+                analysisResults.LongestPathEncountered);
             return outputResults;
         }
     }

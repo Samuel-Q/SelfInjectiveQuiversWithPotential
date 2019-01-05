@@ -13,10 +13,19 @@ namespace SelfInjectiveQuiversWithPotential.Analysis
     public abstract class AnalysisSettings
     {
         /// <summary>
-        /// Gets a boolean value indicating whether non-cancellativity of the gadget should be
-        /// detected.
+        /// Gets a value indicating which types of cancellativity to detect failure of.
         /// </summary>
-        public bool DetectNonCancellativity { get; private set; }
+        public CancellativityTypes CancellativityFailureDetection { get; private set; }
+
+        /// <summary>
+        /// Gets a boolean value indicating whether to detect failure of (strong) cancellativity.
+        /// </summary>
+        public bool DetectCancellativityFailure => CancellativityFailureDetection.HasFlag(CancellativityTypes.Cancellativity);
+
+        /// <summary>
+        /// Gets a boolean value indicating whether to detect failure of weak cancellativity.
+        /// </summary>
+        public bool DetectWeakCancellativityFailure => CancellativityFailureDetection.HasFlag(CancellativityTypes.WeakCancellativity);
 
         /// <summary>
         /// Gets a boolean value indicating whether to use a maximum path length (i.e., whether to
@@ -32,40 +41,65 @@ namespace SelfInjectiveQuiversWithPotential.Analysis
         public int MaxPathLength { get; private set; }
 
         /// <summary>
-        /// Gets a value of the <see cref="Analysis.EarlyTerminationCondition"/> enum indicating
+        /// Gets a value of the <see cref="Analysis.EarlyTerminationConditions"/> enum indicating
         /// the conditions on which the analysis should terminate early.
         /// </summary>
-        public EarlyTerminationCondition EarlyTerminationCondition { get; private set; }
+        public EarlyTerminationConditions EarlyTerminationConditions { get; private set; }
+
+        /// <summary>
+        /// Gets a boolean value indicating whether to terminate early if (strong) cancellativity
+        /// fails.
+        /// </summary>
+        public bool TerminateEarlyIfCancellativityFails => EarlyTerminationConditions.HasFlag(EarlyTerminationConditions.CancellativityFails);
+
+        /// <summary>
+        /// Gets a boolean value indicating whether to terminate early if weak cancellativity
+        /// fails.
+        /// </summary>
+        public bool TerminateEarlyIfWeakCancellativityFails => EarlyTerminationConditions.HasFlag(EarlyTerminationConditions.WeakCancellativityFails);
+
+        /// <summary>
+        /// Gets a boolean value indicating whether to terminate early if the socle of one of the
+        /// indecomposable projective modules is multi-dimensional.
+        /// </summary>
+        public bool TerminateEarlyOnMultiDimensionalSocle => EarlyTerminationConditions.HasFlag(EarlyTerminationConditions.MultiDimensionalSocle);
+
+        /// <summary>
+        /// Gets a boolean value indicating whether to terminate early the tentative Nakayama
+        /// permutation is found not to be a permutation (i.e., non-injective).
+        /// </summary>
+        public bool TerminateEarlyIfNakayamaPermutationFails => EarlyTerminationConditions.HasFlag(EarlyTerminationConditions.PermutationFails);
 
         /// <summary>
         /// Initializes a new instance of the <see cref="AnalysisSettings"/> class.
         /// </summary>
-        /// <param name="detectNonCancellativity">A boolean value indicating whether
-        /// non-cancellativity of the gadget should be detected.</param>
+        /// <param name="cancellativityFailureDetection">A
+        /// <see cref="CancellativityTypes"/> value indicating which types of cancellativity to
+        /// detect failures of.</param>
         /// <param name="maxPathLength">The maximum path length in arrows (i.e., the value such
         /// that if a path of length greater than the value is encountered during the analysis, the
         /// analysis is to be aborted), or a negative value if no maximum path length is to be
         /// used.</param>
-        /// <param name="earlyTerminationCondition">A value of the
-        /// <see cref="Analysis.EarlyTerminationCondition"/> enum indicating the conditions on
+        /// <param name="earlyTerminationConditions">A value of the
+        /// <see cref="Analysis.EarlyTerminationConditions"/> enum indicating the conditions on
         /// which the analysis should terminate early.</param>
         protected AnalysisSettings(
-            bool detectNonCancellativity,
+            CancellativityTypes cancellativityFailureDetection,
             int maxPathLength,
-            EarlyTerminationCondition earlyTerminationCondition)
+            EarlyTerminationConditions earlyTerminationConditions)
         {
-            DetectNonCancellativity = detectNonCancellativity;
+            CancellativityFailureDetection = cancellativityFailureDetection;
             MaxPathLength = maxPathLength;
-            EarlyTerminationCondition = earlyTerminationCondition;
+            EarlyTerminationConditions = earlyTerminationConditions;
         }
 
         public override string ToString()
         {
             var builder = new StringBuilder();
-            builder.Append($"Detect non-cancellativity: {DetectNonCancellativity}. ");
+            builder.Append($"Cancellativity failure detection: {CancellativityFailureDetection}. ");
             if (UseMaxLength) builder.Append($"Max path length: {MaxPathLength}. ");
             else builder.Append("No max path length. ");
-            builder.Append($"Early termination condition: {EarlyTerminationCondition}.");
+            builder.Append($"Early termination condition: {EarlyTerminationConditions}.");
 
             return builder.ToString();
         }

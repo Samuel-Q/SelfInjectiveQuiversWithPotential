@@ -18,7 +18,7 @@ namespace SelfInjectiveQuiversWithPotentialTests
             where TVertex : IEquatable<TVertex>, IComparable<TVertex>
         {
             var analyzer = new QPAnalyzer();
-            var result = analyzer.Analyze(qp, new QPAnalysisSettings(detectNonCancellativity: true));
+            var result = analyzer.Analyze(qp, new QPAnalysisSettings(CancellativityTypes.Cancellativity));
             Assert.That(result.MainResult.HasFlag(QPAnalysisMainResult.SelfInjective));
         }
 

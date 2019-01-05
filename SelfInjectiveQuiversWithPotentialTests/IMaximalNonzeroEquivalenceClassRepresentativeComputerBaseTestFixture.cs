@@ -34,23 +34,26 @@ namespace SelfInjectiveQuiversWithPotentialTests
 
         private MaximalNonzeroEquivalenceClassRepresentativeComputationSettings GetSettings(bool detectNonCancellativity)
         {
-            return new MaximalNonzeroEquivalenceClassRepresentativeComputationSettings(detectNonCancellativity);
+            var cancellativityFailureDetection = detectNonCancellativity ? CancellativityTypes.Cancellativity : CancellativityTypes.None;
+            return new MaximalNonzeroEquivalenceClassRepresentativeComputationSettings(cancellativityFailureDetection);
         }
 
         private MaximalNonzeroEquivalenceClassRepresentativeComputationSettings GetSettings(
             bool detectNonCancellativity = false,
             int maxPathLength = -1,
-            EarlyTerminationCondition earlyTerminationCondition = EarlyTerminationCondition.None)
+            EarlyTerminationConditions earlyTerminationCondition = EarlyTerminationConditions.None)
         {
-            return new MaximalNonzeroEquivalenceClassRepresentativeComputationSettings(detectNonCancellativity, maxPathLength, earlyTerminationCondition);
+            var cancellativityFailureDetection = detectNonCancellativity ? CancellativityTypes.Cancellativity : CancellativityTypes.None;
+            return new MaximalNonzeroEquivalenceClassRepresentativeComputationSettings(cancellativityFailureDetection, maxPathLength, earlyTerminationCondition);
         }
 
         private QPAnalysisSettings GetQPAnalysisSettings(
             bool detectNonCancellativity = false,
             int maxPathLength = -1,
-            EarlyTerminationCondition earlyTerminationCondition = EarlyTerminationCondition.None)
+            EarlyTerminationConditions earlyTerminationCondition = EarlyTerminationConditions.None)
         {
-            return new QPAnalysisSettings(detectNonCancellativity, maxPathLength, earlyTerminationCondition);
+            var cancellativityFailureDetection = detectNonCancellativity ? CancellativityTypes.Cancellativity : CancellativityTypes.None;
+            return new QPAnalysisSettings(cancellativityFailureDetection, maxPathLength, earlyTerminationCondition);
         }
 
         private void DoSetup(QuiverWithPotential<int> qp, out TransformationRuleTreeNode<int> ruleTree)
@@ -259,7 +262,7 @@ namespace SelfInjectiveQuiversWithPotentialTests
         }
 
         [Test]
-        public void ComputeMaximalNonzeroEquivalenceClassRepresentativesStartingAt_OnClassicNonCancellativeExample()
+        public void ComputeMaximalNonzeroEquivalenceClassRepresentativesStartingAt_OnClassicNonCancellativeExample_IndicatesNotCancellative()
         {
             if (!Computer.SupportsNonCancellativityDetection) return;
 
@@ -267,7 +270,19 @@ namespace SelfInjectiveQuiversWithPotentialTests
             var qp = UsefulQPs.GetClassicNonCancellativeQP();
             DoSetup(qp, out var ruleTree);
             var result = Computer.ComputeMaximalNonzeroEquivalenceClassRepresentativesStartingAt(qp.Quiver, 1, ruleTree, settings);
-            Assert.That(result.NonCancellativityDetected, Is.True);
+            Assert.That(result.CancellativityFailureDetected, Is.True);
+        }
+
+        [Test]
+        public void ComputeMaximalNonzeroEquivalenceClassRepresentativesStartingAt_OnClassicNonCancellativeExample_IndicatesNotWeaklyCancellative()
+        {
+            if (!Computer.SupportsNonWeakCancellativityDetection) return;
+
+            var settings = GetSettings(detectNonCancellativity: true);
+            var qp = UsefulQPs.GetClassicNonCancellativeQP();
+            DoSetup(qp, out var ruleTree);
+            var result = Computer.ComputeMaximalNonzeroEquivalenceClassRepresentativesStartingAt(qp.Quiver, 1, ruleTree, settings);
+            Assert.That(result.CancellativityFailureDetected, Is.True);
         }
 
         // This region contains tests that have not been verified by hand to be correct

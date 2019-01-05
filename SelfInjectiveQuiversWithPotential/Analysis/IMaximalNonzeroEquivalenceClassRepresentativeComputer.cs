@@ -28,6 +28,12 @@ namespace SelfInjectiveQuiversWithPotential.Analysis
         bool SupportsNonCancellativityDetection { get; }
 
         /// <summary>
+        /// Gets a boolean value indicating whether the computer has support for detecting
+        /// failure of weak cancellativity.
+        /// </summary>
+        bool SupportsNonWeakCancellativityDetection { get; }
+
+        /// <summary>
         /// Gets a boolean value indicating whether the computer has support for dealing with
         /// non-admissibility.
         /// </summary>

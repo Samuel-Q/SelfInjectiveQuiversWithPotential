@@ -12,11 +12,18 @@ namespace SelfInjectiveQuiversWithPotentialTests
     [TestFixture]
     public class KnownSelfInjectiveQPsTestFixture
     {
+        private QPAnalysisSettings GetSettings(bool detectNonCancellativity)
+        {
+            var cancellativityFailureDetection = detectNonCancellativity ? CancellativityTypes.Cancellativity : CancellativityTypes.None;
+            return new QPAnalysisSettings(cancellativityFailureDetection);
+        }
+
         private void AssertIsSelfInjectiveWithCorrectNakayamaPermutation<TVertex>(SelfInjectiveQP<TVertex> selfInjectiveQP)
             where TVertex : IEquatable<TVertex>, IComparable<TVertex>
         {
             var analyzer = new QPAnalyzer();
-            var result = analyzer.Analyze(selfInjectiveQP.QP, new QPAnalysisSettings(detectNonCancellativity: true));
+            var settings = GetSettings(detectNonCancellativity: true);
+            var result = analyzer.Analyze(selfInjectiveQP.QP, settings);
             Assert.That(result.MainResult.HasFlag(QPAnalysisMainResult.SelfInjective));
             Assert.That(selfInjectiveQP.NakayamaPermutation.Equals(result.NakayamaPermutation));
         }

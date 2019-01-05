@@ -14,30 +14,32 @@ namespace SelfInjectiveQuiversWithPotential.Analysis
         /// <summary>
         /// Initializes a new instance of the <see cref="QuiverInPlaneAnalysisSettings"/> class.
         /// </summary>
-        /// <param name="detectNonCancellativity">A boolean value indicating whether
-        /// non-cancellativity of the induced planar QP should be detected.</param>
-        public QuiverInPlaneAnalysisSettings(bool detectNonCancellativity)
-            : this(detectNonCancellativity, maxPathLength: -1, EarlyTerminationCondition.None)
+        /// <param name="cancellativityFailureDetection">A
+        /// <see cref="CancellativityTypes"/> value indicating which types of cancellativity to
+        /// detect failures of.</param>
+        public QuiverInPlaneAnalysisSettings(CancellativityTypes cancellativityFailureDetection)
+            : this(cancellativityFailureDetection, maxPathLength: -1, EarlyTerminationConditions.None)
         { }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="QuiverInPlaneAnalysisSettings"/> class using a
         /// specified maximum path length and early termination condition.
         /// </summary>
-        /// <param name="detectNonCancellativity">A boolean value indicating whether
-        /// non-cancellativity of the induced planar QP should be detected.</param>
+        /// <param name="cancellativityFailureDetection">A
+        /// <see cref="CancellativityTypes"/> value indicating which types ofcancellativity to
+        /// detect failures of.</param>
         /// <param name="maxPathLength">The maximum path length in arrows (i.e., the value such
         /// that if a path of length greater than the value is encountered during the analysis, the
         /// analysis is to be aborted), or a negative value if no maximum path length is to be
         /// used.</param>
-        /// <param name="earlyTerminationCondition">A value of the
-        /// <see cref="Analysis.EarlyTerminationCondition"/> enum indicating the conditions on
+        /// <param name="earlyTerminationConditions">A value of the
+        /// <see cref="Analysis.EarlyTerminationConditions"/> enum indicating the conditions on
         /// which the analysis should terminate early.</param>
         public QuiverInPlaneAnalysisSettings(
-            bool detectNonCancellativity,
+            CancellativityTypes cancellativityFailureDetection,
             int maxPathLength,
-            EarlyTerminationCondition earlyTerminationCondition)
-            : base(detectNonCancellativity, maxPathLength, earlyTerminationCondition)
+            EarlyTerminationConditions earlyTerminationConditions)
+            : base(cancellativityFailureDetection, maxPathLength, earlyTerminationConditions)
         { }
     }
 }

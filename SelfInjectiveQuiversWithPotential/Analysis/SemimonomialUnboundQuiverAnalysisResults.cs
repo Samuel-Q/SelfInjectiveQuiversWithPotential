@@ -35,7 +35,7 @@ namespace SelfInjectiveQuiversWithPotential.Analysis
             if (mainResult.HasFlag(SemimonomialUnboundQuiverAnalysisMainResult.Success) && maximalPathRepresentatives is null)
                 throw new ArgumentNullException(nameof(maximalPathRepresentatives));
 
-            if (mainResult.HasFlag(SemimonomialUnboundQuiverAnalysisMainResult.SelfInjective) && nakayamaPermutation is null)
+            if (mainResult.IndicatesSelfInjectivity() && nakayamaPermutation is null)
                 throw new ArgumentNullException(nameof(nakayamaPermutation));
         }
     }

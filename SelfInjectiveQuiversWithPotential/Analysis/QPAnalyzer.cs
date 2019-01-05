@@ -297,7 +297,7 @@ namespace SelfInjectiveQuiversWithPotential.Analysis
                 //     Else, make sure that the origin is equivalent to the parent
                 // (otherwise, the QP is not cancellative).
                 if (
-                    settings.DetectNonCancellativity &&
+                    settings.DetectCancellativityFailure &&
                     !state.NodeIsZeroEquivalent(childNode) &&
                     parentNode.Vertex.Equals(childNode.Origin.Vertex) &&
                     state.EquivalenceClasses.FindSet(parentNode) != state.EquivalenceClasses.FindSet(childNode.Origin))
@@ -438,7 +438,7 @@ namespace SelfInjectiveQuiversWithPotential.Analysis
         {
             var analysisResults = AnalyzeWithStartingVertex(qp, startingVertex, transformationRuleTree, settings);
             var outputResults = new MaximalNonzeroEquivalenceClassRepresentativesResults<TVertex>(
-                analysisResults.NonCancellativityDetected,
+                analysisResults.NonCancellativityDetected ? CancellativityTypes.Cancellativity : CancellativityTypes.None,
                 analysisResults.TooLongPathEncountered,
                 analysisResults.MaximalPathRepresentatives.Select(node => node.Path),
                 longestPathEncountered: null); // null because this is an old method and the longest path feature is new

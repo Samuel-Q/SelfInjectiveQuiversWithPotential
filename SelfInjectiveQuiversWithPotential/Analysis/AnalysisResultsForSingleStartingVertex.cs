@@ -32,13 +32,28 @@ namespace SelfInjectiveQuiversWithPotential.Analysis
         public DisjointSets<SearchTreeNode<TVertex>> EquivalenceClasses { get; private set; }
 
         /// <summary>
-        /// Gets a boolean value indicating whether non-cancellativity has been detected.
+        /// Gets a <see cref="CancellativityTypes"/> value indicating which types of cancellativity
+        /// was detected to fail.
+        /// </summary>
+        public CancellativityTypes CancellativityFailuresDetected { get; private set; }
+
+        /// <summary>
+        /// Gets a boolean value indicating whether failure of cancellativity has been detected.
         /// </summary>
         /// <remarks>
-        /// <para>If the analysis settings dictate that cancellativity should not be detected, then
-        /// this value is <see langword="false"/>.</para>
+        /// <para>If the analysis settings dictate that cancellativity failure should not be
+        /// detected, then this value is <see langword="false"/>.</para>
         /// </remarks>
-        public bool NonCancellativityDetected { get; private set; }
+        public bool CancellativityFailureDetected => CancellativityFailuresDetected.HasFlag(CancellativityTypes.Cancellativity);
+
+        /// <summary>
+        /// Gets a boolean value indicating whether failure of weak cancellativity has been detected.
+        /// </summary>
+        /// <remarks>
+        /// <para>If the analysis settings dictate that weak cancellativity failure should not be
+        /// detected, then this value is <see langword="false"/>.</para>
+        /// </remarks>
+        public bool WeakCancellativityFailureDetected => CancellativityFailuresDetected.HasFlag(CancellativityTypes.WeakCancellativity);
 
         /// <summary>
         /// Gets a boolean value indicating whether a path exceeding the max length of the analysis
@@ -56,7 +71,7 @@ namespace SelfInjectiveQuiversWithPotential.Analysis
             SearchTreeNode<TVertex> searchTree,
             IEnumerable<SearchTreeNode<TVertex>> maximalPathRepresentatives,
             DisjointSets<SearchTreeNode<TVertex>> equivalenceClasses,
-            bool nonCancellativityDetected,
+            CancellativityTypes cancellativityFailuresDetected,
             bool tooLongPathEncountered,
             Path<TVertex> longestPathEncountered)
         {
@@ -64,20 +79,20 @@ namespace SelfInjectiveQuiversWithPotential.Analysis
             SearchTree = searchTree;
             MaximalPathRepresentatives = maximalPathRepresentatives;
             EquivalenceClasses = equivalenceClasses;
-            NonCancellativityDetected = nonCancellativityDetected;
+            CancellativityFailuresDetected = cancellativityFailuresDetected;
             TooLongPathEncountered = tooLongPathEncountered;
             LongestPathEncountered = longestPathEncountered;
         }
 
         internal AnalysisResultsForSingleStartingVertex(
             AnalysisStateForSingleStartingVertex<TVertex> state,
-            bool nonCancellativityDetected)
+            CancellativityTypes cancellativityFailuresDetected)
             : this(
                   state.ZeroDummyNode,
                   state.SearchTree,
                   state.MaximalPathRepresentatives,
                   state.EquivalenceClasses,
-                  nonCancellativityDetected,
+                  cancellativityFailuresDetected,
                   state.TooLongPathEncountered,
                   state.LongestPathEncounteredNode)
         { }

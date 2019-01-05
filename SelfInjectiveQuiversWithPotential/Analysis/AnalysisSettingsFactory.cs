@@ -17,9 +17,9 @@ namespace SelfInjectiveQuiversWithPotential.Analysis
             if (settings is null) throw new ArgumentNullException(nameof(settings));
 
             return new MaximalNonzeroEquivalenceClassRepresentativeComputationSettings(
-                settings.DetectNonCancellativity,
+                settings.CancellativityFailureDetection,
                 settings.MaxPathLength,
-                settings.EarlyTerminationCondition);
+                settings.EarlyTerminationConditions);
         }
 
         public static SemimonomialUnboundQuiverAnalysisSettings CreateSemimonomialUnboundQuiverAnalysisSettings(QPAnalysisSettings settings)
@@ -27,9 +27,9 @@ namespace SelfInjectiveQuiversWithPotential.Analysis
             if (settings is null) throw new ArgumentNullException(nameof(settings));
 
             return new SemimonomialUnboundQuiverAnalysisSettings(
-                settings.DetectNonCancellativity,
+                settings.CancellativityFailureDetection,
                 settings.MaxPathLength,
-                settings.EarlyTerminationCondition);
+                settings.EarlyTerminationConditions);
         }
 
         public static QPAnalysisSettings CreateQPAnalysisSettings(QuiverInPlaneAnalysisSettings settings)
@@ -37,9 +37,9 @@ namespace SelfInjectiveQuiversWithPotential.Analysis
             if (settings is null) throw new ArgumentNullException(nameof(settings));
 
             return new QPAnalysisSettings(
-                settings.DetectNonCancellativity,
+                settings.CancellativityFailureDetection,
                 settings.MaxPathLength,
-                settings.EarlyTerminationCondition);
+                settings.EarlyTerminationConditions);
         }
     }
 }

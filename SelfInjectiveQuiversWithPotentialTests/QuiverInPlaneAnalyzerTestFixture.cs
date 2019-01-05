@@ -16,7 +16,7 @@ namespace SelfInjectiveQuiversWithPotentialTests
     {
         public (QuiverInPlaneAnalyzer, QuiverInPlaneAnalysisSettings) CreateAnalyzerWithSettings()
         {
-            return (new QuiverInPlaneAnalyzer(), new QuiverInPlaneAnalysisSettings(detectNonCancellativity: true));
+            return (new QuiverInPlaneAnalyzer(), new QuiverInPlaneAnalysisSettings(CancellativityTypes.Cancellativity));
         }
 
         [TestCase(3)]

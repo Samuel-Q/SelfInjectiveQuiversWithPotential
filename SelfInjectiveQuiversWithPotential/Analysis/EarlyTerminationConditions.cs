@@ -11,7 +11,7 @@ namespace SelfInjectiveQuiversWithPotential.Analysis
     /// an option.
     /// </summary>
     [Flags]
-    public enum EarlyTerminationCondition
+    public enum EarlyTerminationConditions
     {
         /// <summary>
         /// A value corresponding to no conditions.
