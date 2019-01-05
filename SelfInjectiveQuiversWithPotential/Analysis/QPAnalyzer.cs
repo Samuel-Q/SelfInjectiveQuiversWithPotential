@@ -436,12 +436,13 @@ namespace SelfInjectiveQuiversWithPotential.Analysis
             QPAnalysisSettings settings)
             where TVertex : IEquatable<TVertex>, IComparable<TVertex>
         {
+            var bogusPath = new Path<TVertex>(qp.Quiver.Vertices.First());
             var analysisResults = AnalyzeWithStartingVertex(qp, startingVertex, transformationRuleTree, settings);
             var outputResults = new MaximalNonzeroEquivalenceClassRepresentativesResults<TVertex>(
                 analysisResults.NonCancellativityDetected ? CancellativityTypes.Cancellativity : CancellativityTypes.None,
                 analysisResults.TooLongPathEncountered,
                 analysisResults.MaximalPathRepresentatives.Select(node => node.Path),
-                longestPathEncountered: null); // null because this is an old method and the longest path feature is new
+                longestPathEncountered: bogusPath); // bogus path because this is an old method and the longest path feature is new
             return outputResults;
         }
         #endregion
