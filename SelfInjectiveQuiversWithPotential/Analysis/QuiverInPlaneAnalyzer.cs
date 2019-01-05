@@ -24,15 +24,15 @@ namespace SelfInjectiveQuiversWithPotential.Analysis
         /// <remarks>
         /// <para>If the analysis is unsuccessful, the value of the <c>MainResult</c> property
         /// of the returned analysis results does not have the
-        /// <see cref="QuiverInPlaneAnalysisMainResult.Success"/> or the
-        /// <see cref="QuiverInPlaneAnalysisMainResult.QPIsSelfInjective"/> flags set and has at least
+        /// <see cref="QuiverInPlaneAnalysisMainResults.Success"/> or the
+        /// <see cref="QuiverInPlaneAnalysisMainResults.QPIsSelfInjective"/> flags set and has at least
         /// one of the other flags (each of which indicates some sort of failure) set. However, in
         /// the case of multiple causes for failure (e.g., the quiver has loops and anti-parallel
         /// arrows), all the corresponding flags are not necessarily set (e.g.,
-        /// <see cref="QuiverInPlaneAnalysisMainResult.QuiverHasLoops"/> is set but
-        /// <see cref="QuiverInPlaneAnalysisMainResult.QuiverHasAntiParallelArrows"/> is not set,
-        /// or <see cref="QuiverInPlaneAnalysisMainResult.QuiverHasAntiParallelArrows"/> is set but
-        /// <see cref="QuiverInPlaneAnalysisMainResult.QuiverHasLoops"/> is not set).</para>
+        /// <see cref="QuiverInPlaneAnalysisMainResults.QuiverHasLoops"/> is set but
+        /// <see cref="QuiverInPlaneAnalysisMainResults.QuiverHasAntiParallelArrows"/> is not set,
+        /// or <see cref="QuiverInPlaneAnalysisMainResults.QuiverHasAntiParallelArrows"/> is set but
+        /// <see cref="QuiverInPlaneAnalysisMainResults.QuiverHasLoops"/> is not set).</para>
         /// <para>This method does not throw any exceptions (unless I've forgotten something).</para>
         /// </remarks>
         public IQuiverInPlaneAnalysisResults<TVertex> Analyze<TVertex>(

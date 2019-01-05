@@ -371,14 +371,14 @@ namespace SelfInjectiveQuiversWithPotential.Analysis
 
                 foreach (var (_, storedParent) in parentDict)
                 {
-                    if (d[storedParent] == WeakCancellativityStateForPath.HasNoDistinguishingArrowSoFar)
+                    if (d[storedParent] == WeakCancellativityStateForPath.HasDistinguishingArrowForCurrentChildClass)
                     {
                         d[storedParent] = WeakCancellativityStateForPath.HasDistinguishingArrow;
                     }
                 }
             }
 
-            return d.Values.All(pathState => pathState == WeakCancellativityStateForPath.HasDistinguishingArrow);
+            return !d.Values.All(pathState => pathState == WeakCancellativityStateForPath.HasDistinguishingArrow);
         }
 
         /// <summary>

@@ -11,8 +11,8 @@ namespace SelfInjectiveQuiversWithPotential.Analysis
     /// status code for the analysis, if you will).
     /// </summary>
     /// <remarks>Because the analysis of quivers in the plane is just QP extraction
-    /// (see <see cref="QPExtractor"/>) followed by analysis of the QP, this enum is essentially
-    /// the union of <see cref="QPExtractionResult"/> and <see cref="QPAnalysisMainResults"/>.</remarks>
+    /// (see <see cref="Plane.QPExtractor"/>) followed by analysis of the QP, this enum is essentially
+    /// the union of <see cref="Plane.QPExtractionResult"/> and <see cref="QPAnalysisMainResults"/>.</remarks>
     [Flags]
     public enum QuiverInPlaneAnalysisMainResults
     {

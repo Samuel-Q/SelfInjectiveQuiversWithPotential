@@ -126,7 +126,7 @@
     <Compile Include="Plane\QPExtractor.cs" />
     <Compile Include="Plane\QuiverInPlane.cs" />
     <Compile Include="Plane\Point.cs" />
-    <Compile Include="Analysis\QuiverInPlaneAnalysisMainResult.cs" />
+    <Compile Include="Analysis\QuiverInPlaneAnalysisMainResults.cs" />
     <Compile Include="Analysis\QuiverInPlaneAnalysisResults.cs" />
     <Compile Include="Analysis\QuiverInPlaneAnalysisSettings.cs" />
     <Compile Include="Analysis\QuiverInPlaneAnalyzer.cs" />

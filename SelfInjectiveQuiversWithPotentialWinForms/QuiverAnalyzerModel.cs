@@ -91,7 +91,7 @@ namespace SelfInjectiveQuiversWithPotentialWinForms
         // "Update" is sort of a misnomer; there is no field or property to update (as of this writing)
         private void UpdateMaximalPathRepresentatives(int vertex)
         {
-            if (analysisResults?.MainResults.HasFlag(QuiverInPlaneAnalysisMainResult.Success) ?? false)
+            if (analysisResults?.MainResults.HasFlag(QuiverInPlaneAnalysisMainResults.Success) ?? false)
             {
                 var maximalPathRepresentatives = analysisResults.MaximalPathRepresentatives[vertex];
                 MaximalPathRepresentativesChanged?.Invoke(this, new MaximalPathRepresentativesChangedEventArgs(maximalPathRepresentatives));
