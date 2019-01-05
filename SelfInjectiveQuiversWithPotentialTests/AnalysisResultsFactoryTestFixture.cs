@@ -64,7 +64,7 @@ namespace SelfInjectiveQuiversWithPotentialTests
             Assert.That(results.MainResult, Is.EqualTo(QuiverInPlaneAnalysisMainResult.Success));
 
             qpAnalysisResults = CreateQPAnalysisResults(
-                QPAnalysisMainResult.Success | QPAnalysisMainResult.SelfInjective,
+                QPAnalysisMainResult.Success,
                 defaultMaximalReps,
                 defaultNakayamaPermutation,
                 defaultLongestPath);

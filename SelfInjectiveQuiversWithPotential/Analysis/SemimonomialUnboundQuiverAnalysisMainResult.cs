@@ -58,7 +58,7 @@ namespace SelfInjectiveQuiversWithPotential.Analysis
         /// <summary>
         /// Indicates that the analysis showed that the tentative Nakayama permutation (mapping a
         /// vertex to the ending point of a representative path of the unique maximal nonzero
-        /// equivalence class).
+        /// equivalence class) fails to be injective.
         /// </summary>
         /// <remarks>
         /// <para>This verbose name might be preferable to &quot;PermutationFails&quot;, because it
@@ -66,7 +66,7 @@ namespace SelfInjectiveQuiversWithPotential.Analysis
         /// (failure of being a single-valued function might seem to fall under PermutationFails,
         /// but this problem is captured by <see cref="MultipleMaximalNonzeroClasses"/>).</para>
         /// </remarks>
-        NonInjectiveTentativeNakayamaPermutation = 64,
+        NonInjectiveTentativeNakayamaPermutation = 64
     }
 
     public static class SemimonomialUnboundQuiverAnalysisMainResultExtensions
@@ -112,13 +112,6 @@ namespace SelfInjectiveQuiversWithPotential.Analysis
         {
             return result.HasFlag(SemimonomialUnboundQuiverAnalysisMainResult.Success)
                 && !result.HasFlag(SemimonomialUnboundQuiverAnalysisMainResult.NotCancellative)
-                && !result.HasFlag(SemimonomialUnboundQuiverAnalysisMainResult.MultipleMaximalNonzeroClasses)
-                && !result.HasFlag(SemimonomialUnboundQuiverAnalysisMainResult.NonInjectiveTentativeNakayamaPermutation);
-        }
-
-        public static bool IndicatesThatTentativeNakayamaPermutationExists(this SemimonomialUnboundQuiverAnalysisMainResult result)
-        {
-            return result.HasFlag(SemimonomialUnboundQuiverAnalysisMainResult.Success)
                 && !result.HasFlag(SemimonomialUnboundQuiverAnalysisMainResult.MultipleMaximalNonzeroClasses)
                 && !result.HasFlag(SemimonomialUnboundQuiverAnalysisMainResult.NonInjectiveTentativeNakayamaPermutation);
         }

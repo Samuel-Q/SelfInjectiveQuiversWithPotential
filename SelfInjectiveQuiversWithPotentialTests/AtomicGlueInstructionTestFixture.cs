@@ -81,7 +81,7 @@ namespace SelfInjectiveQuiversWithPotentialTests
             var analyzer = new QPAnalyzer();
             var settings = GetSettings(detectNonCancellativity: true);
             var result = analyzer.Analyze(qp, settings);
-            Assert.That(result.MainResult.HasFlag(QPAnalysisMainResult.SelfInjective));
+            Assert.That(result.MainResult.IndicatesSelfInjectivity());
         }
         #endregion
     }

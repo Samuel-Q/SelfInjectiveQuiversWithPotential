@@ -255,7 +255,7 @@ namespace SelfInjectiveQuiversWithPotentialTests
             var results = analyzer.Analyze(selfInjectiveQP.QP, settings);
 
             Assert.That(results.MainResult.HasFlag(QPAnalysisMainResult.Success));
-            Assert.That(results.MainResult.HasFlag(QPAnalysisMainResult.SelfInjective));
+            Assert.That(results.MainResult.IndicatesSelfInjectivity());
 
             Assert.That(selfInjectiveQP.NakayamaPermutation.Equals(results.NakayamaPermutation));
         }
